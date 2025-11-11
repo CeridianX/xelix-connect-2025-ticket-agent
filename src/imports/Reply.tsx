@@ -4603,12 +4603,12 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   }}
                                 >
                                   <div className="flex flex-col gap-[6px]">
-                                    <div className="flex items-center gap-[6px]">
-                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182]">To:</p>
+                                    <div className="flex items-start gap-[6px]">
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182] mt-[1px]">To:</p>
                                       <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#222222]">{msg.cardData.email.to}</p>
                                     </div>
-                                    <div className="flex items-center gap-[6px]">
-                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182]">Subject:</p>
+                                    <div className="flex items-start gap-[6px]">
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182] whitespace-nowrap mt-[1px]">Subject:</p>
                                       <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#222222]">{msg.cardData.email.subject}</p>
                                     </div>
                                     <div className="border-t border-[#e3e3e3] my-[4px]" />
