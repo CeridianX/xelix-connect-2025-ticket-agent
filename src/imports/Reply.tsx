@@ -1,7 +1,7 @@
 import svgPaths from "./svg-8bp8wepc9e";
 import { img } from "./svg-blf8z";
-import { useState, useEffect } from "react";
-import { ArrowDownUp, Bell, HelpCircle, Megaphone, CircleUser, List, AlertCircle, BadgeCheck, Paperclip, Settings, Database, Globe, Sparkles, CornerUpLeft, ReplyAll, CornerUpRight, PenLine, Copy, Send, Loader2, ChevronRight, ChevronDown } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowDownUp, Bell, HelpCircle, Megaphone, CircleUser, List, AlertCircle, BadgeCheck, Paperclip, Settings, Database, Globe, Sparkles, CornerUpLeft, ReplyAll, CornerUpRight, PenLine, Copy, Send, Loader2, ChevronRight, ChevronDown, RefreshCw, ArrowDown, Mail, FileText, UserCircle } from "lucide-react";
 
 function XelixBrandRed() {
   return (
@@ -104,16 +104,16 @@ function MenuItems1() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Menu Items">
       <div className="bg-white box-border content-stretch flex gap-[8px] items-start p-[8px] relative rounded-[4px] shrink-0" data-name="Second Level Item">
-        <p className="font-['Barlow:SemiBold',sans-serif] leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Dashboard</p>
+        <p className="font-['Barlow:Bold',sans-serif] font-bold leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Dashboard</p>
       </div>
       <div className="bg-[#501899] box-border content-stretch flex gap-[8px] items-start p-[8px] relative rounded-[4px] shrink-0" data-name="Second Level Item">
-        <p className="font-['Barlow:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[16px] text-nowrap text-white whitespace-pre">Inbox</p>
+        <p className="font-['Barlow:Bold',sans-serif] font-bold leading-none not-italic relative shrink-0 text-[16px] text-nowrap text-white whitespace-pre">Inbox</p>
       </div>
       <div className="bg-white box-border content-stretch flex gap-[8px] items-start p-[8px] relative rounded-[4px] shrink-0" data-name="Second Level Item">
-        <p className="font-['Barlow:SemiBold',sans-serif] leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Kanban</p>
+        <p className="font-['Barlow:Bold',sans-serif] font-bold leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Kanban</p>
       </div>
       <div className="bg-white box-border content-stretch flex gap-[8px] items-start p-[8px] relative rounded-[4px] shrink-0" data-name="Second Level Item">
-        <p className="font-['Barlow:SemiBold',sans-serif] leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">All Tickets</p>
+        <p className="font-['Barlow:Bold',sans-serif] font-bold leading-none not-italic relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">All Tickets</p>
       </div>
     </div>
   );
@@ -174,18 +174,23 @@ function ButtonLightTheme() {
   );
 }
 
-function IconContainer1() {
+function IconContainer1({ showNotification }: { showNotification: boolean }) {
   return (
     <div className="content-stretch flex gap-[2px] items-start justify-center relative shrink-0" data-name="Icon Container">
-      <Bell className="text-[#464646]" size={20} strokeWidth={1.5} />
+      <div className="relative">
+        <Bell className="text-[#464646]" size={20} strokeWidth={1.5} />
+        {showNotification && (
+          <div className="absolute top-0 right-0 w-[6px] h-[6px] bg-[#e74c3c] rounded-full" />
+        )}
+      </div>
     </div>
   );
 }
 
-function ButtonLightTheme1() {
+function ButtonLightTheme1({ showNotification }: { showNotification: boolean }) {
   return (
     <div className="box-border content-stretch flex gap-[12px] h-[48px] items-center justify-center px-[8px] py-[16px] relative shrink-0" data-name="Button/Light Theme">
-      <IconContainer1 />
+      <IconContainer1 showNotification={showNotification} />
     </div>
   );
 }
@@ -238,11 +243,11 @@ function ButtonLightTheme4() {
   );
 }
 
-function IconsContainer() {
+function IconsContainer({ showNotification }: { showNotification: boolean }) {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-name="Icons Container">
       <ButtonLightTheme />
-      <ButtonLightTheme1 />
+      <ButtonLightTheme1 showNotification={showNotification} />
       <ButtonLightTheme2 />
       <ButtonLightTheme3 />
       <ButtonLightTheme4 />
@@ -250,11 +255,11 @@ function IconsContainer() {
   );
 }
 
-function SearchAndIcons() {
+function SearchAndIcons({ showNotification }: { showNotification: boolean }) {
   return (
     <div className="box-border content-stretch flex gap-[12px] items-center justify-end pl-[8px] pr-[16px] py-0 relative shrink-0" data-name="Search and Icons">
       <TextInput />
-      <IconsContainer />
+      <IconsContainer showNotification={showNotification} />
     </div>
   );
 }
@@ -301,7 +306,7 @@ function InboxHeaderText() {
     <div className="relative shrink-0 w-full" data-name="Inbox Header Text">
       <div className="flex flex-row items-center justify-center size-full">
         <div className="box-border content-stretch flex gap-[8px] items-center justify-center pl-[4px] pr-0 py-0 relative w-full">
-          <p className="basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic relative shrink-0 text-[#222222] text-[16px]">Inbox</p>
+          <p className="basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic relative shrink-0 text-[#222222] text-[16px]">Inbox</p>
         </div>
       </div>
     </div>
@@ -397,9 +402,7 @@ function ButtonLightTheme8() {
   return (
     <div className="box-border content-stretch flex items-center justify-center px-[9px] py-[8px] relative rounded-[4px] shrink-0 size-[32px]" data-name="Button/Light Theme">
       <div aria-hidden="true" className="absolute border border-[#501899] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="flex flex-col font-['Font_Awesome_6_Free:Solid',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#501899] text-[14px] text-center text-nowrap">
-        <p className="leading-[normal] whitespace-pre">sync</p>
-      </div>
+      <RefreshCw className="text-[#501899]" size={14} strokeWidth={2} />
     </div>
   );
 }
@@ -408,11 +411,7 @@ function ButtonLightTheme9() {
   return (
     <div className="box-border content-stretch flex items-center justify-center px-[9px] py-[8px] relative rounded-[4px] shrink-0 size-[32px]" data-name="Button/Light Theme">
       <div aria-hidden="true" className="absolute border border-[#501899] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <div className="relative shrink-0 size-[14px]" data-name="arrow">
-        <div className="absolute flex flex-col font-['Font_Awesome_6_Free:Solid',sans-serif] justify-center leading-[0] left-[calc(50%+0.5px)] not-italic text-[#501899] text-[14px] text-center text-nowrap top-1/2 translate-x-[-50%] translate-y-[-50%]">
-          <p className="leading-[normal] whitespace-pre">arrow-down</p>
-        </div>
-      </div>
+      <ArrowDown className="text-[#501899]" size={14} strokeWidth={2} />
     </div>
   );
 }
@@ -492,7 +491,7 @@ function Container() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip />
     </div>
   );
@@ -502,7 +501,7 @@ function Container1() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap w-full" data-name="Container">
       <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Medium',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0">Overdue invoice reminder</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-right whitespace-pre">Mon 11:55</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-right whitespace-pre">Wed 11:55</p>
     </div>
   );
 }
@@ -598,7 +597,7 @@ function Container7() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip1 />
     </div>
   );
@@ -607,8 +606,8 @@ function Container7() {
 function Container8() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Statement for AB Cleaners Ltd</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Mon 10:01</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Statement for AB Cleaners Ltd</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Wed 10:01</p>
     </div>
   );
 }
@@ -704,7 +703,7 @@ function Container14() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip2 />
     </div>
   );
@@ -713,8 +712,8 @@ function Container14() {
 function Container15() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Invoice for OCP conference</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Mon 09:58</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Invoice for OCP conference</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Tue 09:58</p>
     </div>
   );
 }
@@ -806,7 +805,7 @@ function Container21() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip3 />
     </div>
   );
@@ -815,8 +814,8 @@ function Container21() {
 function Container22() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Overdue invoice reminder</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Mon 09:58</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Overdue invoice reminder</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Tue 09:58</p>
     </div>
   );
 }
@@ -897,7 +896,7 @@ function Container28() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip4 />
     </div>
   );
@@ -906,8 +905,8 @@ function Container28() {
 function Container29() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Legal action on past due invoices</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Mon 09:46</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Legal action on past due invoices</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Tue 09:46</p>
     </div>
   );
 }
@@ -988,7 +987,7 @@ function Container35() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
       <Chip5 />
     </div>
   );
@@ -997,8 +996,8 @@ function Container35() {
 function Container36() {
   return (
     <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Legal action on past due invoices</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Mon 09:46</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Legal action on past due invoices</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Tue 09:46</p>
     </div>
   );
 }
@@ -1063,9 +1062,53 @@ function Container41() {
   );
 }
 
-function EmailList() {
+function NewEmailFromAlex() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-name="Container">
+      <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full" data-name="Container">
+        <div className="box-border content-stretch flex gap-[8px] h-[26px] items-center px-[4px] py-0 relative shrink-0" data-name="Standard">
+          <div className="bg-white relative rounded-[4px] shrink-0 size-[18px]">
+            <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
+          </div>
+        </div>
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Alex Morgan</p>
+        <Chip1 />
+      </div>
+      <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae]">Re: Invoice INV-0115644 Short Payment</p>
+        <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Wed 10:15</p>
+      </div>
+      <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Container">
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Regular',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">Hi! Yes, confirmed - we're firm on this. The supplier went over...</p>
+      </div>
+      <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Container">
+        <div className="basis-0 content-stretch flex gap-[4px] grow items-center justify-end min-h-px min-w-px relative shrink-0" data-name="Container">
+          <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Medium',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#1e70ae] text-[12px] text-nowrap text-right">{` #173525 - New`}</p>
+          <div className="relative shrink-0 size-[14px]" data-name="Priority Indicator">
+            <PriorityIcon />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EmailList({ showNewEmail }: { showNewEmail: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[4px] grow items-end min-h-px min-w-px overflow-clip relative shrink-0 w-full" data-name="Email List">
+      {showNewEmail && (
+        <div className="bg-white relative rounded-[4px] shrink-0 w-full animate-fade-in-up" data-name="Ticket Preview/Individual">
+          <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none rounded-[4px]" />
+          <div className="size-full">
+            <div className="box-border content-stretch flex gap-[8px] items-start pl-0 pr-[12px] py-0 relative w-full">
+              <div className="bg-[#1e70ae] h-[118px] rounded-bl-[8px] rounded-tl-[8px] shrink-0 w-[4px]" data-name="Unread Indicator" />
+              <div className="basis-0 box-border content-stretch flex flex-col gap-[8px] grow items-start min-h-px min-w-px px-0 py-[8px] relative shrink-0" data-name="Container">
+                <NewEmailFromAlex />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="bg-[#edf3ff] relative rounded-[4px] shrink-0 w-full" data-name="Ticket Preview/Individual">
         <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none rounded-[4px]" />
         <div className="size-full">
@@ -1135,17 +1178,17 @@ function EmailSummary() {
   );
 }
 
-function SidebarContent() {
+function SidebarContent({ showNewEmail }: { showNewEmail: boolean }) {
   return (
     <div className="box-border content-stretch flex flex-col gap-[4px] h-full items-end max-w-[346px] min-w-[256px] overflow-clip pl-[8px] pr-0 py-0 relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[313px]" data-name="Sidebar Content">
       <InboxHeader />
-      <EmailList />
+      <EmailList showNewEmail={showNewEmail} />
       <EmailSummary />
     </div>
   );
 }
 
-function Sidebar() {
+function Sidebar({ showNewEmail }: { showNewEmail: boolean }) {
   return (
     <div className="bg-[#f6f6f8] content-stretch flex h-full items-start relative shrink-0" data-name="Sidebar">
       <div className="box-border content-stretch flex flex-col h-full items-center justify-between pb-[12px] pl-[8px] pr-0 pt-[8px] relative shrink-0" data-name="Mailboxes with Export">
@@ -1163,7 +1206,7 @@ function Sidebar() {
           </div>
         </button>
       </div>
-      <SidebarContent />
+      <SidebarContent showNewEmail={showNewEmail} />
     </div>
   );
 }
@@ -1204,7 +1247,7 @@ function TicketInfoHeader() {
           <span className="leading-[1.6] text-[12px]">&nbsp;</span>
         </li>
       </ul>
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap text-right whitespace-pre">07/07/2024</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap text-right whitespace-pre">12/11/2025</p>
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-center text-nowrap whitespace-pre">{` - `}</p>
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap text-right whitespace-pre">11:55</p>
       <ul className="[white-space-collapse:collapse] block font-['Barlow:Medium',sans-serif] leading-[0] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap text-right">
@@ -1216,15 +1259,29 @@ function TicketInfoHeader() {
   );
 }
 
-function TicketInfoHeader1() {
+function TicketInfoHeader1({ status }: { status: 'in-progress' | 'resolved' }) {
+  const statusConfig = status === 'resolved'
+    ? {
+        bg: '#cbf9ef',
+        border: '#2e652e',
+        text: '#2e652e',
+        label: 'Resolved'
+      }
+    : {
+        bg: '#f0ebf8',
+        border: '#5a1899',
+        text: '#5a1899',
+        label: 'In Progress'
+      };
+
   return (
     <div className="box-border content-stretch flex gap-[12px] items-center pl-[8px] pr-0 py-0 relative shrink-0" data-name="Ticket Info Header">
-      <div className="bg-[#ffe0e0] box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[50px] shrink-0" data-name="Chip">
-        <div aria-hidden="true" className="absolute border border-[#851717] border-solid inset-0 pointer-events-none rounded-[50px]" />
-        <p className="font-['Barlow:SemiBold',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#851717] text-[12px] text-nowrap whitespace-pre">On hold</p>
+      <div className="box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] relative rounded-[50px] shrink-0" data-name="Chip" style={{ backgroundColor: statusConfig.bg }}>
+        <div aria-hidden="true" className="absolute border border-solid inset-0 pointer-events-none rounded-[50px]" style={{ borderColor: statusConfig.border }} />
+        <p className="font-['Barlow:SemiBold',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap whitespace-pre" style={{ color: statusConfig.text }}>{statusConfig.label}</p>
         <div className="relative shrink-0 size-[12px]" data-name="Direction=down, Size=xs">
           <div className="absolute h-[6.012px] left-[calc(50%+0.256px)] top-[calc(50%+0.006px)] translate-x-[-50%] translate-y-[-50%] w-[10.512px]" data-name="vector">
-            <div className="absolute inset-0" style={{ "--fill-0": "rgba(133, 23, 23, 1)" } as React.CSSProperties}>
+            <div className="absolute inset-0" style={{ "--fill-0": statusConfig.text } as React.CSSProperties}>
               <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11 7">
                 <path d={svgPaths.p24065200} fill="var(--fill-0, #851717)" id="vector" />
               </svg>
@@ -1236,11 +1293,11 @@ function TicketInfoHeader1() {
   );
 }
 
-function Frame7() {
+function Frame7({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
       <TicketInfoHeader />
-      <TicketInfoHeader1 />
+      <TicketInfoHeader1 status={ticketStatus} />
     </div>
   );
 }
@@ -1248,7 +1305,7 @@ function Frame7() {
 function TicketTitleContainer() {
   return (
     <div className="content-center flex flex-wrap gap-[8px] items-center relative shrink-0" data-name="Ticket Title Container">
-      <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Overdue invoice reminder</p>
+      <p className="font-['Barlow:Bold',sans-serif] font-bold leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[16px] text-nowrap whitespace-pre">Overdue invoice reminder</p>
     </div>
   );
 }
@@ -1261,27 +1318,27 @@ function TicketTitleContainer1() {
   );
 }
 
-function TicketInfoContainer() {
+function TicketInfoContainer({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="Ticket Info Container">
-      <Frame7 />
+      <Frame7 ticketStatus={ticketStatus} />
       <TicketTitleContainer1 />
     </div>
   );
 }
 
-function TicketHeader() {
+function TicketHeader({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="basis-0 content-stretch flex grow items-start min-h-px min-w-px relative shrink-0" data-name="Ticket Header">
-      <TicketInfoContainer />
+      <TicketInfoContainer ticketStatus={ticketStatus} />
     </div>
   );
 }
 
-function TicketHeader1() {
+function TicketHeader1({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="content-stretch flex items-start relative shrink-0 w-full" data-name="Ticket Header">
-      <TicketHeader />
+      <TicketHeader ticketStatus={ticketStatus} />
     </div>
   );
 }
@@ -1380,7 +1437,7 @@ function TicketInfoStatus2() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative rounded-[8px] shrink-0" data-name="Ticket Info Status">
       <button className="bg-[rgba(80,24,153,0.1)] box-border content-stretch cursor-pointer flex gap-[4px] items-center justify-center overflow-visible px-[4px] py-0 relative rounded-[4px] shrink-0" data-name="Field Value - Single">
-        <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#501899] text-[12px] text-nowrap whitespace-pre">Bowers Morgan PLC</p>
+        <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#501899] text-[12px] text-nowrap whitespace-pre">Acme PLC</p>
       </button>
       <div className="relative shrink-0 size-[10px]" data-name="chevron">
         <div className="absolute h-[5.01px] left-[calc(50%+0.38px)] top-[calc(50%-0.495px)] translate-x-[-50%] translate-y-[-50%] w-[8.76px]" data-name="vector">
@@ -1434,7 +1491,7 @@ function TicketInfoStatus4() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative rounded-[8px] shrink-0" data-name="Ticket Info Status">
       <button className="bg-[rgba(80,24,153,0.1)] box-border content-stretch cursor-pointer flex gap-[4px] items-center justify-center overflow-visible px-[4px] py-0 relative rounded-[4px] shrink-0" data-name="Field Value - Single">
-        <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#501899] text-[12px] text-nowrap whitespace-pre">Random team name</p>
+        <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#501899] text-[12px] text-nowrap whitespace-pre">AP Team</p>
       </button>
       <div className="relative shrink-0 size-[10px]" data-name="chevron">
         <div className="absolute h-[5.01px] left-[calc(50%+0.38px)] top-[calc(50%-0.495px)] translate-x-[-50%] translate-y-[-50%] w-[8.76px]" data-name="vector">
@@ -1547,12 +1604,12 @@ function TicketInfoBar() {
   );
 }
 
-function TicketInfo() {
+function TicketInfo({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="bg-white relative rounded-[4px] shrink-0 w-full" data-name="Ticket Info">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start p-[8px] relative w-full">
-          <TicketHeader1 />
+          <TicketHeader1 ticketStatus={ticketStatus} />
           <TicketInfoBar />
         </div>
       </div>
@@ -1560,12 +1617,12 @@ function TicketInfo() {
   );
 }
 
-function EmailHeader() {
+function EmailHeader({ ticketStatus }: { ticketStatus: 'in-progress' | 'resolved' }) {
   return (
     <div className="relative shrink-0 w-full" data-name="Email Header">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start pl-[8px] pr-[12px] py-0 relative w-full">
-          <TicketInfo />
+          <TicketInfo ticketStatus={ticketStatus} />
         </div>
       </div>
     </div>
@@ -1576,7 +1633,7 @@ function FromContainer() {
   return (
     <div className="content-stretch flex h-[24px] items-center justify-between relative shrink-0 w-full" data-name="From Container">
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
-        <span className="font-['Barlow:Bold',sans-serif]">From</span>
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">From</span>
         <span>{`: `}</span>
         <span className="font-['Barlow:Regular',sans-serif]">OCP Statements (statements@omniconsumerproducts.com)</span>
       </p>
@@ -1604,7 +1661,7 @@ function ToContainer() {
   return (
     <div className="content-stretch flex h-[24px] items-center justify-between relative shrink-0 w-full" data-name="To Container">
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
-        <span className="font-['Barlow:Bold',sans-serif]">To:</span>
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span>
         <span className="font-['Barlow:Regular',sans-serif]">{` clarence.boddicker@bowersmorgan.com`}</span>
       </p>
       <CcBccContainer />
@@ -1615,7 +1672,7 @@ function ToContainer() {
 function SubjectLabelContainer() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Subject Label Container">
-      <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">Subject:</p>
+      <p className="font-['Barlow:Bold',sans-serif] font-bold leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">Subject:</p>
     </div>
   );
 }
@@ -1926,7 +1983,7 @@ function ComposeBody() {
 
 function ComposeContainer() {
   return (
-    <div className="content-stretch flex flex-col items-start relative w-full" data-name="Compose Container">
+    <div style={{ display: 'none' }} className="content-stretch flex flex-col items-start relative w-full" data-name="Compose Container">
       <div className="bg-white relative shrink-0 w-full" data-name="To">
         <div className="size-full">
           <div className="box-border content-stretch flex flex-col items-start pb-0 pt-[8px] px-[4px] relative w-full">
@@ -1941,7 +1998,7 @@ function ComposeContainer() {
 
 function Frame12() {
   return (
-    <div className="content-stretch flex gap-[4px] items-center relative">
+    <div style={{ display: 'none' }} className="content-stretch flex gap-[4px] items-center relative">
       <div className="bg-[#5a1899] box-border content-stretch flex gap-[8px] h-[32px] items-center justify-center min-w-[48px] p-[8px] relative rounded-[4px] shrink-0" data-name="Button">
         <p className="font-['Barlow:Medium',sans-serif] leading-none not-italic relative shrink-0 text-[12px] text-center text-nowrap text-white whitespace-pre">Send reply</p>
       </div>
@@ -2067,7 +2124,7 @@ function ButtonGroup1() {
 
 function ActionBar() {
   return (
-    <div className="bg-white relative w-full overflow-x-auto min-w-0" data-name="Action Bar">
+    <div style={{ display: 'none' }} className="bg-white relative w-full overflow-x-auto min-w-0" data-name="Action Bar">
       <div className="w-max min-w-full">
         <div className="box-border content-stretch flex items-start justify-between px-[12px] py-[4px] relative w-full">
           <ButtonGroup />
@@ -2093,8 +2150,8 @@ function EmailSenderInfo() {
       <div className="flex flex-row items-center size-full">
         <div className="box-border content-stretch flex gap-[8px] items-center pl-0 pr-[16px] py-0 relative w-full">
           <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
-            <span className="text-[#1e70ae]">{`Martha Morgan `}</span>
-            <span className="font-['Barlow:Medium',sans-serif]">{`<martha.morgan@omniconsumerproducts.com>`}</span>
+            <span className="text-[#1e70ae]">{`Wilma Oberbrunner `}</span>
+            <span className="font-['Barlow:Medium',sans-serif]">{`<wilma.oberbrunner@acmeplc.com>`}</span>
           </p>
         </div>
       </div>
@@ -2126,7 +2183,7 @@ function EmailHeaderInfo() {
 function EmailDateInfo() {
   return (
     <div className="content-stretch flex font-['Barlow:Medium',sans-serif] gap-[4px] items-start justify-end leading-[1.6] not-italic relative shrink-0 text-[#636363] text-[12px] text-nowrap whitespace-pre" data-name="Email Date Info">
-      <p className="relative shrink-0">07/07/2024</p>
+      <p className="relative shrink-0">12/11/2025</p>
       <p className="relative shrink-0">-</p>
       <p className="relative shrink-0">11:55</p>
     </div>
@@ -2137,7 +2194,7 @@ function EmailRecipientInfo() {
   return (
     <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Email Recipient Info">
       <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
-        <span className="font-['Barlow:Regular',sans-serif]">To:</span> <span className="font-['Barlow:Medium',sans-serif]">{`AP Team <accountspayable@omniconsumerproducts.com>`}</span>
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span> <span className="font-['Barlow:Medium',sans-serif]">{`AP Team <accountspayable@omniconsumerproducts.com>`}</span>
       </p>
       <EmailDateInfo />
     </div>
@@ -2161,62 +2218,19 @@ function EmailBodyTextContainer() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative w-full min-w-0" data-name="Email Body Text Container">
       <div className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">
-        <p className="mb-[16px]">Hello AP Team,</p>
-        <p className="mb-[16px]">I hope you are all doing well.</p>
-        <p className="mb-[16px]">I am forwarding you the email we received from AB-Cleaner Ltd regarding an outstanding balance on their account.</p>
-        <p className="mb-[16px]">AB-Cleaner Ltd is one of our critical vendors. Please review the details provided in their message and take the necessary steps to settle their account as quickly as possible.</p>
-        <p className="mb-[16px]">If there are any issues or if you need further information to expedite the process, do not hesitate to reach out to me directly.</p>
+        <p className="mb-[16px]">Dear AP Team,</p>
+        <p className="mb-[16px]">I am writing to follow up on invoice INV-0115644, which was recently paid.</p>
+        <p className="mb-[16px]">Upon reviewing the payment, I noticed that the amount received was £100 short of the invoiced total. Could you please clarify why the invoice was underpaid by £100?</p>
+        <p className="mb-[16px]">Additionally, I would like to address the payment timing. According to our agreed terms, payment is due within 60 days of the invoice date. However, the payment was received significantly later than expected.</p>
+        <p className="mb-[16px]">Could you please investigate both of these issues and provide an explanation? If this was an error, please arrange for the outstanding £100 to be paid as soon as possible.</p>
+        <p className="mb-[16px]">Thank you for your attention to this matter.</p>
         <p className="mb-[16px]">Best regards,</p>
-        <p className="mb-[16px]">
-          Martha
-          <br aria-hidden="true" />
-          Head of Accounts Payable and Accounts Receivable
-          <br aria-hidden="true" />
-          Anderson-Summers
-          <br aria-hidden="true" />
-          <br aria-hidden="true" />
-          -------------------------------------------------------------------------------------------------------------------
-        </p>
-        <p className="mb-[16px]">
-          {`From: Accounts Receivables <ar@anderson-summers.com>`}
-          <br aria-hidden="true" />
-          Date: Thursday, 13 February 2025 at 14:24
-          <br aria-hidden="true" />
-          {`To: Martha Steward <martha.steward@anderson-summers.com>`}
-        </p>
-        <p className="mb-[16px]">Subject: Fwd: Legal Action Notice</p>
-        <p className="mb-[16px]">Hi Martha,</p>
-        <p className="mb-[16px]">I hope this email finds you well.</p>
-        <p className="mb-[16px]">I wanted to bring to your attention an urgent email I just received from AB-Cleaner Ltd. They are considering taking legal action due to an outstanding balance of £5768.90.</p>
-        <p className="mb-[16px]">It seems this email might have been intended for the AP department rather than our department.</p>
-        <p className="mb-[16px]">{`Please let me know how you would like to proceed with this matter, and if there's anything further I can do to assist in resolving it.`}</p>
-        <p className="mb-[16px]">Best regards,</p>
-        <p className="mb-[16px]">
-          Brian Morris
+        <p>
+          Wilma Oberbrunner
           <br aria-hidden="true" />
           Accounts Receivable Manager
           <br aria-hidden="true" />
-          Anderson-Summers
-        </p>
-        <p className="mb-[16px]">-------------------------------------------------------------------------------------------------------------------</p>
-        <p className="mb-[16px]">
-          {`From: Mr. Joshua Murphy <payments@ab-cleaner-ltd.com>`}
-          <br aria-hidden="true" />
-          Date: Wednesday, 12 February 2025 at 14:24
-          <br aria-hidden="true" />
-          {`To: Accounts Receivables <ar@anderson-summers.com>`}
-        </p>
-        <p className="mb-[16px]">Subject: Legal Action Notice</p>
-        <p className="mb-[16px]">Dear Anderson-Summers,</p>
-        <p className="mb-[16px]">We hope this message finds you well.</p>
-        <p className="mb-[16px]">We are writing to inform you of an important matter that requires your immediate attention. Our records indicate that there is an outstanding balance of £5768.90 on your account. Despite previous reminders and requests for payment, this amount remains unpaid.</p>
-        <p className="mb-[16px]">We regret to inform you that if the outstanding balance is not settled in full within the next 7 days, we will have no option but to pursue legal action to recover the debt. We strongly advise you to address this matter promptly to avoid any legal complications.</p>
-        <p>
-          Sincerely,
-          <br aria-hidden="true" />
-          AB-Cleaner Ltd
-          <br aria-hidden="true" />
-          Accounts Receivable Department
+          Acme PLC
         </p>
       </div>
     </div>
@@ -2268,7 +2282,7 @@ function EmailBody() {
 function Frame4({ title }: { title: string }) {
   return (
     <div className="content-stretch flex gap-[16px] items-center relative shrink-0 w-full">
-      <p className="font-['Barlow:Bold',sans-serif] leading-[1.2] not-italic relative shrink-0 text-[16px] text-black text-nowrap tracking-[-0.32px] whitespace-pre">{title}</p>
+      <p className="font-['Barlow:Bold',sans-serif] font-bold leading-[1.2] not-italic relative shrink-0 text-[16px] text-black text-nowrap tracking-[-0.32px] whitespace-pre">{title}</p>
     </div>
   );
 }
@@ -2353,7 +2367,7 @@ function DateHeader() {
           </div>
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">27/06/2024</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">08/11/2025</p>
     </div>
   );
 }
@@ -2389,7 +2403,7 @@ function EventDescriptionContainer() {
 function EventDetails() {
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">27/06/2024 at 11:09</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">08/11/2025 at 11:09</p>
       <EventDescriptionContainer />
     </div>
   );
@@ -2413,7 +2427,7 @@ function EventItem() {
 
 function Container44() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative rounded-tl-[8px] rounded-tr-[8px] shrink-0 w-full" data-name="Container">
+    <div style={{ display: 'none' }} className="content-stretch flex flex-col gap-[8px] items-start relative rounded-tl-[8px] rounded-tr-[8px] shrink-0 w-full" data-name="Container">
       <EventItem />
     </div>
   );
@@ -2432,7 +2446,7 @@ function EventDescriptionContainer1() {
 function EventDetails1() {
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">27/06/2024 at 11:09</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">08/11/2025 at 11:09</p>
       <EventDescriptionContainer1 />
     </div>
   );
@@ -2456,7 +2470,7 @@ function EventItem1() {
 
 function Container45() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative rounded-tl-[8px] rounded-tr-[8px] shrink-0 w-full" data-name="Container">
+    <div style={{ display: 'none' }} className="content-stretch flex flex-col gap-[8px] items-start relative rounded-tl-[8px] rounded-tr-[8px] shrink-0 w-full" data-name="Container">
       <EventItem1 />
     </div>
   );
@@ -2473,7 +2487,7 @@ function EventDescriptionContainer2() {
 function EventDetails2() {
   return (
     <div className="content-stretch flex flex-col h-full items-start justify-center relative shrink-0 w-[263px]" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">27/06/2024 at 10:11</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">08/11/2025 at 10:11</p>
       <EventDescriptionContainer2 />
     </div>
   );
@@ -2545,7 +2559,7 @@ function InvoiceInfo() {
   return (
     <div className="box-border content-stretch flex flex-col items-start leading-[1.6] mr-[-4px] not-italic pb-[2px] pt-0 px-0 relative shrink-0" data-name="Invoice Info">
       <p className="font-['Barlow:Bold',sans-serif] relative shrink-0 text-[#222222] text-[14px] w-full">Invoice - Found</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_01_24_july24.pdf</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_10_01_oct25.pdf</p>
     </div>
   );
 }
@@ -2574,7 +2588,7 @@ function InvoiceDetails() {
       <InvoiceHeader />
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif]">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">0115644</span>
@@ -2651,7 +2665,7 @@ function Frame8() {
 
 function Frame9() {
   return (
-    <div className="bg-[#fff5e5] relative rounded-[4px] shrink-0 w-full">
+    <div style={{ display: 'none' }} className="bg-[#fff5e5] relative rounded-[4px] shrink-0 w-full">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start px-[8px] py-[4px] relative w-full">
           <Frame8 />
@@ -2699,7 +2713,7 @@ function InvoiceInfo1() {
   return (
     <div className="box-border content-stretch flex flex-col items-start leading-[1.6] mr-[-4px] not-italic pb-[2px] pt-0 px-0 relative shrink-0" data-name="Invoice Info">
       <p className="font-['Barlow:Bold',sans-serif] relative shrink-0 text-[#222222] text-[14px] w-full">Invoice - Paid</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_01_24_july24.pdf</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_10_01_oct25.pdf</p>
     </div>
   );
 }
@@ -2728,7 +2742,7 @@ function InvoiceDetails1() {
       <InvoiceHeader1 />
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif]">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">0115644</span>
@@ -2795,7 +2809,7 @@ function Frame10() {
 
 function Frame11() {
   return (
-    <div className="bg-[#fff5e5] relative rounded-[4px] shrink-0 w-full">
+    <div style={{ display: 'none' }} className="bg-[#fff5e5] relative rounded-[4px] shrink-0 w-full">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start px-[8px] py-[4px] relative w-full">
           <Frame10 />
@@ -2839,7 +2853,7 @@ function InvoiceInfo2() {
   return (
     <div className="box-border content-stretch flex flex-col items-start leading-[1.6] mr-[-4px] not-italic pb-[2px] pt-0 px-0 relative shrink-0" data-name="Invoice Info">
       <p className="font-['Barlow:Bold',sans-serif] relative shrink-0 text-[#222222] text-[14px] w-full">Invoice - Not Found</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_01_24_july24.pdf</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">invoice01_10_01_oct25.pdf</p>
     </div>
   );
 }
@@ -2868,7 +2882,7 @@ function InvoiceDetails2() {
       <InvoiceHeader2 />
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif]">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> 0115644
@@ -2922,7 +2936,7 @@ function Container47() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Container">
       <Container46 />
-      <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Invoice Attachment">
+      <div style={{ display: 'none' }} className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Invoice Attachment">
         <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
         <div className="size-full">
           <div className="box-border content-stretch flex flex-col gap-[8px] items-start pb-[8px] pl-[8px] pr-[12px] pt-[12px] relative w-full">
@@ -2940,7 +2954,7 @@ function Container47() {
           </div>
         </div>
       </div>
-      <div className="bg-white h-[126px] relative rounded-[8px] shrink-0 w-full" data-name="Invoice Attachment">
+      <div style={{ display: 'none' }} className="bg-white h-[126px] relative rounded-[8px] shrink-0 w-full" data-name="Invoice Attachment">
         <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
         <div className="size-full">
           <div className="box-border content-stretch flex h-[126px] items-start justify-between pl-[8px] pr-[12px] py-[12px] relative w-full">
@@ -2949,7 +2963,7 @@ function Container47() {
         </div>
       </div>
       <div className="h-[16px] relative shrink-0 w-[184px]" data-name="Activity Status">
-        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 21/06/2024 - 09:15</p>
+        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 05/11/2025 - 09:15</p>
       </div>
     </div>
   );
@@ -2978,7 +2992,7 @@ function DateHeader1() {
           </div>
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">21/06/2024</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">05/11/2025</p>
     </div>
   );
 }
@@ -3002,7 +3016,7 @@ function EventDescriptionContainer3() {
 function EventDetails3() {
   return (
     <div className="content-stretch flex flex-col h-full items-start justify-center relative shrink-0 w-[263px]" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">10/06/2024 at 11:15</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">30/10/2025 at 11:15</p>
       <EventDescriptionContainer3 />
     </div>
   );
@@ -3066,7 +3080,7 @@ function Container49() {
   return (
     <div className="box-border content-stretch flex flex-col items-start leading-[1.6] not-italic pb-[2px] pt-0 px-0 relative shrink-0 w-full" data-name="Container">
       <p className="font-['Barlow:Bold',sans-serif] relative shrink-0 text-[#222222] text-[14px] w-full">Statement - Not started</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">statement_july24.pdf</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">statement_oct25.pdf</p>
     </div>
   );
 }
@@ -3139,9 +3153,9 @@ function Container54() {
 
 function Container55() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Container">
+    <div style={{ display: 'none' }} className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Container">
       <EventItem3 />
-      <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Statement/Invoice/Generic Attachment">
+      <div style={{ display: 'none' }} className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Statement/Invoice/Generic Attachment">
         <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
         <div className="size-full">
           <div className="box-border content-stretch flex gap-[8px] items-start pl-[8px] pr-[12px] py-[12px] relative w-full">
@@ -3166,7 +3180,7 @@ function EventDescriptionContainer4() {
 function EventDetails4() {
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">21/06/2024 at 09:15</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">05/11/2025 at 09:15</p>
       <EventDescriptionContainer4 />
     </div>
   );
@@ -3331,7 +3345,7 @@ function Container67() {
   return (
     <div className="box-border content-stretch flex gap-[8px] items-center justify-center px-[2px] py-0 relative shrink-0" data-name="Container">
       <div className="h-[16px] relative shrink-0 w-[184px]" data-name="Activity Status">
-        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 07/07/2024 - 09:12</p>
+        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 12/11/2025 - 09:12</p>
       </div>
     </div>
   );
@@ -3356,9 +3370,6 @@ function Container69() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Container">
       <EventItem4 />
-      <div className="bg-white content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Bank Updates">
-        <Container68 />
-      </div>
     </div>
   );
 }
@@ -3384,7 +3395,7 @@ function Container71() {
 function Container72() {
   return (
     <div className="box-border content-stretch flex flex-col items-start pb-[2px] pt-0 px-0 relative shrink-0" data-name="Container">
-      <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">142534 - Bowers Morgan PLC</p>
+      <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">142534 - Acme PLC</p>
     </div>
   );
 }
@@ -3456,7 +3467,7 @@ function Container78() {
   return (
     <div className="content-stretch flex items-end justify-between relative shrink-0 w-full" data-name="Container">
       <Container77 />
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">11/06/2024</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">01/10/2025</p>
     </div>
   );
 }
@@ -3503,7 +3514,7 @@ function Container81() {
   return (
     <div className="content-stretch flex items-end justify-between relative shrink-0 w-full" data-name="Container">
       <Container80 />
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">25/05/2024</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">15/09/2025</p>
     </div>
   );
 }
@@ -3550,7 +3561,7 @@ function Container84() {
   return (
     <div className="content-stretch flex items-end justify-between relative shrink-0 w-full" data-name="Container">
       <Container83 />
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">01/05/2024</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">01/09/2025</p>
     </div>
   );
 }
@@ -3590,7 +3601,7 @@ function DateHeader2() {
           </div>
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">14/06/2024</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">01/11/2025</p>
     </div>
   );
 }
@@ -3614,7 +3625,7 @@ function EventDescriptionContainer5() {
 function EventDetails5() {
   return (
     <div className="content-stretch flex flex-col h-full items-start justify-center relative shrink-0 w-[263px]" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">14/06/2024 at 09:15</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">01/11/2025 at 09:15</p>
       <EventDescriptionContainer5 />
     </div>
   );
@@ -3675,7 +3686,7 @@ function InvoiceDetails3() {
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[14px] w-[min-content]">Invoice - Paid</p>
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif] not-italic">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif] not-italic">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Invoice no:</span>
@@ -3746,7 +3757,7 @@ function InvoiceDetails4() {
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[14px] w-[min-content]">Invoice - Found</p>
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif] not-italic">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif] not-italic">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Invoice no:</span>
@@ -3816,7 +3827,7 @@ function InvoiceDetails5() {
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[14px] w-[min-content]">Invoice - Found</p>
       <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span>{`Vendor: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif] not-italic">Bowers Morgan PLC</span>
+        <span className="font-['Barlow:Regular',sans-serif] not-italic">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Invoice no:</span>
@@ -3921,7 +3932,7 @@ function Container87() {
           <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#2e652e] text-[12px] text-nowrap whitespace-pre">Invoice</p>
         </div>
       </div>
-      <div className="bg-white box-border content-stretch flex h-[109px] items-start justify-between pl-[8px] pr-[12px] py-[12px] relative rounded-[8px] shrink-0 w-[303px]" data-name="Invoice Mention">
+      <div style={{ display: 'none' }} className="bg-white box-border content-stretch flex h-[109px] items-start justify-between pl-[8px] pr-[12px] py-[12px] relative rounded-[8px] shrink-0 w-[303px]" data-name="Invoice Mention">
         <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
         <InvoiceContainer5 />
         <SourceContainer2 />
@@ -3930,7 +3941,7 @@ function Container87() {
           <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#2e652e] text-[12px] text-nowrap whitespace-pre">Invoice</p>
         </div>
       </div>
-      <div className="bg-white box-border content-stretch flex h-[109px] items-start justify-between pl-[8px] pr-[12px] py-[12px] relative rounded-[8px] shrink-0 w-[303px]" data-name="Invoice Mention">
+      <div style={{ display: 'none' }} className="bg-white box-border content-stretch flex h-[109px] items-start justify-between pl-[8px] pr-[12px] py-[12px] relative rounded-[8px] shrink-0 w-[303px]" data-name="Invoice Mention">
         <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
         <InvoiceContainer6 />
         <div className="absolute bg-[#cbf9ef] bottom-[12px] box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] right-[12.33px] rounded-[100px]" data-name="Chip">
@@ -3939,7 +3950,7 @@ function Container87() {
         </div>
       </div>
       <div className="h-[16px] relative shrink-0 w-[184px]" data-name="Activity Status">
-        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 21/06/2024 - 09:15</p>
+        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 05/11/2025 - 09:15</p>
       </div>
     </div>
   );
@@ -3968,7 +3979,7 @@ function EventDescriptionContainer6() {
 function Container89() {
   return (
     <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-full" data-name="Container">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">14/06/2024 at 09:15</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">01/11/2025 at 09:15</p>
       <EventDescriptionContainer6 />
     </div>
   );
@@ -4020,7 +4031,7 @@ function EventDescriptionContainer7() {
 function Container90() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">14/06/2024 at 09:13</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">01/11/2025 at 09:13</p>
       <EventDescriptionContainer7 />
     </div>
   );
@@ -4064,7 +4075,7 @@ function DateHeader3() {
           </div>
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">10/06/2024</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">30/10/2025</p>
     </div>
   );
 }
@@ -4090,7 +4101,7 @@ function EventDescriptionContainer8() {
 function EventDetails8() {
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">10/06/2024 at 09:38</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] w-full">30/10/2025 at 09:38</p>
       <EventDescriptionContainer8 />
     </div>
   );
@@ -4131,7 +4142,7 @@ function EventDescriptionContainer9() {
 function EventDetails9() {
   return (
     <div className="content-stretch flex flex-col h-full items-start justify-center relative shrink-0 w-[263px]" data-name="Event Details">
-      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">10/06/2024 at 09:15</p>
+      <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#464646] text-[10px] text-center text-nowrap whitespace-pre">30/10/2025 at 09:15</p>
       <EventDescriptionContainer9 />
     </div>
   );
@@ -4195,7 +4206,7 @@ function Container92() {
   return (
     <div className="box-border content-stretch flex flex-col items-start leading-[1.6] not-italic pb-[2px] pt-0 px-0 relative shrink-0 w-full" data-name="Container">
       <p className="font-['Barlow:Bold',sans-serif] relative shrink-0 text-[#222222] text-[14px] w-full">Statement - Reconciled</p>
-      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">statement_july24.pdf</p>
+      <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#636363] text-[12px] w-full">statement_oct25.pdf</p>
     </div>
   );
 }
@@ -4323,46 +4334,54 @@ function Container101() {
       <div className="overflow-x-clip overflow-y-auto size-full">
         <div className="box-border content-stretch flex flex-col gap-[16px] items-start pb-0 pt-[8px] px-[8px] relative w-full">
           <Container48 />
-          <Container71 />
-          <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Vendor Update">
-            <div aria-hidden="true" className="absolute border border-[#e1e1e3] border-solid inset-0 pointer-events-none rounded-[8px]" />
-            <div className="size-full">
-              <div className="box-border content-stretch flex flex-col gap-[8px] items-start p-[8px] relative w-full">
-                <Container85 />
-                <div className="bg-[#ffe0e0] relative rounded-[4px] shrink-0 w-full" data-name="Alerts">
-                  <div className="size-full">
-                    <div className="box-border content-stretch flex gap-[8px] items-start p-[8px] relative w-full">
-                      <Frame2 />
-                    </div>
-                  </div>
-                </div>
-                <div className="h-[16px] relative shrink-0 w-[184px]" data-name="Activity Status">
-                  <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 07/07/2024 - 09:12</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <Container88 />
-          <EventItem6 />
-          <EventItem7 />
-          <Container100 />
         </div>
       </div>
     </div>
   );
 }
 
-function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, setExpandedReasoning }: { activeView: 'activity' | 'ai'; chatMessages: Array<{ role: string; text: string }>; showToolValues: boolean; expandedReasoning: number | null; setExpandedReasoning: (idx: number | null) => void }) {
+function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, setExpandedReasoning, onPillClick, usedPillIndices, onFollowUpTrigger, onShortPaymentTrigger, onCommentsCheckTrigger, onDraftEmailTrigger, onEmailAddTrigger, onDraftSupplierResponseTrigger }: { activeView: 'activity' | 'ai'; chatMessages: ChatMessage[]; showToolValues: boolean; expandedReasoning: number | null; setExpandedReasoning: (idx: number | null) => void; onPillClick: (pillText: string, messageIndex: number) => void; usedPillIndices: Set<number>; onFollowUpTrigger?: () => void; onShortPaymentTrigger?: () => void; onCommentsCheckTrigger?: () => void; onDraftEmailTrigger?: () => void; onEmailAddTrigger?: () => void; onDraftSupplierResponseTrigger?: () => void }) {
+  const [textCompleted, setTextCompleted] = useState<{ [key: number]: boolean }>({});
+  const [cardShown, setCardShown] = useState<{ [key: number]: boolean }>({});
+  const [afterTextCompleted, setAfterTextCompleted] = useState<{ [key: number]: boolean }>({});
+  const [animatedMessages, setAnimatedMessages] = useState<Set<number>>(new Set());
+  const [expandedEmails, setExpandedEmails] = useState<Set<number>>(new Set());
+  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+
+  const handleTextComplete = (idx: number) => {
+    setTextCompleted(prev => ({ ...prev, [idx]: true }));
+    // After a short delay, show the card
+    setTimeout(() => {
+      setCardShown(prev => ({ ...prev, [idx]: true }));
+    }, 200);
+  };
+
+  const handleAfterTextComplete = (idx: number) => {
+    setAfterTextCompleted(prev => ({ ...prev, [idx]: true }));
+  };
+
+  const markMessageAnimated = (idx: number) => {
+    setAnimatedMessages(prev => new Set(prev).add(idx));
+  };
+
+  // Auto-scroll to bottom when new messages are added or content changes
+  useEffect(() => {
+    if (messagesEndRef.current && activeView === 'ai') {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chatMessages, cardShown, afterTextCompleted, activeView]);
+
   return (
-    <div className="content-stretch flex flex-col h-full items-start relative flex-1">
+    <div className="content-stretch flex flex-col items-start relative flex-1" style={{ height: activeView === 'ai' ? 'calc(100% - 60px)' : '100%' }}>
       <div aria-hidden="true" className="absolute border-[#f0f0f0] border-[0px_1px_0px_0px] border-solid inset-0 pointer-events-none" />
       <Container42 title={activeView === 'activity' ? 'Activity' : 'Ticket Agent'} showSearch={activeView === 'activity'} />
       {activeView === 'activity' && <Container101 />}
       {activeView === 'ai' && (
-        <div className="overflow-y-auto px-[8px] py-[16px] pb-[56px] h-full w-full">
+        <div className="overflow-y-auto px-[8px] py-[16px] pb-[64px] flex-1 w-full min-h-0">
           {chatMessages.map((msg, idx) => (
-            <div key={idx} className={`mb-[12px] flex ${msg.role === 'agent' ? 'justify-start' : 'justify-end'} ${msg.isExiting ? 'animate-fade-out-collapse' : msg.role === 'agent' ? 'animate-slide-in-left' : 'animate-slide-in-right'}`}>
-              {msg.isReasoned ? (
+            <React.Fragment key={idx}>
+              <div className={`mb-[12px] flex ${msg.role === 'agent' ? 'justify-start' : 'justify-end'} ${msg.isExiting ? 'animate-fade-out-collapse' : msg.role === 'agent' ? 'animate-slide-in-left' : 'animate-slide-in-right'}`}>
+                {msg.isReasoned ? (
                 <div className="max-w-[95%]">
                   {/* Reasoning header */}
                   <div 
@@ -4383,20 +4402,43 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                   </div>
                   
                   {/* Expanded reasoning content */}
-                  {expandedReasoning === idx && msg.type !== 'thinking' && (
+                  {expandedReasoning === idx && msg.type !== 'thinking' && msg.reasoningText && (
                     <div className="mb-[8px] pl-[12px] border-l-[2px] border-[#e8e8e8] animate-fade-in-up">
                       <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#6b6b6b] leading-[1.5]">
-                        Query identified PO #173524 in ERP system. Cross-referenced invoice details and supplier information to verify request validity.
+                        {msg.reasoningText}
                       </p>
                     </div>
                   )}
                   
                   {/* Message content */}
-                  <div className={`px-[12px] py-[8px] rounded-[8px] ${
-                    msg.type === 'thinking'
-                      ? 'bg-transparent text-[#222222]'
-                      : 'bg-[#f5f5f5] text-[#222222]'
-                  }`}>
+                  <div
+                    className={`px-[12px] py-[8px] rounded-[8px] ${
+                      msg.type === 'thinking'
+                        ? 'bg-transparent text-[#222222]'
+                        : 'bg-[#f5f5f5] text-[#222222]'
+                    } ${(msg.scenario === 'msa-result' || msg.scenario === 'short-payment-result' || msg.scenario === 'confirm-colleague' || msg.scenario === 'email-sent-result' || msg.scenario === 'alert-result') ? 'cursor-pointer hover:bg-[#ebebeb] transition-colors' : ''}`}
+                    onClick={(e) => {
+                      // Check if the click target is within a clickable element inside (like document link or email card)
+                      const target = e.target as HTMLElement;
+                      const clickableChild = target.closest('.cursor-pointer');
+                      // If the click is on a clickable child (not the bubble), don't trigger
+                      if (clickableChild && clickableChild !== e.currentTarget) {
+                        return;
+                      }
+
+                      if (msg.scenario === 'msa-result' && onShortPaymentTrigger) {
+                        onShortPaymentTrigger();
+                      } else if (msg.scenario === 'short-payment-result' && onCommentsCheckTrigger) {
+                        onCommentsCheckTrigger();
+                      } else if (msg.scenario === 'confirm-colleague' && onDraftEmailTrigger) {
+                        onDraftEmailTrigger();
+                      } else if (msg.scenario === 'email-sent-result' && onEmailAddTrigger) {
+                        onEmailAddTrigger();
+                      } else if (msg.scenario === 'alert-result' && onDraftSupplierResponseTrigger) {
+                        onDraftSupplierResponseTrigger();
+                      }
+                    }}
+                  >
                     {msg.type === 'thinking' ? (
                       <div>
                         <div className="flex items-center gap-[8px] mb-[12px] animate-fade-in-up">
@@ -4433,66 +4475,166 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                         {/* Tool pills */}
                         <div className="flex flex-wrap gap-[6px]">
                           <div className="bg-[#f5f5f5] px-[10px] py-[4px] rounded-[100px] inline-flex items-center gap-[6px] animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-                            <Database className="text-[#5a1899]" size={10} strokeWidth={2} />
-                            <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#464646]">Query ERP</p>
+                            {msg.toolIcon === 'mail' ? (
+                              <Mail className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'file' ? (
+                              <FileText className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'user' ? (
+                              <UserCircle className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'alert' ? (
+                              <Bell className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'pen' ? (
+                              <PenLine className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'send' ? (
+                              <Send className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : msg.toolIcon === 'badge' ? (
+                              <BadgeCheck className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            ) : (
+                              <Database className="text-[#5a1899]" size={10} strokeWidth={2} />
+                            )}
+                            <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#464646]">{msg.toolName || 'Query ERP'}</p>
                           </div>
-                          {showToolValues && (
-                            <>
-                              <div className="bg-[#f5f5f5] px-[10px] py-[4px] rounded-[100px] inline-block animate-fade-in-up">
-                                <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#6b6b6b]">PO #173524</p>
-                              </div>
-                              <div className="bg-[#f5f5f5] px-[10px] py-[4px] rounded-[100px] inline-block animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
-                                <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#6b6b6b]">Invoice details</p>
-                              </div>
-                            </>
-                          )}
+                          {showToolValues && msg.toolPills && msg.toolPills.map((pill, pillIdx) => (
+                            <div key={pillIdx} className="bg-[#f5f5f5] px-[10px] py-[4px] rounded-[100px] inline-block animate-fade-in-up" style={{ animationDelay: `${0.1 * (pillIdx + 1)}s`, animationFillMode: 'backwards' }}>
+                              <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#6b6b6b]">{pill}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     ) : (
                       <>
-                        <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6]">
-                          <TypewriterText text={msg.text} />
+                        <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] whitespace-pre-line">
+                          {animatedMessages.has(idx) ? (
+                            msg.text
+                          ) : (
+                            <TypewriterText
+                              text={msg.text}
+                              onComplete={() => {
+                                markMessageAnimated(idx);
+                                if (msg.hasCard && msg.textAfterCard) {
+                                  handleTextComplete(idx);
+                                } else if (msg.hasCard && !msg.textAfterCard) {
+                                  // For messages with cards but no textAfterCard, mark text complete
+                                  setTextCompleted(prev => ({ ...prev, [idx]: true }));
+                                } else if (msg.triggerFollowUp && onFollowUpTrigger) {
+                                  // Trigger follow-up sequence after 2 seconds
+                                  setTimeout(() => onFollowUpTrigger(), 2000);
+                                }
+                              }}
+                            />
+                          )}
                         </p>
-                        {msg.hasCard && (
-                          <div className="mt-[12px] bg-white border border-[#e3e3e3] rounded-[6px] p-[12px] animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-                            <div className="flex flex-col gap-[10px]">
-                              {/* PO Amount */}
-                              <div className="flex items-start justify-between gap-[8px]">
-                                <div className="flex items-start gap-[6px]">
+                        {msg.hasCard && msg.cardData && (textCompleted[idx] || animatedMessages.has(idx)) && (
+                          <div className={`mt-[12px] bg-white border border-[#e3e3e3] rounded-[6px] ${msg.cardData.type === 'document-reference' ? 'p-[8px]' : 'p-[12px]'} animate-fade-in-up`} style={{ animationDelay: !animatedMessages.has(idx) ? '0.2s' : '0s', animationFillMode: 'backwards' }}>
+                            <div className={`flex flex-col ${msg.cardData.type === 'issues-list' ? 'gap-[1px]' : 'gap-[10px]'}`}>
+                              {msg.cardData.type === 'po-comparison' && msg.cardData.items?.map((item: any, itemIdx: number) => (
+                                <React.Fragment key={itemIdx}>
+                                  {itemIdx > 0 && itemIdx === msg.cardData.items.length - 1 && (
+                                    <div className="border-t border-[#f0f0f0]" />
+                                  )}
+                                  <div className="flex items-start justify-between gap-[8px]">
+                                    <div className="flex items-start gap-[6px]">
+                                      {item.isError ? (
+                                        <AlertCircle className="text-[#e74c3c] mt-[2px] shrink-0" size={12} strokeWidth={2} />
+                                      ) : (
+                                        <div className="w-[4px] h-[4px] bg-[#5a1899] rounded-full mt-[6px] shrink-0" />
+                                      )}
+                                      <p className={`font-['Barlow:${item.isError ? 'Medium' : 'Regular'}',sans-serif] text-[11px] ${item.isError ? 'text-[#e74c3c]' : 'text-[#464646]'} leading-[1.5]`}>
+                                        {item.label}
+                                      </p>
+                                    </div>
+                                    <p className={`font-['Barlow:SemiBold',sans-serif] text-[11px] ${item.isError ? 'text-[#e74c3c]' : 'text-[#222222]'} whitespace-nowrap`}>{item.value}</p>
+                                  </div>
+                                </React.Fragment>
+                              ))}
+                              {msg.cardData.type === 'issues-list' && msg.cardData.issues?.map((issue: any, issueIdx: number) => (
+                                <div key={issueIdx} className="flex items-start gap-[6px]">
                                   <div className="w-[4px] h-[4px] bg-[#5a1899] rounded-full mt-[6px] shrink-0" />
                                   <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5]">
-                                    PO for 'Site inspection services'
+                                    {issue.text}
                                   </p>
                                 </div>
-                                <p className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#222222] whitespace-nowrap">£1,000</p>
-                              </div>
-                              
-                              {/* Invoice Amount */}
-                              <div className="flex items-start justify-between gap-[8px]">
-                                <div className="flex items-start gap-[6px]">
-                                  <div className="w-[4px] h-[4px] bg-[#5a1899] rounded-full mt-[6px] shrink-0" />
-                                  <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5]">
-                                    Invoice billed
+                              ))}
+                              {msg.cardData.type === 'document-reference' && msg.cardData.document && (
+                                <div className="flex items-center gap-[8px] cursor-pointer hover:bg-[#f9f9f9] transition-colors p-[4px] rounded-[4px] -m-[4px]">
+                                  <FileText className="text-[#5a1899] shrink-0" size={14} strokeWidth={2} />
+                                  <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#5a1899] leading-[1.5]">
+                                    {msg.cardData.document.name}
                                   </p>
                                 </div>
-                                <p className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#222222] whitespace-nowrap">£1,100</p>
-                              </div>
-                              
-                              {/* Divider */}
-                              <div className="border-t border-[#f0f0f0]" />
-                              
-                              {/* Difference */}
-                              <div className="flex items-start justify-between gap-[8px]">
-                                <div className="flex items-start gap-[6px]">
-                                  <AlertCircle className="text-[#e74c3c] mt-[2px] shrink-0" size={12} strokeWidth={2} />
-                                  <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#e74c3c] leading-[1.5]">
-                                    Difference
-                                  </p>
+                              )}
+                              {msg.cardData.type === 'email-draft' && msg.cardData.email && (
+                                <div
+                                  className="cursor-pointer hover:bg-[#f9f9f9] transition-colors p-[4px] rounded-[4px] -m-[4px]"
+                                  onClick={() => {
+                                    setExpandedEmails(prev => {
+                                      const newSet = new Set(prev);
+                                      if (newSet.has(idx)) {
+                                        newSet.delete(idx);
+                                      } else {
+                                        newSet.add(idx);
+                                      }
+                                      return newSet;
+                                    });
+                                  }}
+                                >
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="flex items-center gap-[6px]">
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182]">To:</p>
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#222222]">{msg.cardData.email.to}</p>
+                                    </div>
+                                    <div className="flex items-center gap-[6px]">
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#717182]">Subject:</p>
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#222222]">{msg.cardData.email.subject}</p>
+                                    </div>
+                                    <div className="border-t border-[#e3e3e3] my-[4px]" />
+                                    <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5] whitespace-pre-line">
+                                      {expandedEmails.has(idx) ? msg.cardData.email.body : (msg.cardData.email.body.split('\n')[0] + '...')}
+                                    </p>
+                                    {!expandedEmails.has(idx) && (
+                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
+                                        Click to expand
+                                      </p>
+                                    )}
+                                  </div>
                                 </div>
-                                <p className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#e74c3c] whitespace-nowrap">£100 over</p>
-                              </div>
+                              )}
+                              {msg.cardData.type === 'alert-message' && msg.cardData.message && (
+                                <div
+                                  className="cursor-pointer hover:bg-[#f9f9f9] transition-colors p-[4px] rounded-[4px] -m-[4px]"
+                                  onClick={() => {
+                                    setExpandedEmails(prev => {
+                                      const newSet = new Set(prev);
+                                      if (newSet.has(idx)) {
+                                        newSet.delete(idx);
+                                      } else {
+                                        newSet.add(idx);
+                                      }
+                                      return newSet;
+                                    });
+                                  }}
+                                >
+                                  <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5] whitespace-pre-line">
+                                    {expandedEmails.has(idx) ? msg.cardData.message : (msg.cardData.message.substring(0, 50) + '...')}
+                                  </p>
+                                  {!expandedEmails.has(idx) && (
+                                    <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
+                                      Click to expand
+                                    </p>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
+                        )}
+                        {msg.textAfterCard && (cardShown[idx] || animatedMessages.has(idx)) && (
+                          <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] mt-[12px]">
+                            {animatedMessages.has(idx) ? (
+                              msg.textAfterCard
+                            ) : (
+                              <TypewriterText text={msg.textAfterCard} onComplete={() => handleAfterTextComplete(idx)} />
+                            )}
+                          </p>
                         )}
                       </>
                     )}
@@ -4509,29 +4651,99 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                   </p>
                 </div>
               )}
-            </div>
+              </div>
+
+              {/* Initial Suggestion Pills - Show only after first greeting message and before any user interaction */}
+              {idx === 0 && msg.role === 'agent' && msg.text === 'Hi, how can I help?' && chatMessages.length === 1 && !usedPillIndices.has(idx) && (
+                <div className="flex gap-[8px] mb-[12px] ml-0 animate-slide-in-left" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+                  <button
+                    onClick={() => onPillClick('Check conversation', idx)}
+                    className="bg-white border border-[#e3e3e3] px-[12px] py-[6px] rounded-[100px] font-['Barlow:Medium',sans-serif] text-[11px] text-[#5a1899] hover:bg-[#f0ebf8] hover:border-[#5a1899] transition-colors cursor-pointer"
+                  >
+                    Check conversation
+                  </button>
+                  <button
+                    onClick={() => onPillClick('Analyse Documents', idx)}
+                    className="bg-white border border-[#e3e3e3] px-[12px] py-[6px] rounded-[100px] font-['Barlow:Medium',sans-serif] text-[11px] text-[#5a1899] hover:bg-[#f0ebf8] hover:border-[#5a1899] transition-colors cursor-pointer"
+                  >
+                    Analyse Documents
+                  </button>
+                </div>
+              )}
+
+              {/* Dynamic Suggestion Pills - Show pills from message suggestionPills property */}
+              {msg.role === 'agent' && msg.suggestionPills && msg.suggestionPills.length > 0 && (msg.textAfterCard ? (afterTextCompleted[idx] || animatedMessages.has(idx)) : true) && !usedPillIndices.has(idx) && (
+                <div className="flex gap-[8px] mb-[12px] ml-0 animate-slide-in-left" style={{ animationDelay: animatedMessages.has(idx) ? '0s' : '0.3s', animationFillMode: 'backwards' }}>
+                  {msg.suggestionPills.map((pill, pillIdx) => (
+                    <button
+                      key={pillIdx}
+                      onClick={() => onPillClick(pill, idx)}
+                      className="bg-white border border-[#e3e3e3] px-[12px] py-[6px] rounded-[100px] font-['Barlow:Medium',sans-serif] text-[11px] text-[#5a1899] hover:bg-[#f0ebf8] hover:border-[#5a1899] transition-colors cursor-pointer"
+                    >
+                      {pill}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </React.Fragment>
           ))}
+          <div ref={messagesEndRef} />
         </div>
       )}
     </div>
   );
 }
 
-function TypewriterText({ text, speed = 30 }: { text: string; speed?: number }) {
-  const [displayedText, setDisplayedText] = useState('');
+function TypewriterText({ text, speed = 80, onComplete }: { text: string; speed?: number; onComplete?: () => void }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const onCompleteRef = React.useRef(onComplete);
+  const hasCalledComplete = React.useRef(false);
+  const wordsRef = React.useRef<string[]>([]);
+
+  // Update ref when onComplete changes
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  // Split text into words, preserving spaces and newlines
+  useEffect(() => {
+    // Split by spaces but keep the spaces
+    const parts = text.split(/(\s+)/);
+    wordsRef.current = parts.filter(part => part.length > 0);
+    setCurrentIndex(0);
+    hasCalledComplete.current = false;
+  }, [text]);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
+    const words = wordsRef.current;
+    if (currentIndex < words.length) {
       const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
       }, speed);
       return () => clearTimeout(timeout);
+    } else if (currentIndex === words.length && !hasCalledComplete.current && onCompleteRef.current) {
+      // Call onComplete when typing is finished (only once)
+      hasCalledComplete.current = true;
+      onCompleteRef.current();
     }
-  }, [currentIndex, text, speed]);
+  }, [currentIndex, speed]);
 
-  return <span>{displayedText}</span>;
+  return (
+    <span>
+      {wordsRef.current.slice(0, currentIndex).map((word, idx) => {
+        const isWhitespace = /^\s+$/.test(word);
+        return (
+          <span
+            key={idx}
+            className={isWhitespace ? '' : 'animate-word-fade-in inline-block'}
+            style={isWhitespace ? { whiteSpace: 'pre' } : undefined}
+          >
+            {word}
+          </span>
+        );
+      })}
+    </span>
+  );
 }
 
 function ListContainer({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
@@ -4589,48 +4801,783 @@ function ActivityFeed({ activeView, setActiveView }: { activeView: 'activity' | 
   );
 }
 
-function ActivityFeed1() {
+// Define message type interface
+interface ChatMessage {
+  role: string;
+  text: string;
+  textAfterCard?: string;
+  type?: string;
+  isReasoned?: boolean;
+  isExiting?: boolean;
+  hasCard?: boolean;
+  cardData?: any;
+  toolName?: string;
+  toolIcon?: string;
+  toolPills?: string[];
+  reasoningText?: string;
+  suggestionPills?: string[];
+  scenario?: string;
+  triggerFollowUp?: boolean;
+}
+
+function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   const [activeView, setActiveView] = useState<'activity' | 'ai'>('activity');
-  const [chatMessages, setChatMessages] = useState<Array<{ role: string; text: string; type?: string; isReasoned?: boolean; isExiting?: boolean; hasCard?: boolean }>>([
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     { role: 'agent', text: 'Hi, how can I help?' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [showToolValues, setShowToolValues] = useState(false);
   const [expandedReasoning, setExpandedReasoning] = useState<number | null>(null);
+  const [usedPillIndices, setUsedPillIndices] = useState<Set<number>>(new Set());
+  const [followUpTriggered, setFollowUpTriggered] = useState(false);
+  const [shortPaymentTriggered, setShortPaymentTriggered] = useState(false);
+  const [commentsCheckTriggered, setCommentsCheckTriggered] = useState(false);
+  const [draftEmailTriggered, setDraftEmailTriggered] = useState(false);
+  const [emailSentTriggered, setEmailSentTriggered] = useState(false);
+  const [alertTriggered, setAlertTriggered] = useState(false);
+  const [draftSupplierResponseTriggered, setDraftSupplierResponseTriggered] = useState(false);
+  const [sendExternalEmailTriggered, setSendExternalEmailTriggered] = useState(false);
+  const [ticketClosureTriggered, setTicketClosureTriggered] = useState(false);
+  const [ticketStatusUpdateTriggered, setTicketStatusUpdateTriggered] = useState(false);
+
+  const triggerFollowUpSequence = () => {
+    if (followUpTriggered) return;
+    setFollowUpTriggered(true);
+
+    // After 2 seconds, add intermediate message
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: "To confirm the payment-timing point, I'll check the supplier's agreement."
+      }]);
+
+      // After that message completes (estimate based on word count) + 5 seconds
+      // "To confirm the payment-timing point, I'll check the supplier's agreement." has 10 words
+      // At 80ms per word = 800ms + 5000ms = 5800ms
+      setTimeout(() => {
+        // Add thinking message
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          text: 'Thinking...',
+          type: 'thinking',
+          isReasoned: true,
+          toolName: 'MSA Ref.',
+          toolIcon: 'file',
+          toolPills: ['Supplier: 5012938', 'Query: Does the agreement state the payment terms'],
+          scenario: 'msa-check'
+        }]);
+
+        // Show tool values after a brief delay
+        setTimeout(() => {
+          setShowToolValues(true);
+
+          // Add response message after tool animation (extended to 9 seconds)
+          setTimeout(() => {
+            setChatMessages(prev => {
+              const newMessages = [...prev];
+              // Remove thinking message
+              const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'msa-check');
+              if (thinkingIdx !== -1) {
+                newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+              }
+              return newMessages;
+            });
+
+            setTimeout(() => {
+              setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'msa-check')));
+
+              // Add final response
+              setChatMessages(prev => [...prev, {
+                role: 'agent',
+                text: "The MSA confirms 'pay-when-paid' terms for this supplier as a construction subcontractor.\n\nThat means payment is only due once we receive payment from our end customer.\n\nThis explains the payment-timing concern.",
+                isReasoned: true,
+                hasCard: true,
+                cardData: {
+                  type: 'document-reference',
+                  document: {
+                    name: 'Master Service Agreement - Supplier 5012938.pdf',
+                    id: 'MSA-5012938-2024'
+                  }
+                },
+                reasoningText: 'Retrieved and analyzed Master Service Agreement for supplier 5012938. Confirmed pay-when-paid clause applicable to construction subcontractors.',
+                scenario: 'msa-result'
+              }]);
+            }, 400);
+          }, 9000);
+        }, 100);
+      }, 5800);
+    }, 2000);
+  };
+
+  const triggerShortPaymentSequence = () => {
+    if (shortPaymentTriggered) return;
+    setShortPaymentTriggered(true);
+
+    // After 2 seconds, add investigation message
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: "Now I'll investigate the £100 short-payment."
+      }]);
+
+      // After that message completes + delay
+      setTimeout(() => {
+        // Add thinking message with Query ERP
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          text: 'Thinking...',
+          type: 'thinking',
+          isReasoned: true,
+          toolName: 'Query ERP',
+          toolIcon: 'database',
+          toolPills: ['Supplier: 5012938', 'PO: 173524', 'Inv. No.: INV-0115644', 'Request: PO & Invoice details'],
+          scenario: 'short-payment-check'
+        }]);
+
+        // Show tool values after a brief delay
+        setTimeout(() => {
+          setShowToolValues(true);
+
+          // Add response message after tool animation (9 seconds)
+          setTimeout(() => {
+            setChatMessages(prev => {
+              const newMessages = [...prev];
+              // Mark thinking message as exiting
+              const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'short-payment-check');
+              if (thinkingIdx !== -1) {
+                newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+              }
+              return newMessages;
+            });
+
+            setTimeout(() => {
+              // Remove thinking message and add final response
+              setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'short-payment-check')));
+
+              setChatMessages(prev => [...prev, {
+                role: 'agent',
+                text: "I looked at the line items for both the PO and invoice and found a mismatch on one line item:",
+                isReasoned: true,
+                hasCard: true,
+                cardData: {
+                  type: 'issues-list',
+                  issues: [
+                    { text: "PO for 'Site inspection services' was £1,000" },
+                    { text: 'Invoice billed £1,100' },
+                    { text: 'Difference: £100 over the PO value' }
+                  ]
+                },
+                textAfterCard: "This amount was removed during processing, resulting in a £100 short-payment.",
+                reasoningText: 'Queried ERP for PO #173524 and Invoice INV-0115644. Cross-referenced line items to identify £100 discrepancy on site inspection services.',
+                scenario: 'short-payment-result'
+              }]);
+            }, 400);
+          }, 9000);
+        }, 100);
+      }, 5800);
+    }, 2000);
+  };
+
+  const triggerCommentsCheckSequence = () => {
+    if (commentsCheckTriggered) return;
+    setCommentsCheckTriggered(true);
+
+    // After 2 seconds, add message about checking comments
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: "I'll check if any comments were recorded during processing."
+      }]);
+
+      // After that message completes + delay
+      setTimeout(() => {
+        // Add thinking message with Query ERP
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          text: 'Thinking...',
+          type: 'thinking',
+          isReasoned: true,
+          toolName: 'Query ERP',
+          toolIcon: 'database',
+          toolPills: ['Comments'],
+          scenario: 'comments-check'
+        }]);
+
+        // Show tool values after a brief delay
+        setTimeout(() => {
+          setShowToolValues(true);
+
+          // Add response message after tool animation (9 seconds)
+          setTimeout(() => {
+            setChatMessages(prev => {
+              const newMessages = [...prev];
+              // Mark thinking message as exiting
+              const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'comments-check');
+              if (thinkingIdx !== -1) {
+                newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+              }
+              return newMessages;
+            });
+
+            setTimeout(() => {
+              // Remove thinking message and add final response
+              setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'comments-check')));
+
+              setChatMessages(prev => [...prev, {
+                role: 'agent',
+                text: "There's a note recorded during invoice processing: 'Exceeded PO allowance - only paying up to PO limit', added by Alex Morgan.\n\nSince this partial payment relates to exceeding the PO, I'll confirm with the colleague who processed it.",
+                isReasoned: true,
+                reasoningText: 'Queried ERP processing comments for invoice INV-0115644. Found note from Alex Morgan regarding PO allowance exceeded.',
+                scenario: 'confirm-colleague'
+              }]);
+            }, 400);
+          }, 9000);
+        }, 100);
+      }, 5800);
+    }, 2000);
+  };
+
+  const triggerDraftEmailSequence = () => {
+    if (draftEmailTriggered) return;
+    setDraftEmailTriggered(true);
+
+    // Add thinking message with Address Book
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Address Book',
+        toolIcon: 'user',
+        toolPills: ['Alex Morgan'],
+        scenario: 'draft-email-check'
+      }]);
+
+      // Show tool values after a brief delay
+      setTimeout(() => {
+        setShowToolValues(true);
+
+        // Add response message after tool animation (9 seconds)
+        setTimeout(() => {
+          setChatMessages(prev => {
+            const newMessages = [...prev];
+            // Mark thinking message as exiting
+            const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'draft-email-check');
+            if (thinkingIdx !== -1) {
+              newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+            }
+            return newMessages;
+          });
+
+          setTimeout(() => {
+            // Remove thinking message and add final response
+            setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'draft-email-check')));
+
+            setChatMessages(prev => [...prev, {
+              role: 'agent',
+              text: "I have drafted an email to Alex Morgan:",
+              isReasoned: true,
+              hasCard: true,
+              cardData: {
+                type: 'email-draft',
+                email: {
+                  to: 'Alex Morgan',
+                  subject: 'Re: Invoice INV-0115644 - £100 Short Payment Query',
+                  body: "Hi Alex,\n\nThe supplier for invoice INV-0115644 is querying the £100 short-payment. I can see your note that the amount exceeded the PO allowance and only the PO value was paid.\n\nCan you confirm we should maintain this position before I respond to the supplier?\n\nBest regards"
+                }
+              },
+              reasoningText: 'Retrieved contact details for Alex Morgan from address book. Drafted email requesting confirmation on short-payment decision.',
+              suggestionPills: ['Send', 'Open & Edit Draft'],
+              scenario: 'email-draft-result'
+            }]);
+          }, 400);
+        }, 9000);
+      }, 100);
+    }, 2000);
+  };
+
+  const triggerSendEmailSequence = () => {
+    if (emailSentTriggered) return;
+    setEmailSentTriggered(true);
+
+    // Add thinking message with Send Email
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Send Email',
+        toolIcon: 'mail',
+        toolPills: ['Send to Alex Morgan'],
+        scenario: 'send-email-check'
+      }]);
+
+      // Show tool values after a brief delay
+      setTimeout(() => {
+        setShowToolValues(true);
+
+        // Add response message after tool animation (9 seconds)
+        setTimeout(() => {
+          setChatMessages(prev => {
+            const newMessages = [...prev];
+            // Mark thinking message as exiting
+            const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'send-email-check');
+            if (thinkingIdx !== -1) {
+              newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+            }
+            return newMessages;
+          });
+
+          setTimeout(() => {
+            // Remove thinking message and add final response
+            setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'send-email-check')));
+
+            setChatMessages(prev => [...prev, {
+              role: 'agent',
+              text: "Email sent. I'll notify you once I receive a response.",
+              isReasoned: true,
+              reasoningText: 'Email successfully sent to Alex Morgan via internal email system. Notification will be triggered upon response receipt.',
+              scenario: 'email-sent-result'
+            }]);
+          }, 400);
+        }, 9000);
+      }, 100);
+    }, 2000);
+  };
+
+  const triggerAlertSequence = () => {
+    if (alertTriggered) return;
+    setAlertTriggered(true);
+
+    // Add thinking message with Alert Tool
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Alert Tool',
+        toolIcon: 'alert',
+        toolPills: [],
+        scenario: 'alert-check'
+      }]);
+
+      // Show tool values after a brief delay
+      setTimeout(() => {
+        setShowToolValues(true);
+
+        // Add response message after tool animation (9 seconds)
+        setTimeout(() => {
+          setChatMessages(prev => {
+            const newMessages = [...prev];
+            // Mark thinking message as exiting
+            const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'alert-check');
+            if (thinkingIdx !== -1) {
+              newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+            }
+            return newMessages;
+          });
+
+          setTimeout(() => {
+            // Remove thinking message and add final response
+            setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'alert-check')));
+
+            setChatMessages(prev => [...prev, {
+              role: 'agent',
+              text: "We've received a response from Alex Morgan:",
+              isReasoned: true,
+              hasCard: true,
+              cardData: {
+                type: 'alert-message',
+                message: "Hi! Yes, confirmed - we're firm on this. The supplier went over the PO value, and we will not be paying the additional £100."
+              },
+              reasoningText: 'Received response notification from Alex Morgan via internal email system.',
+              scenario: 'alert-result'
+            }]);
+          }, 400);
+        }, 9000);
+      }, 100);
+    }, 2000);
+  };
+
+  const triggerDraftSupplierResponseSequence = () => {
+    if (draftSupplierResponseTriggered) return;
+    setDraftSupplierResponseTriggered(true);
+
+    // Add intermediate message
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: "Ok, I now have everything required to respond to the supplier. I will draft a response back to them"
+      }]);
+
+      // Add thinking message with Draft Supplier Response tool
+      setTimeout(() => {
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          text: 'Thinking...',
+          type: 'thinking',
+          isReasoned: true,
+          toolName: 'Draft Supplier Response',
+          toolIcon: 'pen',
+          toolPills: [],
+          scenario: 'draft-supplier-check'
+        }]);
+
+        setTimeout(() => {
+          setShowToolValues(true);
+
+          setTimeout(() => {
+            setChatMessages(prev => {
+              const newMessages = [...prev];
+              const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'draft-supplier-check');
+              if (thinkingIdx !== -1) {
+                newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+              }
+              return newMessages;
+            });
+
+            setTimeout(() => {
+              setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'draft-supplier-check')));
+
+              setChatMessages(prev => [...prev, {
+                role: 'agent',
+                text: "I have drafted an email to the supplier:",
+                isReasoned: true,
+                hasCard: true,
+                cardData: {
+                  type: 'email-draft',
+                  email: {
+                    to: 'Wilma Oberbrunner',
+                    subject: 'Re: Invoice INV-0115644 - Payment Query',
+                    body: "Hi Wilma,\n\nThanks for your email.\n\nRegarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.\n\nOn the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.\n\nLet me know if you'd like a copy of the PO for reference.\n\nKind regards,\n[AP Team Member]"
+                  }
+                },
+                reasoningText: 'Compiled response based on: (1) MSA payment terms confirmation, (2) PO limit verification from Query ERP showing £100 overage, (3) Alex Morgan\'s confirmation to maintain PO limit position.',
+                textAfterCard: "Would you like me to send this?",
+                suggestionPills: ['Send'],
+                scenario: 'supplier-draft-result'
+              }]);
+            }, 400);
+          }, 9000);
+        }, 100);
+      }, 5800);
+    }, 2000);
+  };
+
+  const triggerSendExternalEmailSequence = () => {
+    if (sendExternalEmailTriggered) return;
+    setSendExternalEmailTriggered(true);
+
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Send External Email',
+        toolIcon: 'send',
+        toolPills: ['To: Wilma Oberbrunner'],
+        scenario: 'send-external-email-check'
+      }]);
+
+      setTimeout(() => {
+        setShowToolValues(true);
+
+        setTimeout(() => {
+          setChatMessages(prev => {
+            const newMessages = [...prev];
+            const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'send-external-email-check');
+            if (thinkingIdx !== -1) {
+              newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+            }
+            return newMessages;
+          });
+
+          setTimeout(() => {
+            setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'send-external-email-check')));
+
+            setChatMessages(prev => [...prev, {
+              role: 'agent',
+              text: "Email sent successfully to the supplier.",
+              isReasoned: true,
+              reasoningText: 'External email sent to Wilma Oberbrunner (supplier contact) via company email system. Email tracking ID: EXT-2025-001. Delivery confirmation received.'
+            }]);
+
+            // Auto-trigger ticket closure after 2 seconds
+            setTimeout(() => {
+              triggerTicketClosureSequence();
+            }, 2000);
+          }, 400);
+        }, 9000);
+      }, 100);
+    }, 2000);
+  };
+
+  const triggerTicketClosureSequence = () => {
+    if (ticketClosureTriggered) return;
+    setTicketClosureTriggered(true);
+
+    setChatMessages(prev => [...prev, {
+      role: 'agent',
+      text: "Would you like me to update the ticket status to Resolved?",
+      suggestionPills: ['Yes', 'No'],
+      scenario: 'ask-ticket-closure'
+    }]);
+  };
+
+  const triggerTicketStatusUpdateSequence = () => {
+    if (ticketStatusUpdateTriggered) return;
+    setTicketStatusUpdateTriggered(true);
+
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Ticket Status Tool',
+        toolIcon: 'badge',
+        toolPills: ['Status: Resolved'],
+        scenario: 'ticket-status-check'
+      }]);
+
+      setTimeout(() => {
+        setShowToolValues(true);
+
+        setTimeout(() => {
+          setChatMessages(prev => {
+            const newMessages = [...prev];
+            const thinkingIdx = newMessages.findIndex(m => m.type === 'thinking' && m.scenario === 'ticket-status-check');
+            if (thinkingIdx !== -1) {
+              newMessages[thinkingIdx] = { ...newMessages[thinkingIdx], isExiting: true };
+            }
+            return newMessages;
+          });
+
+          setTimeout(() => {
+            setChatMessages(prev => prev.filter(m => !(m.type === 'thinking' && m.scenario === 'ticket-status-check')));
+
+            setChatMessages(prev => [...prev, {
+              role: 'agent',
+              text: "Done. Ticket closed.",
+              isReasoned: true,
+              reasoningText: 'Updated ticket #173524 status from \'In Progress\' to \'Resolved\'. All actions completed: supplier query investigated, internal confirmation obtained, response sent to supplier. Ticket resolution logged in system.'
+            }]);
+
+            // Update the ticket status pill to 'Resolved'
+            onTicketStatusChange('resolved');
+          }, 400);
+        }, 9000);
+      }, 100);
+    }, 2000);
+  };
+
+  // Register the alert trigger callback
+  useEffect(() => {
+    onSetAlertTrigger(triggerAlertSequence);
+  }, []);
+
+  const handlePillClick = (pillText: string, messageIndex: number) => {
+    // Mark this message's pills as used
+    setUsedPillIndices(prev => new Set(prev).add(messageIndex));
+
+    // Handle Send button - check scenario to determine which email sequence
+    if (pillText === 'Send') {
+      const message = chatMessages[messageIndex];
+      if (message.scenario === 'email-draft-result') {
+        // Internal email to Alex Morgan
+        triggerSendEmailSequence();
+        return;
+      } else if (message.scenario === 'supplier-draft-result') {
+        // External email to supplier
+        triggerSendExternalEmailSequence();
+        return;
+      }
+    }
+
+    // Handle Yes/No for ticket closure
+    if (pillText === 'Yes') {
+      const message = chatMessages[messageIndex];
+      if (message.scenario === 'ask-ticket-closure') {
+        triggerTicketStatusUpdateSequence();
+        return;
+      }
+    }
+
+    const userMessage: ChatMessage = { role: 'user', text: pillText };
+
+    // Determine scenario based on pill text
+    let thinkingMessage: ChatMessage;
+    let responseMessage: ChatMessage;
+
+    if (pillText === 'Check conversation') {
+      // Email investigation scenario
+      thinkingMessage = {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Email',
+        toolIcon: 'mail',
+        toolPills: ['Deep Analysis'],
+        scenario: 'check-conversation'
+      };
+
+      responseMessage = {
+        role: 'agent',
+        text: "I've identified two issues raised by the supplier:",
+        textAfterCard: "Would you like me to look into both for you?",
+        isReasoned: true,
+        hasCard: true,
+        cardData: {
+          type: 'issues-list',
+          issues: [
+            { text: 'A short payment of £100 on invoice INV-0115644' },
+            { text: 'A payment timing dispute regarding 60-day terms' }
+          ]
+        },
+        reasoningText: 'Analyzed incoming email from Wilma Oberbrunner (Supplier ID: 5012938). Reviewed email content and identified two distinct issues: (1) £100 short-payment claim on invoice INV-0115644, and (2) dispute over payment terms (supplier claims 30-day terms vs. our records showing 60-day terms). Cross-referenced invoice number and payment amounts mentioned in the email against our payment records.',
+        suggestionPills: ['Yes', 'No'],
+        scenario: 'check-conversation'
+      };
+    } else if (pillText === 'Yes' || pillText === 'No') {
+      // Handle follow-up response (placeholder for now)
+      thinkingMessage = {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Email Search',
+        toolIcon: 'mail',
+        toolPills: ['Supplier: 5012938', 'Limit: 20', 'Most Recent'],
+        scenario: 'follow-up'
+      };
+
+      responseMessage = {
+        role: 'agent',
+        text: "I checked recent communications with this supplier.\n\nI found several references to payments being contingent on us receiving funds from the end customer - this appears to be a pattern with this supplier.\n\nHowever, I didn't find anything helpful regarding short-payments.",
+        isReasoned: true,
+        reasoningText: 'Searched email history for supplier 5012938, filtered for most recent 20 communications. Identified payment dependency pattern but no specific short-payment documentation.',
+        scenario: 'follow-up',
+        triggerFollowUp: true
+      };
+    } else {
+      // Default scenario
+      thinkingMessage = {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Query ERP',
+        toolIcon: 'database',
+        toolPills: ['Investigating...'],
+        scenario: 'default'
+      };
+
+      responseMessage = {
+        role: 'agent',
+        text: "Here's what I found...",
+        isReasoned: true,
+        reasoningText: 'Query identified information in ERP system',
+        scenario: 'default'
+      };
+    }
+
+    // Add user message and thinking indicator
+    setChatMessages([...chatMessages, userMessage, thinkingMessage]);
+    setShowToolValues(false); // Reset tool values visibility
+
+    // After 2 seconds, show the tool values
+    setTimeout(() => {
+      setShowToolValues(true);
+    }, 2000);
+
+    // After 9 seconds, start exit animation then replace with agent response
+    setTimeout(() => {
+      // Mark thinking message as exiting
+      setChatMessages(prev =>
+        prev.map(msg => msg.type === 'thinking' ? { ...msg, isExiting: true } : msg)
+      );
+
+      // After exit animation completes, replace with agent response
+      setTimeout(() => {
+        setChatMessages(prev => {
+          const filtered = prev.filter(msg => msg.type !== 'thinking');
+          return [...filtered, responseMessage];
+        });
+        setShowToolValues(false); // Reset for next thinking cycle
+      }, 400); // Match fadeOutCollapse animation duration
+    }, 9000);
+  };
 
   const handleSend = () => {
     if (inputValue.trim()) {
-      const userMessage = { role: 'user', text: inputValue };
-      const thinkingMessage = { role: 'agent', text: 'Thinking...', type: 'thinking', isReasoned: true };
-      
+      const userMessage: ChatMessage = { role: 'user', text: inputValue };
+
       // Check if user mentioned "PO"
       const isPOQuery = inputValue.toLowerCase().includes('po');
-      
+
+      const thinkingMessage: ChatMessage = {
+        role: 'agent',
+        text: 'Thinking...',
+        type: 'thinking',
+        isReasoned: true,
+        toolName: 'Query ERP',
+        toolIcon: 'database',
+        toolPills: isPOQuery ? ['PO #173524', 'Invoice details'] : ['Investigating...'],
+        scenario: isPOQuery ? 'po-query' : 'default'
+      };
+
+      const responseMessage: ChatMessage = isPOQuery
+        ? {
+            role: 'agent',
+            text: 'I looked at the line items for both the PO and invoice and found a mismatch on one line item:',
+            isReasoned: true,
+            hasCard: true,
+            cardData: {
+              type: 'po-comparison',
+              items: [
+                { label: "PO for 'Site inspection services'", value: '£1,000' },
+                { label: 'Invoice billed', value: '£1,100' },
+                { label: 'Difference', value: '£100 over', isError: true }
+              ]
+            },
+            reasoningText: 'Query identified PO #173524 in ERP system. Cross-referenced invoice details and supplier information to verify request validity.',
+            scenario: 'po-query'
+          }
+        : {
+            role: 'agent',
+            text: "Here's what I found...",
+            isReasoned: true,
+            reasoningText: 'Query identified information in ERP system',
+            scenario: 'default'
+          };
+
       // Add user message and thinking indicator
       setChatMessages([...chatMessages, userMessage, thinkingMessage]);
       setInputValue('');
       setShowToolValues(false); // Reset tool values visibility
-      
+
       // After 2 seconds, show the tool values
       setTimeout(() => {
         setShowToolValues(true);
       }, 2000);
-      
+
       // After 9 seconds, start exit animation then replace with agent response
       setTimeout(() => {
         // Mark thinking message as exiting
-        setChatMessages(prev => 
+        setChatMessages(prev =>
           prev.map(msg => msg.type === 'thinking' ? { ...msg, isExiting: true } : msg)
         );
-        
+
         // After exit animation completes, replace with agent response
         setTimeout(() => {
           setChatMessages(prev => {
             const filtered = prev.filter(msg => msg.type !== 'thinking');
-            const responseText = isPOQuery 
-              ? 'I looked at the line items for both the PO and invoice and found a mismatch on one line item:' 
-              : "Here's what I found...";
-            return [...filtered, { role: 'agent', text: responseText, isReasoned: true, hasCard: isPOQuery }];
+            return [...filtered, responseMessage];
           });
           setShowToolValues(false); // Reset for next thinking cycle
         }, 400); // Match fadeOutCollapse animation duration
@@ -4640,7 +5587,7 @@ function ActivityFeed1() {
 
   return (
     <div className="bg-white content-stretch flex h-full items-start w-[435px] relative rounded-tl-[4px] rounded-tr-[4px]" data-name="Activity Feed">
-      <Frame5 activeView={activeView} chatMessages={chatMessages} showToolValues={showToolValues} expandedReasoning={expandedReasoning} setExpandedReasoning={setExpandedReasoning} />
+      <Frame5 activeView={activeView} chatMessages={chatMessages} showToolValues={showToolValues} expandedReasoning={expandedReasoning} setExpandedReasoning={setExpandedReasoning} onPillClick={handlePillClick} usedPillIndices={usedPillIndices} onFollowUpTrigger={triggerFollowUpSequence} onShortPaymentTrigger={triggerShortPaymentSequence} onCommentsCheckTrigger={triggerCommentsCheckSequence} onDraftEmailTrigger={triggerDraftEmailSequence} onEmailAddTrigger={onAddNewEmail} onDraftSupplierResponseTrigger={triggerDraftSupplierResponseSequence} />
       <ActivityFeed activeView={activeView} setActiveView={setActiveView} />
       
       {/* Chat Input Area - Absolutely positioned at bottom of Activity Feed container */}
@@ -4668,60 +5615,81 @@ function ActivityFeed1() {
   );
 }
 
-function EmailBodyContainer() {
+function EmailBodyContainer({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   return (
     <div className="basis-0 grow min-h-px min-w-0 relative" data-name="Email Body Container">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-row items-start pl-0 pr-0 py-0 relative h-full w-full">
           <EmailBody />
-          <ActivityFeed1 />
+          <ActivityFeed1 onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} />
         </div>
       </div>
     </div>
   );
 }
 
-function EmailDetail() {
+function EmailDetail({ onAddNewEmail, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[12px] grow h-full items-start min-h-px min-w-0 relative" data-name="Email Detail">
-      <EmailHeader />
-      <EmailBodyContainer />
+      <EmailHeader ticketStatus={ticketStatus} />
+      <EmailBodyContainer onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} />
     </div>
   );
 }
 
-function ContentContainer() {
+function ContentContainer({ showNewEmail, onAddNewEmail, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { showNewEmail: boolean; onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   return (
     <div className="basis-0 bg-[#f6f6f8] box-border content-stretch flex gap-px grow items-start min-h-px min-w-0 pb-0 pt-[12px] px-0 relative w-full" data-name="Content Container">
-      <Sidebar />
-      <EmailDetail />
+      <Sidebar showNewEmail={showNewEmail} />
+      <EmailDetail onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} />
     </div>
   );
 }
 
-function MainContainer() {
+function MainContainer({ showNewEmail, onAddNewEmail, showNotification, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { showNewEmail: boolean; onAddNewEmail: () => void; showNotification: boolean; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   return (
     <div className="content-stretch flex flex-col h-full items-start relative overflow-hidden flex-1" data-name="Main Container">
       <div className="bg-white box-border content-stretch flex items-center justify-between pl-[16px] pr-0 py-[8px] relative shrink-0 w-full" data-name="Second Level Menu">
         <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none" />
         <MenuItems1 />
-        <SearchAndIcons />
+        <SearchAndIcons showNotification={showNotification} />
       </div>
-      <ContentContainer />
+      <ContentContainer showNewEmail={showNewEmail} onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} />
     </div>
   );
 }
 
 export default function Reply() {
+  const [showNewEmail, setShowNewEmail] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [alertTriggerCallback, setAlertTriggerCallback] = useState<(() => void) | null>(null);
+  const [ticketStatus, setTicketStatus] = useState<'in-progress' | 'resolved'>('in-progress');
+
+  const handleAddNewEmail = () => {
+    setShowNewEmail(true);
+    setShowNotification(true);
+
+    // Trigger alert sequence after 3 seconds
+    if (alertTriggerCallback) {
+      setTimeout(() => {
+        alertTriggerCallback();
+      }, 3000);
+    }
+  };
+
+  const handleSetAlertTrigger = (callback: () => void) => {
+    setAlertTriggerCallback(() => callback);
+  };
+
   return (
     <div className="bg-[#fafafb] content-stretch flex items-start relative size-full overflow-hidden" data-name="Reply">
-      <div className="bg-gradient-to-b box-border content-stretch flex flex-col from-[#0b0b45] h-[800px] items-center justify-between px-[8px] py-[16px] relative shrink-0 to-[#210840] via-[#3b0f73] via-[52.083%]" data-name="Top level menu">
+      <div className="bg-gradient-to-b box-border content-stretch flex flex-col from-[#0b0b45] h-full items-center justify-between px-[8px] py-[16px] relative shrink-0 to-[#210840] via-[#3b0f73] via-[52.083%]" data-name="Top level menu">
         <Logo />
         <div className="box-border content-stretch flex flex-col gap-[4px] items-center px-[12px] py-[8px] relative rounded-[4px] shrink-0 w-[40px]" data-name="Modules">
           <Settings className="text-[#e3e3e3]" size={24} strokeWidth={1.5} />
         </div>
       </div>
-      <MainContainer />
+      <MainContainer showNewEmail={showNewEmail} onAddNewEmail={handleAddNewEmail} showNotification={showNotification} onSetAlertTrigger={handleSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={setTicketStatus} />
     </div>
   );
 }

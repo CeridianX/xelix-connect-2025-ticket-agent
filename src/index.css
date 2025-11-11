@@ -96,6 +96,19 @@ html {
   animation: 2s linear infinite shimmer;
 }
 
+@keyframes word-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-word-fade-in {
+  animation: word-fade-in 0.3s ease-out forwards;
+}
+
 @keyframes sparkle-pulse {
   0%, 100% {
     opacity: .4;
