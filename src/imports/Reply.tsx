@@ -597,7 +597,7 @@ function Container7() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">James Rodriguez</p>
       <Chip1 />
     </div>
   );
@@ -703,7 +703,7 @@ function Container14() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Maria Chen</p>
       <Chip2 />
     </div>
   );
@@ -805,7 +805,7 @@ function Container21() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Michael Park</p>
       <Chip3 />
     </div>
   );
@@ -896,7 +896,7 @@ function Container28() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Robert Anderson</p>
       <Chip4 />
     </div>
   );
@@ -987,7 +987,7 @@ function Container35() {
           <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Wilma Oberbrunner</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">Jennifer Lee</p>
       <Chip5 />
     </div>
   );
@@ -2137,7 +2137,7 @@ function ActionBar() {
 
 function ContentArea() {
   return (
-    <div className="bg-white box-border content-stretch flex flex-col gap-[16px] items-center pb-[12px] pt-0 px-0 relative rounded-[4px] w-full min-w-0" data-name="Content Area">
+    <div style={{ display: 'none' }} className="bg-white box-border content-stretch flex flex-col gap-[16px] items-center pb-[12px] pt-0 px-0 relative rounded-[4px] w-full min-w-0" data-name="Content Area">
       <ComposeContainer />
       <ActionBar />
     </div>
@@ -2149,8 +2149,8 @@ function EmailSenderInfo() {
     <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Email Sender Info">
       <div className="flex flex-row items-center size-full">
         <div className="box-border content-stretch flex gap-[8px] items-center pl-0 pr-[16px] py-0 relative w-full">
-          <p className="font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
-            <span className="text-[#1e70ae]">{`Wilma Oberbrunner `}</span>
+          <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+            <span className="font-['Barlow:Bold',sans-serif] font-bold">From:</span> <span className="font-['Barlow:Medium',sans-serif] text-[#1e70ae]">{`Wilma Oberbrunner `}</span>
             <span className="font-['Barlow:Medium',sans-serif]">{`<wilma.oberbrunner@acmeplc.com>`}</span>
           </p>
         </div>
@@ -2367,7 +2367,7 @@ function DateHeader() {
           </div>
         </div>
       </div>
-      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">08/11/2025</p>
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">10/11/2025</p>
     </div>
   );
 }
@@ -2591,7 +2591,7 @@ function InvoiceDetails() {
         <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
-        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">0115644</span>
+        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">INV-0115644</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
@@ -2745,7 +2745,7 @@ function InvoiceDetails1() {
         <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
-        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">0115644</span>
+        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">INV-0115644</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
@@ -2885,7 +2885,7 @@ function InvoiceDetails2() {
         <span className="font-['Barlow:Regular',sans-serif]">Acme PLC</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] w-[min-content]">
-        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> 0115644
+        <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> INV-0115644
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
@@ -2963,7 +2963,7 @@ function Container47() {
         </div>
       </div>
       <div className="h-[16px] relative shrink-0 w-[184px]" data-name="Activity Status">
-        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 05/11/2025 - 09:15</p>
+        <p className="absolute bottom-0 font-['Barlow:Medium',sans-serif] leading-[1.6] left-0 not-italic right-[20.11%] text-[#222222] text-[10px] text-nowrap top-0 whitespace-pre">Accurate as of 12/11/2025 - 09:15</p>
       </div>
     </div>
   );
@@ -3762,7 +3762,7 @@ function InvoiceDetails4() {
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[0px] text-[12px] w-[min-content]">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Invoice no:</span>
         <span className="text-[#222222]"> </span>
-        <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] not-italic text-[#1e70ae] underline">0115644</span>
+        <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] not-italic text-[#1e70ae] underline">INV-0115644</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] relative shrink-0 text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Amount:</span>
@@ -4555,6 +4555,30 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   </p>
                                 </div>
                               ))}
+                              {msg.cardData.type === 'comparison-table' && msg.cardData.rows && (
+                                <div className="overflow-x-auto">
+                                  <table className="w-full border-collapse">
+                                    <thead>
+                                      <tr className="border-b border-[#e3e3e3]">
+                                        <th className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#464646] text-left pb-[8px] pr-[12px]">Line Item</th>
+                                        <th className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#464646] text-right pb-[8px] pr-[12px]">PO</th>
+                                        <th className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#464646] text-right pb-[8px] pr-[12px]">Invoice</th>
+                                        <th className="font-['Barlow:SemiBold',sans-serif] text-[11px] text-[#464646] text-right pb-[8px]">Diff.</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {msg.cardData.rows.map((row: any, rowIdx: number) => (
+                                        <tr key={rowIdx} className={rowIdx > 0 ? 'border-t border-[#f0f0f0]' : ''}>
+                                          <td className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#222222] py-[8px] pr-[12px]">{row.lineItem}</td>
+                                          <td className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#222222] text-right py-[8px] pr-[12px]">{row.po}</td>
+                                          <td className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#222222] text-right py-[8px] pr-[12px]">{row.invoice}</td>
+                                          <td className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#e74c3c] text-right py-[8px]">{row.diff}</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              )}
                               {msg.cardData.type === 'document-reference' && msg.cardData.document && (
                                 <div className="flex items-center gap-[8px] cursor-pointer hover:bg-[#f9f9f9] transition-colors p-[4px] rounded-[4px] -m-[4px]">
                                   <FileText className="text-[#5a1899] shrink-0" size={14} strokeWidth={2} />
@@ -4960,11 +4984,14 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                 isReasoned: true,
                 hasCard: true,
                 cardData: {
-                  type: 'issues-list',
-                  issues: [
-                    { text: "PO for 'Site inspection services' was £1,000" },
-                    { text: 'Invoice billed £1,100' },
-                    { text: 'Difference: £100 over the PO value' }
+                  type: 'comparison-table',
+                  rows: [
+                    {
+                      lineItem: "Site inspection services",
+                      po: '£1,000',
+                      invoice: '£1,100',
+                      diff: '-£100'
+                    }
                   ]
                 },
                 textAfterCard: "This amount was removed during processing, resulting in a £100 short-payment.",
