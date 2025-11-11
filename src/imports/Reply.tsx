@@ -1,7 +1,8 @@
 import svgPaths from "./svg-8bp8wepc9e";
 import { img } from "./svg-blf8z";
 import React, { useState, useEffect } from "react";
-import { ArrowDownUp, Bell, HelpCircle, Megaphone, CircleUser, List, AlertCircle, BadgeCheck, Paperclip, Settings, Database, Globe, Sparkles, CornerUpLeft, ReplyAll, CornerUpRight, PenLine, Copy, Send, Loader2, ChevronRight, ChevronDown, RefreshCw, ArrowDown, Mail, FileText, UserCircle } from "lucide-react";
+import { ArrowDownUp, Bell, HelpCircle, Megaphone, CircleUser, List, AlertCircle, BadgeCheck, Paperclip, Settings, Database, Globe, Sparkles, CornerUpLeft, ReplyAll, CornerUpRight, PenLine, Copy, Send, Loader2, ChevronRight, ChevronDown, RefreshCw, ArrowDown, Mail, FileText, UserCircle, MessageSquare, ChevronsLeft } from "lucide-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 function XelixBrandRed() {
   return (
@@ -174,11 +175,74 @@ function ButtonLightTheme() {
   );
 }
 
+function NotificationPopover({
+  notificationData,
+  onDismiss,
+  onView
+}: {
+  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  onDismiss: () => void;
+  onView: () => void;
+}) {
+  if (!notificationData) return null;
+
+  return (
+    <div className="w-[320px]">
+      <div className="flex flex-col gap-[10px]">
+        {/* Header */}
+        <div className="flex items-center gap-[6px]">
+          <Bell className="text-[#5a1899]" size={16} strokeWidth={2} />
+          <h3 className="font-['Barlow:Bold',sans-serif] text-[14px] text-[#222222]">Notifications</h3>
+        </div>
+
+        {/* Notification Card */}
+        <div className="bg-white border border-[#e3e3e3] rounded-[6px] p-[10px] flex flex-col gap-[8px]">
+          {/* Sender and Timestamp */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-[6px]">
+              <Mail className="text-[#5a1899]" size={14} strokeWidth={2} />
+              <p className="font-['Barlow:Medium',sans-serif] text-[12px] text-[#222222]">{notificationData.sender}</p>
+            </div>
+            <span className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182]">{notificationData.timestamp}</span>
+          </div>
+
+          {/* Preview */}
+          <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5]">{notificationData.preview}</p>
+
+          {/* Context Reference */}
+          <div className="bg-[#f9f9f9] border border-[#e3e3e3] rounded-[4px] p-[6px] flex items-start gap-[6px]">
+            <Sparkles className="text-[#5a1899] shrink-0 mt-[1px]" size={12} strokeWidth={2} />
+            <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182] leading-[1.4] italic">
+              Ticket Agent: As mentioned, I'm notifying you about the response
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-[6px]">
+            <button
+              onClick={onView}
+              className="flex-1 bg-[#5a1899] hover:bg-[#6a1fa9] text-white font-['Barlow:Medium',sans-serif] text-[11px] py-[6px] px-[10px] rounded-[4px] transition-colors cursor-pointer"
+            >
+              View
+            </button>
+            <button
+              onClick={onDismiss}
+              className="flex-1 bg-white hover:bg-[#f9f9f9] text-[#464646] font-['Barlow:Medium',sans-serif] text-[11px] py-[6px] px-[10px] rounded-[4px] border border-[#e3e3e3] transition-colors cursor-pointer"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function IconContainer1({ showNotification }: { showNotification: boolean }) {
   return (
-    <div className="content-stretch flex gap-[2px] items-start justify-center relative shrink-0" data-name="Icon Container">
+    <div className="content-stretch flex gap-[2px] items-start justify-center relative shrink-0 cursor-pointer" data-name="Icon Container">
       <div className="relative">
-        <Bell className="text-[#464646]" size={20} strokeWidth={1.5} />
+        <Bell className="text-[#464646] hover:text-[#222222] transition-colors" size={20} strokeWidth={1.5} />
         {showNotification && (
           <div className="absolute top-0 right-0 w-[6px] h-[6px] bg-[#e74c3c] rounded-full" />
         )}
@@ -187,11 +251,36 @@ function IconContainer1({ showNotification }: { showNotification: boolean }) {
   );
 }
 
-function ButtonLightTheme1({ showNotification }: { showNotification: boolean }) {
+function ButtonLightTheme1({
+  showNotification,
+  isPopoverOpen,
+  onPopoverChange,
+  notificationData,
+  onDismiss,
+  onView
+}: {
+  showNotification: boolean;
+  isPopoverOpen: boolean;
+  onPopoverChange: (open: boolean) => void;
+  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  onDismiss: () => void;
+  onView: () => void;
+}) {
   return (
-    <div className="box-border content-stretch flex gap-[12px] h-[48px] items-center justify-center px-[8px] py-[16px] relative shrink-0" data-name="Button/Light Theme">
-      <IconContainer1 showNotification={showNotification} />
-    </div>
+    <Popover open={isPopoverOpen} onOpenChange={onPopoverChange}>
+      <PopoverTrigger asChild>
+        <div className="box-border content-stretch flex gap-[12px] h-[48px] items-center justify-center px-[8px] py-[16px] relative shrink-0" data-name="Button/Light Theme">
+          <IconContainer1 showNotification={showNotification} />
+        </div>
+      </PopoverTrigger>
+      <PopoverContent align="end" side="bottom" sideOffset={8} className="w-auto p-[16px] bg-white border-[#e3e3e3]">
+        <NotificationPopover
+          notificationData={notificationData}
+          onDismiss={onDismiss}
+          onView={onView}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -243,11 +332,32 @@ function ButtonLightTheme4() {
   );
 }
 
-function IconsContainer({ showNotification }: { showNotification: boolean }) {
+function IconsContainer({
+  showNotification,
+  isPopoverOpen,
+  onPopoverChange,
+  notificationData,
+  onDismiss,
+  onView
+}: {
+  showNotification: boolean;
+  isPopoverOpen: boolean;
+  onPopoverChange: (open: boolean) => void;
+  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  onDismiss: () => void;
+  onView: () => void;
+}) {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-name="Icons Container">
       <ButtonLightTheme />
-      <ButtonLightTheme1 showNotification={showNotification} />
+      <ButtonLightTheme1
+        showNotification={showNotification}
+        isPopoverOpen={isPopoverOpen}
+        onPopoverChange={onPopoverChange}
+        notificationData={notificationData}
+        onDismiss={onDismiss}
+        onView={onView}
+      />
       <ButtonLightTheme2 />
       <ButtonLightTheme3 />
       <ButtonLightTheme4 />
@@ -255,11 +365,32 @@ function IconsContainer({ showNotification }: { showNotification: boolean }) {
   );
 }
 
-function SearchAndIcons({ showNotification }: { showNotification: boolean }) {
+function SearchAndIcons({
+  showNotification,
+  isPopoverOpen,
+  onPopoverChange,
+  notificationData,
+  onDismiss,
+  onView
+}: {
+  showNotification: boolean;
+  isPopoverOpen: boolean;
+  onPopoverChange: (open: boolean) => void;
+  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  onDismiss: () => void;
+  onView: () => void;
+}) {
   return (
     <div className="box-border content-stretch flex gap-[12px] items-center justify-end pl-[8px] pr-[16px] py-0 relative shrink-0" data-name="Search and Icons">
       <TextInput />
-      <IconsContainer showNotification={showNotification} />
+      <IconsContainer
+        showNotification={showNotification}
+        isPopoverOpen={isPopoverOpen}
+        onPopoverChange={onPopoverChange}
+        notificationData={notificationData}
+        onDismiss={onDismiss}
+        onView={onView}
+      />
     </div>
   );
 }
@@ -4503,27 +4634,33 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                       </div>
                     ) : (
                       <>
-                        <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] whitespace-pre-line">
-                          {animatedMessages.has(idx) ? (
-                            msg.text
-                          ) : (
-                            <TypewriterText
-                              text={msg.text}
-                              onComplete={() => {
-                                markMessageAnimated(idx);
-                                if (msg.hasCard && msg.textAfterCard) {
-                                  handleTextComplete(idx);
-                                } else if (msg.hasCard && !msg.textAfterCard) {
-                                  // For messages with cards but no textAfterCard, mark text complete
-                                  setTextCompleted(prev => ({ ...prev, [idx]: true }));
-                                } else if (msg.triggerFollowUp && onFollowUpTrigger) {
-                                  // Trigger follow-up sequence after 2 seconds
-                                  setTimeout(() => onFollowUpTrigger(), 2000);
-                                }
-                              }}
-                            />
-                          )}
-                        </p>
+                        {idx === 0 && msg.role === 'agent' ? (
+                          <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] whitespace-pre-line">
+                            Hi, how can i help with ticket <span className="font-['Barlow:Bold',sans-serif]" style={{ fontWeight: 700 }}>#173524</span>?
+                          </p>
+                        ) : (
+                          <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] whitespace-pre-line">
+                            {animatedMessages.has(idx) ? (
+                              msg.text
+                            ) : (
+                              <TypewriterText
+                                text={msg.text}
+                                onComplete={() => {
+                                  markMessageAnimated(idx);
+                                  if (msg.hasCard && msg.textAfterCard) {
+                                    handleTextComplete(idx);
+                                  } else if (msg.hasCard && !msg.textAfterCard) {
+                                    // For messages with cards but no textAfterCard, mark text complete
+                                    setTextCompleted(prev => ({ ...prev, [idx]: true }));
+                                  } else if (msg.triggerFollowUp && onFollowUpTrigger) {
+                                    // Trigger follow-up sequence after 2 seconds
+                                    setTimeout(() => onFollowUpTrigger(), 2000);
+                                  }
+                                }}
+                              />
+                            )}
+                          </p>
+                        )}
                         {msg.hasCard && msg.cardData && (textCompleted[idx] || animatedMessages.has(idx)) && (
                           <div className={`mt-[12px] bg-white border border-[#e3e3e3] rounded-[6px] ${msg.cardData.type === 'document-reference' ? 'p-[8px]' : 'p-[12px]'} animate-fade-in-up`} style={{ animationDelay: !animatedMessages.has(idx) ? '0.2s' : '0s', animationFillMode: 'backwards' }}>
                             <div className={`flex flex-col ${msg.cardData.type === 'issues-list' ? 'gap-[1px]' : 'gap-[10px]'}`}>
@@ -4678,7 +4815,7 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
               </div>
 
               {/* Initial Suggestion Pills - Show only after first greeting message and before any user interaction */}
-              {idx === 0 && msg.role === 'agent' && msg.text === 'Hi, how can I help?' && chatMessages.length === 1 && !usedPillIndices.has(idx) && (
+              {idx === 0 && msg.role === 'agent' && chatMessages.length === 1 && !usedPillIndices.has(idx) && (
                 <div className="flex gap-[8px] mb-[12px] ml-0 animate-slide-in-left" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
                   <button
                     onClick={() => onPillClick('Check conversation', idx)}
@@ -4772,9 +4909,9 @@ function TypewriterText({ text, speed = 80, onComplete }: { text: string; speed?
 
 function ListContainer({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div 
+    <div
       onClick={onClick}
-      className={`box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px] cursor-pointer ${isActive ? 'bg-[#501899]' : ''}`} 
+      className={`box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px] cursor-pointer ${isActive ? 'bg-[#501899]' : 'border border-[#501899]'}`}
       data-name="List Container"
     >
       <List className={isActive ? 'text-white' : 'text-[#501899]'} size={18} strokeWidth={2} />
@@ -4784,17 +4921,17 @@ function ListContainer({ isActive, onClick }: { isActive: boolean; onClick: () =
 
 function CommentContainer() {
   return (
-    <div className="box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px]" data-name="Comment Container">
-      <p className="font-['Font_Awesome_6_Pro:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#501899] text-[12px] text-nowrap whitespace-pre">comment</p>
+    <div className="box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px] border border-[#501899]" data-name="Comment Container">
+      <MessageSquare className="text-[#501899]" size={18} strokeWidth={2} />
     </div>
   );
 }
 
 function SparklesContainer({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div 
+    <div
       onClick={onClick}
-      className={`box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px] cursor-pointer ${isActive ? 'bg-[#501899]' : ''}`} 
+      className={`box-border content-stretch flex flex-col gap-[8px] items-center justify-center p-[10px] relative rounded-[100px] shrink-0 size-[36px] cursor-pointer ${isActive ? 'bg-[#501899]' : 'border border-[#501899]'}`}
       data-name="Sparkles Container"
     >
       <Sparkles className={isActive ? 'text-white' : 'text-[#501899]'} size={18} strokeWidth={2} />
@@ -4815,11 +4952,7 @@ function Frame6({ activeView, setActiveView }: { activeView: 'activity' | 'ai'; 
 function ActivityFeed({ activeView, setActiveView }: { activeView: 'activity' | 'ai'; setActiveView: (view: 'activity' | 'ai') => void }) {
   return (
     <div className="bg-white box-border content-stretch flex flex-col gap-[16px] h-full items-center overflow-y-auto pb-0 pt-[24px] px-[8px] relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[48px]" data-name="Activity Feed">
-      <div className="relative shrink-0 size-[12px]" data-name="vector">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
-          <path d={svgPaths.p8ac5a00} fill="var(--fill-0, #222222)" id="vector" />
-        </svg>
-      </div>
+      <ChevronsLeft className="text-[#222222]" size={20} strokeWidth={2} />
       <Frame6 activeView={activeView} setActiveView={setActiveView} />
     </div>
   );
@@ -4847,7 +4980,7 @@ interface ChatMessage {
 function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
   const [activeView, setActiveView] = useState<'activity' | 'ai'>('activity');
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    { role: 'agent', text: 'Hi, how can I help?' }
+    { role: 'agent', text: 'Hi, how can i help with ticket #173524?' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [showToolValues, setShowToolValues] = useState(false);
@@ -5673,13 +5806,44 @@ function ContentContainer({ showNewEmail, onAddNewEmail, onSetAlertTrigger, tick
   );
 }
 
-function MainContainer({ showNewEmail, onAddNewEmail, showNotification, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { showNewEmail: boolean; onAddNewEmail: () => void; showNotification: boolean; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
+function MainContainer({
+  showNewEmail,
+  onAddNewEmail,
+  showNotification,
+  isNotificationPopoverOpen,
+  onNotificationPopoverChange,
+  notificationData,
+  onDismissNotification,
+  onViewNotification,
+  onSetAlertTrigger,
+  ticketStatus,
+  onTicketStatusChange
+}: {
+  showNewEmail: boolean;
+  onAddNewEmail: () => void;
+  showNotification: boolean;
+  isNotificationPopoverOpen: boolean;
+  onNotificationPopoverChange: (open: boolean) => void;
+  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  onDismissNotification: () => void;
+  onViewNotification: () => void;
+  onSetAlertTrigger: (callback: () => void) => void;
+  ticketStatus: 'in-progress' | 'resolved';
+  onTicketStatusChange: (status: 'in-progress' | 'resolved') => void;
+}) {
   return (
     <div className="content-stretch flex flex-col h-full items-start relative overflow-hidden flex-1" data-name="Main Container">
       <div className="bg-white box-border content-stretch flex items-center justify-between pl-[16px] pr-0 py-[8px] relative shrink-0 w-full" data-name="Second Level Menu">
         <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none" />
         <MenuItems1 />
-        <SearchAndIcons showNotification={showNotification} />
+        <SearchAndIcons
+          showNotification={showNotification}
+          isPopoverOpen={isNotificationPopoverOpen}
+          onPopoverChange={onNotificationPopoverChange}
+          notificationData={notificationData}
+          onDismiss={onDismissNotification}
+          onView={onViewNotification}
+        />
       </div>
       <ContentContainer showNewEmail={showNewEmail} onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} />
     </div>
@@ -5691,10 +5855,21 @@ export default function Reply() {
   const [showNotification, setShowNotification] = useState(false);
   const [alertTriggerCallback, setAlertTriggerCallback] = useState<(() => void) | null>(null);
   const [ticketStatus, setTicketStatus] = useState<'in-progress' | 'resolved'>('in-progress');
+  const [isNotificationPopoverOpen, setIsNotificationPopoverOpen] = useState(false);
+  const [notificationData, setNotificationData] = useState<{
+    sender: string;
+    preview: string;
+    timestamp: string;
+  } | null>(null);
 
   const handleAddNewEmail = () => {
     setShowNewEmail(true);
     setShowNotification(true);
+    setNotificationData({
+      sender: 'Alex Morgan',
+      preview: 'Response received to your email',
+      timestamp: 'Just now'
+    });
 
     // Trigger alert sequence after 3 seconds
     if (alertTriggerCallback) {
@@ -5708,6 +5883,18 @@ export default function Reply() {
     setAlertTriggerCallback(() => callback);
   };
 
+  const handleDismissNotification = () => {
+    setShowNotification(false);
+    setIsNotificationPopoverOpen(false);
+  };
+
+  const handleViewNotification = () => {
+    setShowNotification(false);
+    setIsNotificationPopoverOpen(false);
+    // The new email is already visible in the sidebar (blue highlight)
+    // No additional scrolling needed as it's the first card
+  };
+
   return (
     <div className="bg-[#fafafb] content-stretch flex items-start relative size-full overflow-hidden" data-name="Reply">
       <div className="bg-gradient-to-b box-border content-stretch flex flex-col from-[#0b0b45] h-full items-center justify-between px-[8px] py-[16px] relative shrink-0 to-[#210840] via-[#3b0f73] via-[52.083%]" data-name="Top level menu">
@@ -5716,7 +5903,19 @@ export default function Reply() {
           <Settings className="text-[#e3e3e3]" size={24} strokeWidth={1.5} />
         </div>
       </div>
-      <MainContainer showNewEmail={showNewEmail} onAddNewEmail={handleAddNewEmail} showNotification={showNotification} onSetAlertTrigger={handleSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={setTicketStatus} />
+      <MainContainer
+        showNewEmail={showNewEmail}
+        onAddNewEmail={handleAddNewEmail}
+        showNotification={showNotification}
+        isNotificationPopoverOpen={isNotificationPopoverOpen}
+        onNotificationPopoverChange={setIsNotificationPopoverOpen}
+        notificationData={notificationData}
+        onDismissNotification={handleDismissNotification}
+        onViewNotification={handleViewNotification}
+        onSetAlertTrigger={handleSetAlertTrigger}
+        ticketStatus={ticketStatus}
+        onTicketStatusChange={setTicketStatus}
+      />
     </div>
   );
 }
