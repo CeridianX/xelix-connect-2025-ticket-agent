@@ -6,18 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Xelix Connect 2025 - Ticket Agent Demo**
 
-This is a demonstration helpdesk application featuring an AI-powered ticket agent interface. The application simulates a modern customer support platform where support agents can manage email tickets with assistance from an intelligent AI agent.
+This is a demonstration helpdesk application featuring an AI-powered ticket agent interface. The application simulates a modern customer support platform where support agents can manage email tickets with assistance from an intelligent AI agent. The demo showcases an interactive workflow where the AI agent helps resolve a supplier invoice dispute by querying internal systems, drafting emails, and coordinating with colleagues.
 
 ### What It Does
 
 The application provides a comprehensive helpdesk interface that includes:
 
 - **Email Ticket Management**: View and respond to customer support emails with full email threading, attachments, and status tracking
-- **AI Ticket Agent**: Interactive AI assistant that helps resolve tickets by analyzing email content, extracting key information, and suggesting actions
+- **AI Ticket Agent**: Interactive AI assistant that helps resolve tickets by analyzing email content, extracting key information, and suggesting actions through a conversational interface
+- **Real-time Notifications**: Clickable notification bell with popover display showing incoming responses from colleagues, with red dot indicator and contextual messages
 - **Activity Tracking**: Monitor ticket history, status changes, and agent interactions in a dedicated activity feed
-- **Intelligent Chat Interface**: Conversational AI agent with modern LLM-style typewriter animation for responses
-- **Ticket Status Management**: Track tickets through states (In Progress, On Hold, Resolved) with visual indicators
+- **Intelligent Chat Interface**: Conversational AI agent with modern LLM-style typewriter animation for responses, reasoning indicators, and interactive suggestion pills
+- **Ticket Status Management**: Track tickets through states (In Progress, On Hold, Resolved) with visual indicators and dynamic status updates
+- **Demo Workflow**: Pre-scripted interactive demo that simulates querying ERP systems, checking contracts, drafting emails, and receiving colleague responses
 - **Responsive Layout**: Adaptive interface that maintains usability across different screen sizes with proper overflow handling
+- **Animated Transitions**: Smooth slide-in animations for new emails and fade-in effects for chat messages
 
 ### Technology Stack
 
@@ -89,16 +92,43 @@ The application features a sophisticated AI chat interface with the following ca
 - Exit animations for message removal
 - Proper text wrapping with 1.6 line height for readability
 
+### Notification System
+
+**Bell Icon with Popover** (`src/imports/Reply.tsx:247-278`)
+- Clickable bell icon in top navigation bar
+- Red dot indicator (6px diameter, color `#e74c3c`) appears when new notifications arrive
+- Uses Radix UI Popover component for accessibility
+- Positioned at top-right, aligned to end with 8px offset
+
+**Notification Popover Design** (`src/imports/Reply.tsx:178-235`)
+- Header: "Notifications" title with purple Bell icon (16px)
+- Compact card-based layout supporting multiple notifications
+- White background (`#ffffff`) with faint gray border (`#e3e3e3`)
+- Width: 320px
+
+**Notification Card Structure:**
+- **Sender Row**: Purple Mail icon + sender name (Alex Morgan) + timestamp (right-aligned, 10px font)
+- **Preview**: Brief message description (11px font)
+- **Context Reference**: Gray box with purple Sparkles icon and "Ticket Agent:" prefix showing AI agent's commitment to notify
+- **Actions**: Two compact buttons (View/Dismiss) that clear the red dot indicator
+
+**State Management:**
+- `showNotification`: Boolean for red dot visibility
+- `isNotificationPopoverOpen`: Boolean for popover open/close state
+- `notificationData`: Object containing sender, preview, and timestamp
+- Triggered by `handleAddNewEmail()` function when Alex Morgan responds
+
 ### Activity Panel System
 
 **Dual View Interface:**
 - **Activity Feed**: Timeline of ticket events and status changes
-- **Ticket Agent Chat**: AI conversation interface
+- **Ticket Agent Chat**: AI conversation interface with initial message "Hi, how can i help with ticket **#173524**?" (ticket number in bold)
 
 **48px Sidebar Toggle:**
 - Visual toggle between views using Lucide React icons (List, Sparkles)
 - Icon size: 18px with 2px stroke width
 - Active state styling with purple background (#501899)
+- Non-active icons have 1px purple outline border
 - Persistent sidebar visibility (fixed width, no overflow clipping)
 
 ### Responsive Layout Architecture
@@ -123,12 +153,15 @@ The application features a sophisticated AI chat interface with the following ca
 - CSS custom properties for easy theming
 - Consistent spacing using rem units
 
-**Custom Animations** (`src/index.css:85-309`)
+**Custom Animations** (`src/index.css:85-343`)
 - Shimmer effects for loading states
 - Sparkle pulse and orbit animations
 - Slide-in transitions (left/right)
 - Fade animations with collapse
 - Center pulse effects
+- **Email slide-in animation**: `animate-email-slide-in` (0.6s duration) for smooth appearance of new emails in inbox
+- **Message animations**: `animate-slide-in-left` for agent messages, `animate-slide-in-right` for user messages
+- **Card animations**: `animate-fade-in-up` for card content with configurable delays
 
 ## Architecture
 
@@ -160,6 +193,38 @@ The application features a sophisticated AI chat interface with the following ca
 
 **Package Aliases**: Extensive versioned package aliases in Vite config (lines 11-48) map specific package versions to their base names for import resolution.
 
+## Demo Workflow
+
+The application includes a pre-scripted interactive demo that simulates a complete ticket resolution workflow:
+
+**Scenario:** Supplier (Wilma Oberbrunner) queries a £100 short payment on invoice INV-0115644
+
+**Demo Sequence:**
+1. **Initial Inquiry**: Ticket agent greets with "Hi, how can i help with ticket #173524?"
+2. **ERP Query**: Agent uses "Query ERP" tool to check invoice processing history
+3. **Finds Note**: Discovers Alex Morgan's note: "Exceeded PO allowance - only paying up to PO limit"
+4. **Contract Check**: Uses "Query Contract" tool to verify payment terms with supplier
+5. **PO Comparison**: Displays comparison table showing £100 difference (Invoice: £1,100 vs PO: £1,000)
+6. **Draft Internal Email**: Creates email to Alex Morgan requesting confirmation
+7. **Send Email**: User clicks "Send" pill to send email
+8. **Notification**: After 3 seconds, red dot appears on bell icon
+9. **Alex Responds**: Click bell to see notification, new email slides into inbox
+10. **Draft Supplier Response**: Agent compiles final response based on Alex's confirmation
+11. **Status Update**: Changes ticket status from "In Progress" to "Resolved"
+
+**Interactive Elements:**
+- Suggestion pills (clickable buttons that trigger next demo step)
+- Tool indicators showing which system is being queried
+- Expandable reasoning sections (click to see AI's thought process)
+- Email draft cards with expand/collapse functionality
+- Status change buttons (In Progress, On Hold, Resolved)
+
+**State Triggers:**
+- `triggerSendEmailSequence()`: Handles internal email sending
+- `triggerAlertSequence()`: Shows Alex Morgan's response
+- `handleAddNewEmail()`: Displays new email in sidebar with animation
+- `handlePillClick()`: Processes suggestion pill interactions
+
 ## Important Implementation Details
 
 ### Working with Reply Component
@@ -171,6 +236,33 @@ The application features a sophisticated AI chat interface with the following ca
 - Uses Lucide React for icons throughout the application
 - Custom icon replacement logic in `ActivityIconFix.tsx` handles dynamic icon rendering
 - Icon map includes: bolt→Zap, stopwatch→Timer, PAPERCLIP→Paperclip, list→List, comment→MessageSquare, sparkles→Sparkles
+- Key icons: Bell, Mail, Sparkles, List, MessageSquare, ChevronsLeft
+
+### Color Palette & Branding
+**Primary Colors:**
+- **Purple/Brand**: `#5a1899` (used for icons, active states, buttons, links)
+- **Purple Dark**: `#501899` (active sidebar icons)
+- **Purple Light**: `#f0ebf8` (user message bubbles background)
+
+**UI Colors:**
+- **Text Primary**: `#222222` (main text)
+- **Text Secondary**: `#464646` (secondary text)
+- **Text Muted**: `#717182` (timestamps, helper text)
+- **Border**: `#e3e3e3` (subtle borders on cards, inputs)
+- **Background**: `#ffffff` (cards, popover)
+- **Background Alt**: `#f6f6f8` (page background)
+- **Background Subtle**: `#f9f9f9` (context boxes, hover states)
+
+**Status Colors:**
+- **Blue**: `#1e70ae` (unread indicator, links, active ticket)
+- **Red**: `#e74c3c` (notification dot, error states)
+- **Green**: Used for resolved status
+- **Yellow**: `#fef3c7` (reminder tags)
+
+**Branding:**
+- Application title: "Xelix Ticket Agent"
+- Vendor names: "Acme PLC", "AP Team"
+- Logo: Xelix brand red logo in top-left sidebar
 
 ### UI Component Standards
 - All UI components follow Radix UI + Tailwind pattern
@@ -246,6 +338,79 @@ Refer to `src/guidelines/Guidelines.md` for any project-specific design system r
 - Sidebar width: `48px` (fixed with `shrink-0`)
 - Content area (Frame5): Uses `flex-1` to fill remaining space (387px when at preferred width)
 - Toggle state managed via React state with `activeView` variable ('activity' | 'agent')
+
+### Notification System Implementation (2025-01-11)
+
+**Feature:** Interactive notification bell with popover for colleague responses
+
+**Components Created:**
+- `NotificationPopover` component with compact card design
+- Bell icon wrapper with Radix UI Popover integration
+- State management for notification data and popover visibility
+
+**Key Implementation Details:**
+1. **Bell Icon** (`Reply.tsx:247-278`):
+   - Made clickable with hover effect (color transition)
+   - Wrapped in Radix UI `Popover` component
+   - Red dot indicator positioned absolutely (top-right, 6px size)
+
+2. **Popover Styling**:
+   - White background with subtle gray border (`#e3e3e3`)
+   - 320px width with 16px padding
+   - Aligned to end, positioned below bell with 8px offset
+
+3. **Notification Card**:
+   - Purple icons: Bell (16px) in header, Mail (14px) for sender, Sparkles (12px) for context
+   - Compact layout: 10px card padding, 8px internal gaps
+   - Action buttons: 6px vertical padding, 11px font size
+   - "Ticket Agent:" prefix with italic context message
+
+4. **State Flow**:
+   - `handleAddNewEmail()` triggered when demo sends internal email
+   - Sets `showNotification=true` (red dot), populates `notificationData`
+   - 3-second delay before triggering alert sequence
+   - View/Dismiss actions clear red dot via `setShowNotification(false)`
+
+**Props Propagation:**
+- State lifted to `Reply` component (root)
+- Passed through: `Reply` → `MainContainer` → `SearchAndIcons` → `IconsContainer` → `ButtonLightTheme1`
+- 6 new props added for notification handling (isPopoverOpen, onPopoverChange, notificationData, onDismiss, onView)
+
+### Email Animation Enhancement (2025-01-11)
+
+**Problem:** Alex Morgan email appearance was too abrupt in demo sequence
+
+**Solution:**
+- Created new `animate-email-slide-in` CSS animation class (`src/index.css:332-334`)
+- Duration: 0.6 seconds (double the standard animation time)
+- Uses `slideInRight` keyframe for horizontal slide effect
+- Applied to Alex Morgan email card (`Reply.tsx:1231`)
+
+**Effect:** Email now smoothly slides in from the right over 0.6 seconds instead of instantly appearing
+
+### Initial Ticket Agent Message (2025-01-11)
+
+**Enhancement:** Made ticket number bold in initial greeting
+
+**Implementation:**
+- Initial message: "Hi, how can i help with ticket #173524?"
+- Ticket number `#173524` styled with `font-['Barlow:Bold',sans-serif]` and `fontWeight: 700`
+- Conditional rendering checks `idx === 0 && msg.role === 'agent'`
+- Located at `Reply.tsx:4506-4509`
+
+### Email List Diversification (2025-01-11)
+
+**Change:** Varied sender names across email list for realism
+
+**Updated Senders:**
+- Container (line 494): Wilma Oberbrunner (kept as original)
+- Container7 (line 600): James Rodriguez
+- Container14 (line 706): Maria Chen
+- Container21 (line 808): Wilma Oberbrunner (blue highlighted card)
+- Container28 (line 899): Robert Anderson
+- Container35 (line 990): Jennifer Lee
+
+**Email Header:** Added "From:" label to match "To:" label format (`Reply.tsx:2147-2160`)
 
 ## Future Enhancement Opportunities
 
