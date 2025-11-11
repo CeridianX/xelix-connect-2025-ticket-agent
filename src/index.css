@@ -329,6 +329,10 @@ html {
   animation: .3s ease-out slideInRight;
 }
 
+.animate-email-slide-in {
+  animation: .6s ease-out slideInRight;
+}
+
 .animate-fade-in-up {
   animation: .3s ease-out fadeInUp;
 }

@@ -1228,7 +1228,7 @@ function EmailList({ showNewEmail }: { showNewEmail: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[4px] grow items-end min-h-px min-w-px overflow-clip relative shrink-0 w-full" data-name="Email List">
       {showNewEmail && (
-        <div className="bg-white relative rounded-[4px] shrink-0 w-full animate-fade-in-up" data-name="Ticket Preview/Individual">
+        <div className="bg-white relative rounded-[4px] shrink-0 w-full animate-email-slide-in" data-name="Ticket Preview/Individual">
           <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none rounded-[4px]" />
           <div className="size-full">
             <div className="box-border content-stretch flex gap-[8px] items-start pl-0 pr-[12px] py-0 relative w-full">
