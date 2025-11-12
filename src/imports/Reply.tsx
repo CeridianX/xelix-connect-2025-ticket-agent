@@ -4477,28 +4477,74 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
   const [afterTextCompleted, setAfterTextCompleted] = useState<{ [key: number]: boolean }>({});
   const [animatedMessages, setAnimatedMessages] = useState<Set<number>>(new Set());
   const [expandedEmails, setExpandedEmails] = useState<Set<number>>(new Set());
-  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const [triggeredMessages, setTriggeredMessages] = useState<Set<number>>(new Set());
+  const messagesContainerRef = React.useRef<HTMLDivElement>(null);
 
   const handleTextComplete = (idx: number) => {
     setTextCompleted(prev => ({ ...prev, [idx]: true }));
     // After a short delay, show the card
     setTimeout(() => {
       setCardShown(prev => ({ ...prev, [idx]: true }));
+
+      // If message has textAfterCard, the trigger will fire after that completes
+      // Otherwise, check for triggers now
+      const msg = chatMessages[idx];
+      if (!msg.textAfterCard && !triggeredMessages.has(idx)) {
+        if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
+          setTriggeredMessages(prev => new Set(prev).add(idx));
+          setTimeout(() => onCommentsCheckTrigger(), 600);
+        } else if (msg.triggerDraftEmail && onDraftEmailTrigger) {
+          setTriggeredMessages(prev => new Set(prev).add(idx));
+          setTimeout(() => onDraftEmailTrigger(), 600);
+        }
+      }
     }, 200);
   };
 
   const handleAfterTextComplete = (idx: number) => {
     setAfterTextCompleted(prev => ({ ...prev, [idx]: true }));
+
+    // Check for auto-triggers after textAfterCard completes
+    const msg = chatMessages[idx];
+    if (!triggeredMessages.has(idx)) {
+      if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
+        setTriggeredMessages(prev => new Set(prev).add(idx));
+        setTimeout(() => onCommentsCheckTrigger(), 600);
+      }
+    }
   };
 
   const markMessageAnimated = (idx: number) => {
     setAnimatedMessages(prev => new Set(prev).add(idx));
   };
 
+  // Check for triggers on messages that were already animated (e.g. after hot reload)
+  useEffect(() => {
+    chatMessages.forEach((msg, idx) => {
+      if (animatedMessages.has(idx) && !triggeredMessages.has(idx)) {
+        // For messages with textAfterCard
+        if (msg.textAfterCard && cardShown[idx] && !afterTextCompleted[idx]) {
+          setAfterTextCompleted(prev => ({ ...prev, [idx]: true }));
+          if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
+            setTriggeredMessages(prev => new Set(prev).add(idx));
+            setTimeout(() => onCommentsCheckTrigger(), 600);
+          }
+        }
+        // For messages without textAfterCard or card
+        if (!msg.hasCard && !msg.textAfterCard) {
+          if (msg.triggerDraftEmail && onDraftEmailTrigger) {
+            setTriggeredMessages(prev => new Set(prev).add(idx));
+            setTimeout(() => onDraftEmailTrigger(), 600);
+          }
+        }
+      }
+    });
+  }, [chatMessages, animatedMessages, cardShown, afterTextCompleted, triggeredMessages, onCommentsCheckTrigger, onDraftEmailTrigger]);
+
   // Auto-scroll to bottom when new messages are added or content changes
   useEffect(() => {
-    if (messagesEndRef.current && activeView === 'ai') {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current && activeView === 'ai') {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   }, [chatMessages, cardShown, afterTextCompleted, activeView]);
 
@@ -4508,7 +4554,7 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
       <Container42 title={activeView === 'activity' ? 'Activity' : 'Ticket Agent'} showSearch={activeView === 'activity'} />
       {activeView === 'activity' && <Container101 />}
       {activeView === 'ai' && (
-        <div className="overflow-y-auto px-[8px] py-[16px] pb-[64px] flex-1 w-full min-h-0">
+        <div ref={messagesContainerRef} className="overflow-y-auto px-[8px] py-[16px] pb-[80px] flex-1 w-full min-h-0">
           {chatMessages.map((msg, idx) => (
             <React.Fragment key={idx}>
               <div className={`mb-[12px] flex ${msg.role === 'agent' ? 'justify-start' : 'justify-end'} ${msg.isExiting ? 'animate-fade-out-collapse' : msg.role === 'agent' ? 'animate-slide-in-left' : 'animate-slide-in-right'}`}>
@@ -4547,7 +4593,7 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                       msg.type === 'thinking'
                         ? 'bg-transparent text-[#222222]'
                         : 'bg-[#f5f5f5] text-[#222222]'
-                    } ${(msg.scenario === 'msa-result' || msg.scenario === 'short-payment-result' || msg.scenario === 'confirm-colleague' || msg.scenario === 'email-sent-result' || msg.scenario === 'alert-result') ? 'cursor-pointer hover:bg-[#ebebeb] transition-colors' : ''}`}
+                    } ${(msg.scenario === 'email-sent-result' || msg.scenario === 'alert-result') ? 'cursor-pointer hover:bg-[#ebebeb] transition-colors' : ''}`}
                     onClick={(e) => {
                       // Check if the click target is within a clickable element inside (like document link or email card)
                       const target = e.target as HTMLElement;
@@ -4557,13 +4603,7 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                         return;
                       }
 
-                      if (msg.scenario === 'msa-result' && onShortPaymentTrigger) {
-                        onShortPaymentTrigger();
-                      } else if (msg.scenario === 'short-payment-result' && onCommentsCheckTrigger) {
-                        onCommentsCheckTrigger();
-                      } else if (msg.scenario === 'confirm-colleague' && onDraftEmailTrigger) {
-                        onDraftEmailTrigger();
-                      } else if (msg.scenario === 'email-sent-result' && onEmailAddTrigger) {
+                      if (msg.scenario === 'email-sent-result' && onEmailAddTrigger) {
                         onEmailAddTrigger();
                       } else if (msg.scenario === 'alert-result' && onDraftSupplierResponseTrigger) {
                         onDraftSupplierResponseTrigger();
@@ -4652,9 +4692,23 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   } else if (msg.hasCard && !msg.textAfterCard) {
                                     // For messages with cards but no textAfterCard, mark text complete
                                     setTextCompleted(prev => ({ ...prev, [idx]: true }));
-                                  } else if (msg.triggerFollowUp && onFollowUpTrigger) {
-                                    // Trigger follow-up sequence after 2 seconds
-                                    setTimeout(() => onFollowUpTrigger(), 2000);
+                                    // Check for auto-triggers
+                                    if (msg.triggerShortPayment && onShortPaymentTrigger && !triggeredMessages.has(idx)) {
+                                      setTriggeredMessages(prev => new Set(prev).add(idx));
+                                      setTimeout(() => onShortPaymentTrigger(), 600);
+                                    }
+                                  } else if (msg.triggerFollowUp && onFollowUpTrigger && !triggeredMessages.has(idx)) {
+                                    // Trigger follow-up sequence after 0.8 seconds
+                                    setTriggeredMessages(prev => new Set(prev).add(idx));
+                                    setTimeout(() => onFollowUpTrigger(), 800);
+                                  } else if (msg.triggerShortPayment && onShortPaymentTrigger && !triggeredMessages.has(idx)) {
+                                    // Trigger short payment sequence after 0.6 seconds
+                                    setTriggeredMessages(prev => new Set(prev).add(idx));
+                                    setTimeout(() => onShortPaymentTrigger(), 600);
+                                  } else if (msg.triggerDraftEmail && onDraftEmailTrigger && !triggeredMessages.has(idx)) {
+                                    // Trigger draft email sequence after 0.6 seconds
+                                    setTriggeredMessages(prev => new Set(prev).add(idx));
+                                    setTimeout(() => onDraftEmailTrigger(), 600);
                                   }
                                 }}
                               />
@@ -4848,7 +4902,6 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
               )}
             </React.Fragment>
           ))}
-          <div ref={messagesEndRef} />
         </div>
       )}
     </div>
@@ -4975,6 +5028,9 @@ interface ChatMessage {
   suggestionPills?: string[];
   scenario?: string;
   triggerFollowUp?: boolean;
+  triggerShortPayment?: boolean;
+  triggerCommentsCheck?: boolean;
+  triggerDraftEmail?: boolean;
 }
 
 function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
@@ -5001,16 +5057,16 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
     if (followUpTriggered) return;
     setFollowUpTriggered(true);
 
-    // After 2 seconds, add intermediate message
+    // After 0.8 seconds, add intermediate message
     setTimeout(() => {
       setChatMessages(prev => [...prev, {
         role: 'agent',
         text: "To confirm the payment-timing point, I'll check the supplier's agreement."
       }]);
 
-      // After that message completes (estimate based on word count) + 5 seconds
+      // After that message completes (estimate based on word count) + 1 second
       // "To confirm the payment-timing point, I'll check the supplier's agreement." has 10 words
-      // At 80ms per word = 800ms + 5000ms = 5800ms
+      // At 80ms per word = 800ms + 1000ms = 1800ms
       setTimeout(() => {
         // Add thinking message
         setChatMessages(prev => [...prev, {
@@ -5057,12 +5113,13 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                   }
                 },
                 reasoningText: 'Retrieved and analyzed Master Service Agreement for supplier 5012938. Confirmed pay-when-paid clause applicable to construction subcontractors.',
-                scenario: 'msa-result'
+                scenario: 'msa-result',
+                triggerShortPayment: true
               }]);
             }, 400);
           }, 9000);
         }, 100);
-      }, 5800);
+      }, 1800);
     }, 2000);
   };
 
@@ -5077,7 +5134,8 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
         text: "Now I'll investigate the £100 short-payment."
       }]);
 
-      // After that message completes + delay
+      // After that message completes + 1 second delay
+      // "Now I'll investigate the £100 short-payment." has ~45 chars × 30ms = 1350ms + 1000ms = 2350ms
       setTimeout(() => {
         // Add thinking message with Query ERP
         setChatMessages(prev => [...prev, {
@@ -5129,12 +5187,13 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                 },
                 textAfterCard: "This amount was removed during processing, resulting in a £100 short-payment.",
                 reasoningText: 'Queried ERP for PO #173524 and Invoice INV-0115644. Cross-referenced line items to identify £100 discrepancy on site inspection services.',
-                scenario: 'short-payment-result'
+                scenario: 'short-payment-result',
+                triggerCommentsCheck: true
               }]);
             }, 400);
           }, 9000);
         }, 100);
-      }, 5800);
+      }, 2350);
     }, 2000);
   };
 
@@ -5188,7 +5247,8 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                 text: "There's a note recorded during invoice processing: 'Exceeded PO allowance - only paying up to PO limit', added by Alex Morgan.\n\nSince this partial payment relates to exceeding the PO, I'll confirm with the colleague who processed it.",
                 isReasoned: true,
                 reasoningText: 'Queried ERP processing comments for invoice INV-0115644. Found note from Alex Morgan regarding PO allowance exceeded.',
-                scenario: 'confirm-colleague'
+                scenario: 'confirm-colleague',
+                triggerDraftEmail: true
               }]);
             }, 400);
           }, 9000);
