@@ -2087,11 +2087,11 @@ function ComposeDetails() {
             <p className="leading-[1.6] mb-0">Thanks for your email.</p>
             <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
             <p className="leading-[1.6] mb-0">
-              Regarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.
+              On the payment timing: per our subcontractor agreement, payment is made when we receive payment from our end customer.
             </p>
             <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
             <p className="leading-[1.6] mb-0">
-              On the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.
+              On the £100 difference: the invoiced amount exceeded the PO value, so we paid up to the PO limit.
             </p>
             <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
             <p className="leading-[1.6]">Let me know if you'd like a copy of the PO for reference.</p>
@@ -2814,8 +2814,8 @@ function SupplierEmailBodyTextContainer() {
       <div className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">
         <p className="mb-[16px]">Hi Wilma,</p>
         <p className="mb-[16px]">Thanks for your email.</p>
-        <p className="mb-[16px]">Regarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.</p>
-        <p className="mb-[16px]">On the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.</p>
+        <p className="mb-[16px]">On the payment timing: per our subcontractor agreement, payment is made when we receive payment from our end customer.</p>
+        <p className="mb-[16px]">On the £100 difference: the invoiced amount exceeded the PO value, so we paid up to the PO limit.</p>
         <p className="mb-[16px]">Let me know if you'd like a copy of the PO for reference.</p>
         <p className="mb-0">Kind regards,<br />Caroline Walsh<br />AP Specialist</p>
       </div>
@@ -5011,6 +5011,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
       if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
         setTriggeredMessages(prev => new Set(prev).add(idx));
         setTimeout(() => onCommentsCheckTrigger(), 600);
+      } else if (msg.triggerDraftEmail && onDraftEmailTrigger) {
+        setTriggeredMessages(prev => new Set(prev).add(idx));
+        setTimeout(() => onDraftEmailTrigger(), 600);
       } else if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger) {
         setTriggeredMessages(prev => new Set(prev).add(idx));
         setTimeout(() => onDraftSupplierResponseTrigger(), 600);
@@ -5032,6 +5035,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
           if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
             setTriggeredMessages(prev => new Set(prev).add(idx));
             setTimeout(() => onCommentsCheckTrigger(), 600);
+          } else if (msg.triggerDraftEmail && onDraftEmailTrigger) {
+            setTriggeredMessages(prev => new Set(prev).add(idx));
+            setTimeout(() => onDraftEmailTrigger(), 600);
           }
         }
         // For messages without textAfterCard or card
@@ -5200,11 +5206,17 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                         ) : (
                           <p className="font-['Barlow:Regular',sans-serif] text-[12px] leading-[1.6] whitespace-pre-line">
                             {animatedMessages.has(idx) ? (
-                              msg.text
+                              <>
+                                {msg.text}
+                                {msg.scenario === 'email-sent-result' && (
+                                  <span className="inline-block w-[6px] h-[6px] bg-[#5a1899] rounded-full ml-[6px] align-middle" />
+                                )}
+                              </>
                             ) : (
-                              <TypewriterText
-                                text={msg.text}
-                                onComplete={() => {
+                              <>
+                                <TypewriterText
+                                  text={msg.text}
+                                  onComplete={() => {
                                   markMessageAnimated(idx);
                                   if (msg.hasCard && msg.textAfterCard) {
                                     handleTextComplete(idx);
@@ -5238,6 +5250,10 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   }
                                 }}
                               />
+                                {msg.scenario === 'email-sent-result' && animatedMessages.has(idx) && (
+                                  <span className="inline-block w-[6px] h-[6px] bg-[#5a1899] rounded-full ml-[6px] align-middle" />
+                                )}
+                              </>
                             )}
                           </p>
                         )}
@@ -6018,7 +6034,7 @@ function ActivityFeed1({ onAddNewEmail, onShowSentEmail, onShowAlexResponse, onS
                   email: {
                     to: 'Wilma Oberbrunner',
                     subject: 'Re: Invoice INV-0115644 - Payment Query',
-                    body: "Hi Wilma,\n\nThanks for your email.\n\nRegarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.\n\nOn the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.\n\nLet me know if you'd like a copy of the PO for reference.\n\nKind regards,\n[Your Name]\n[Your Position]"
+                    body: "Hi Wilma,\n\nThanks for your email.\n\nOn the payment timing: per our subcontractor agreement, payment is made when we receive payment from our end customer.\n\nOn the £100 difference: the invoiced amount exceeded the PO value, so we paid up to the PO limit.\n\nLet me know if you'd like a copy of the PO for reference.\n\nKind regards,\n[Your Name]\n[Your Position]"
                   }
                 },
                 reasoningText: 'Compiled response based on: (1) MSA payment terms confirmation, (2) PO limit verification from Query ERP showing £100 overage, (3) Alex Morgan\'s confirmation to maintain PO limit position.',
