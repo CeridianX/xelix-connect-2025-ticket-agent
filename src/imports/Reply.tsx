@@ -2332,6 +2332,16 @@ function EmailRecipientInfo() {
   );
 }
 
+function EmailSubjectInfo() {
+  return (
+    <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Email Subject Info">
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px]">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">Subject:</span> <span className="font-['Barlow:Medium',sans-serif]">Invoice INV-0115644 - Payment Query</span>
+      </p>
+    </div>
+  );
+}
+
 function EmailHeaderContainer() {
   return (
     <div className="bg-white relative shrink-0 w-full" data-name="Email Header Container">
@@ -2339,6 +2349,7 @@ function EmailHeaderContainer() {
         <div className="box-border content-stretch flex flex-col gap-[4px] items-start pb-0 pl-[12px] pr-[8px] pt-[12px] relative w-full">
           <EmailHeaderInfo />
           <EmailRecipientInfo />
+          <EmailSubjectInfo />
         </div>
       </div>
     </div>
@@ -5601,7 +5612,19 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
   }, []);
 
   const handlePillClick = (pillText: string, messageIndex: number) => {
-    // Mark this message's pills as used
+    // Handle Open & Edit Draft - clickable but no action, don't mark as used
+    if (pillText === 'Open & Edit Draft') {
+      // Pill is clickable but no action taken, buttons remain visible
+      return;
+    }
+
+    // Handle No - clickable but no action, don't mark as used
+    if (pillText === 'No') {
+      // Pill is clickable but no action taken, buttons remain visible
+      return;
+    }
+
+    // Mark this message's pills as used (for all other actions)
     setUsedPillIndices(prev => new Set(prev).add(messageIndex));
 
     // Handle Send button - check scenario to determine which email sequence
@@ -5624,12 +5647,6 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
         triggerSendExternalEmailSequence();
         return;
       }
-    }
-
-    // Handle Open & Edit Draft - clickable but no action
-    if (pillText === 'Open & Edit Draft') {
-      // Pill is clickable and marked as used, but no action taken
-      return;
     }
 
     // Handle Yes/No for ticket closure
