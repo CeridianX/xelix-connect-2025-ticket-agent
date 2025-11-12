@@ -5296,6 +5296,18 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   </table>
                                 </div>
                               )}
+                              {msg.cardData.type === 'note-comment' && msg.cardData.comment && (
+                                <div className="flex flex-col gap-[8px]">
+                                  <p className="font-['Barlow:Medium',sans-serif] text-[13px] text-[#222222] leading-[1.6] italic">
+                                    "{msg.cardData.comment}"
+                                  </p>
+                                  {msg.cardData.author && (
+                                    <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#717182]">
+                                      — {msg.cardData.author}
+                                    </p>
+                                  )}
+                                </div>
+                              )}
                               {msg.cardData.type === 'document-reference' && msg.cardData.document && (
                                 <div className="flex items-center gap-[8px] cursor-pointer hover:bg-[#f9f9f9] transition-colors p-[4px] rounded-[4px] -m-[4px]">
                                   <FileText className="text-[#5a1899] shrink-0" size={14} strokeWidth={2} />
@@ -5766,8 +5778,15 @@ function ActivityFeed1({ onAddNewEmail, onShowSentEmail, onShowAlexResponse, onS
 
               setChatMessages(prev => [...prev, {
                 role: 'agent',
-                text: "There's a note recorded during invoice processing: 'Exceeded PO allowance - only paying up to PO limit', added by Alex Morgan.\n\nSince this partial payment relates to exceeding the PO, I'll confirm with the colleague who processed it.",
+                text: "There's a note recorded during invoice processing:",
                 isReasoned: true,
+                hasCard: true,
+                cardData: {
+                  type: 'note-comment',
+                  comment: "Exceeded PO allowance - only paying up to PO limit",
+                  author: "Alex Morgan"
+                },
+                textAfterCard: "Since this partial payment relates to exceeding the PO, I'll confirm with the colleague who processed it.",
                 reasoningText: 'Queried ERP processing comments for invoice INV-0115644. Found note from Alex Morgan regarding PO allowance exceeded.',
                 scenario: 'confirm-colleague',
                 triggerDraftEmail: true
