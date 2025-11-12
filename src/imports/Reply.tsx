@@ -6419,12 +6419,10 @@ function ActivityFeed1({ onAddNewEmail, onShowSentEmail, onShowAlexResponse, onS
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Type a message..."
               className="flex-1 h-[32px] px-[12px] border border-[#e3e3e3] rounded-[4px] font-['Barlow:Regular',sans-serif] text-[12px] text-[#222222] outline-none focus:border-[#5a1899]"
             />
             <button
-              onClick={handleSend}
               className="bg-[#5a1899] flex items-center justify-center h-[32px] w-[32px] rounded-[4px] shrink-0 hover:bg-[#501899] transition-colors cursor-pointer"
             >
               <Send className="text-white" size={14} />
