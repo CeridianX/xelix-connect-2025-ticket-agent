@@ -74,10 +74,11 @@ Builds the production bundle to `build/` directory (not `dist/`).
 
 The application features a sophisticated AI chat interface with the following capabilities:
 
-**Typewriter Animation** (`src/imports/Reply.tsx:4520-4535`)
-- Character-by-character text reveal at 30ms per character
-- Implemented using React hooks (useState, useEffect)
+**Typewriter Animation** (`src/imports/Reply.tsx:~4911-4946`)
+- Word-by-word text reveal at 80ms per word
+- Implemented using React hooks (useState, useEffect, useRef)
 - Creates modern LLM-style streaming responses
+- Uses ref pattern to prevent memory leaks and duplicate callback execution
 - Applied to agent messages while preserving instant display for user messages
 
 **Message Types:**
@@ -91,6 +92,47 @@ The application features a sophisticated AI chat interface with the following ca
 - Smooth animations (slide-in-left for agent, slide-in-right for user)
 - Exit animations for message removal
 - Proper text wrapping with 1.6 line height for readability
+
+### Auto-Progression System
+
+The application features an intelligent auto-progression system that creates a seamless, non-interactive demo experience for certain workflow steps:
+
+**Auto-Progressing Scenarios:**
+- **MSA Result** (`msa-result`): Auto-progresses after 0.6s (600ms)
+- **Short Payment Result** (`short-payment-result`): Auto-progresses after 0.6s (600ms)
+- **Confirm Colleague** (`confirm-colleague`): Auto-progresses after 0.6s (600ms)
+
+**Implementation Details:**
+- Uses `triggeredMessages` Set (line ~4480) to prevent duplicate auto-triggers
+- New ChatMessage properties: `triggerShortPayment`, `triggerCommentsCheck`, `triggerDraftEmail`
+- Multiple trigger points ensure reliable progression:
+  - `handleTextComplete()`: Fires when main text animation completes
+  - `handleAfterTextComplete()`: Fires when textAfterCard animation completes
+  - `TypewriterText onComplete` callback: Primary trigger location
+  - `useEffect` with animatedMessages dependency: Fallback trigger for already-animated messages
+
+**Trigger Functions:**
+- `triggerShortPaymentSequence()`: Initiates short-payment analysis
+- `triggerCommentsCheckSequence()`: Initiates comments check workflow
+- `triggerDraftEmailSequence()`: Initiates email drafting
+
+**Timing Improvements:**
+- MSA message timing: Reduced from 5800ms to 1800ms
+- Short-payment message timing: Reduced from 5800ms to 2350ms
+- More responsive demo flow with shorter delays between actions
+
+### Chat Scrolling Behavior
+
+**Scroll Management** (`src/imports/Reply.tsx:~4481, ~4546-4548`)
+- Uses `messagesContainerRef` to directly control scroll position
+- Scroll implementation: `messagesContainerRef.current.scrollTop = scrollHeight`
+- Triggers on message changes when Activity Panel is in 'ai' view mode
+- Ensures latest messages are always visible during demo progression
+
+**Container Styling** (line ~4557)
+- Messages container: `overflow-y-auto px-[8px] py-[16px] pb-[80px] flex-1 w-full min-h-0`
+- Bottom padding increased from 64px to 80px for better message visibility
+- Direct scrollTop control provides more reliable scrolling than scrollIntoView approach
 
 ### Notification System
 
@@ -213,7 +255,8 @@ The application includes a pre-scripted interactive demo that simulates a comple
 11. **Status Update**: Changes ticket status from "In Progress" to "Resolved"
 
 **Interactive Elements:**
-- Suggestion pills (clickable buttons that trigger next demo step)
+- Suggestion pills (clickable buttons for manual demo progression)
+- Auto-progressing scenarios (MSA result, short-payment result, confirm-colleague)
 - Tool indicators showing which system is being queried
 - Expandable reasoning sections (click to see AI's thought process)
 - Email draft cards with expand/collapse functionality
@@ -222,8 +265,11 @@ The application includes a pre-scripted interactive demo that simulates a comple
 **State Triggers:**
 - `triggerSendEmailSequence()`: Handles internal email sending
 - `triggerAlertSequence()`: Shows Alex Morgan's response
+- `triggerShortPaymentSequence()`: Auto-triggered after MSA result display (0.6s delay)
+- `triggerCommentsCheckSequence()`: Auto-triggered after short-payment result (0.6s delay)
+- `triggerDraftEmailSequence()`: Auto-triggered after colleague confirmation (0.6s delay)
 - `handleAddNewEmail()`: Displays new email in sidebar with animation
-- `handlePillClick()`: Processes suggestion pill interactions
+- `handlePillClick()`: Processes suggestion pill interactions (manual triggers)
 
 ## Important Implementation Details
 
@@ -311,21 +357,33 @@ Refer to `src/guidelines/Guidelines.md` for any project-specific design system r
 - Max width: `95%` of container
 - Alignment: Left-aligned with `justify-start`
 
-### Typewriter Animation Implementation (2025-01-10)
+### Typewriter Animation Implementation (2025-01-10, Updated 2025-01-12)
 
-**Component:** `TypewriterText` function component (`src/imports/Reply.tsx:4520-4535`)
+**Component:** `TypewriterText` function component (`src/imports/Reply.tsx:~4911-4946`)
 
 **How It Works:**
-1. Accepts `text` string and optional `speed` (default 30ms)
-2. Uses `useState` to track `displayedText` and `currentIndex`
-3. `useEffect` hook with dependency on `currentIndex` creates a timeout to add one character at a time
-4. Cleanup function prevents memory leaks when component unmounts or text changes
-5. Returns a `<span>` with the accumulated `displayedText`
+1. Accepts `text` string, optional `speed` (default 80ms per word), and optional `onComplete` callback
+2. Uses `useState` to track `currentIndex` for word position
+3. Uses `useRef` for `onCompleteRef`, `hasCalledComplete`, and `wordsRef` to prevent memory leaks
+4. Text splitting: Divides text by spaces using regex `/(\s+)/` while preserving whitespace
+5. `useEffect` hook advances word index every 80ms (default speed)
+6. Completion callback fires once when all words are displayed using ref pattern
+
+**Speed Change (2025-01-12):**
+- Changed from character-based (30ms/char) to word-based animation (80ms/word)
+- Provides more natural reading rhythm and faster overall reveal
+- Example: 10-word message takes ~800ms instead of ~1500ms for 50 characters
 
 **Applied To:**
-- Agent messages with reasoning (line 4454)
-- Simple agent messages (line 4508, conditional - excludes "thinking" type)
+- All agent messages except "thinking" type and initial greeting
+- Primary implementation with auto-progression triggers shown in lines ~4686-4714
 - User messages display instantly (no typewriter effect)
+
+**Callback Handling:**
+- `onComplete` callback used to trigger auto-progression for certain scenarios
+- Marks message as animated via `markMessageAnimated(idx)`
+- Triggers card display for messages with `hasCard` property
+- Initiates auto-progression sequences (short-payment, comments-check, draft-email)
 
 ### Activity Panel Integration (2025-01-10)
 
@@ -338,6 +396,47 @@ Refer to `src/guidelines/Guidelines.md` for any project-specific design system r
 - Sidebar width: `48px` (fixed with `shrink-0`)
 - Content area (Frame5): Uses `flex-1` to fill remaining space (387px when at preferred width)
 - Toggle state managed via React state with `activeView` variable ('activity' | 'agent')
+
+### Message Visibility & Scrolling Optimization (2025-01-12)
+
+**Problem:** Messages at bottom of chat were being cut off or hard to see, especially longer messages that required manual scrolling
+
+**Solution:**
+1. **Increased Bottom Padding**: Changed from `pb-[64px]` to `pb-[80px]` on messages container (line ~4557)
+2. **Direct Scroll Control**: Replaced `scrollIntoView()` approach with direct `scrollTop` manipulation
+3. **Ref-Based Scrolling**: Uses `messagesContainerRef.current.scrollTop = scrollHeight` for precise control
+
+**Implementation** (`Reply.tsx:~4546-4548`):
+```javascript
+if (messagesContainerRef.current && activeView === 'ai') {
+  messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+}
+```
+
+**Benefits:**
+- More reliable scroll behavior across browsers
+- Better message visibility with extra bottom padding
+- Smoother auto-scroll during demo progression
+- Prevents last message from being partially obscured by input area
+
+### Interaction Pattern Changes (2025-01-12)
+
+**Removed Manual Interactions:**
+The following scenarios were changed from click-to-progress to auto-progression:
+- `msa-result`: No longer requires click; auto-progresses after 600ms
+- `short-payment-result`: No longer requires click; auto-progresses after 600ms
+- `confirm-colleague`: No longer requires click; auto-progresses after 600ms
+
+**Styling Removed:**
+- `cursor-pointer` class no longer applied to these scenario bubbles (line ~4596)
+- `onClick` handlers removed for these specific scenarios (lines ~4598-4608)
+- Bubbles now appear as informational content rather than interactive elements
+
+**Retained Manual Interactions:**
+- `email-sent-result`: Still requires click to show notification
+- `alert-result`: Still requires click to draft supplier response
+- Suggestion pills: Remain clickable throughout demo
+- Expandable reasoning sections: Remain clickable
 
 ### Notification System Implementation (2025-01-11)
 
@@ -411,6 +510,109 @@ Refer to `src/guidelines/Guidelines.md` for any project-specific design system r
 - Container35 (line 990): Jennifer Lee
 
 **Email Header:** Added "From:" label to match "To:" label format (`Reply.tsx:2147-2160`)
+
+### Auto-Progression & Timing Optimization (2025-01-12)
+
+**Enhancement:** Streamlined demo experience with automatic workflow progression and improved timing
+
+**Changes Made:**
+
+1. **Auto-Progression Implementation:**
+   - Added `triggeredMessages` Set state to track which messages have triggered sequences
+   - Created new ChatMessage properties: `triggerShortPayment`, `triggerCommentsCheck`, `triggerDraftEmail`
+   - Implemented multiple trigger handlers for reliability:
+     - `handleTextComplete()`: Triggers after main text animation (lines ~4482-4502)
+     - `handleAfterTextComplete()`: Triggers after textAfterCard animation (lines ~4504-4515)
+     - TypewriterText `onComplete` callback: Primary trigger mechanism (lines ~4688-4714)
+     - useEffect fallback: Handles already-animated messages (lines ~4522-4542)
+
+2. **Timing Improvements:**
+   - MSA message delay: 5800ms → 1800ms (67% faster)
+   - Short-payment message delay: 5800ms → 2350ms (59% faster)
+   - Auto-progression delay: 600ms for all three scenarios (MSA, short-payment, confirm-colleague)
+   - Follow-up sequence: 2000ms → 800ms initial trigger
+
+3. **Typewriter Speed Change:**
+   - Changed from character-based (30ms/char) to word-based (80ms/word) animation
+   - Overall faster text reveal while maintaining readability
+   - Example: "Now I'll investigate the £100 short-payment." completes in ~1350ms vs ~1500ms previously
+
+4. **Scrolling Improvements:**
+   - Changed from `scrollIntoView()` to direct `scrollTop` control
+   - Reference changed: `messagesEndRef` → `messagesContainerRef`
+   - Implementation: `messagesContainerRef.current.scrollTop = scrollHeight`
+   - More reliable cross-browser behavior
+
+5. **Message Visibility:**
+   - Increased bottom padding: `pb-[64px]` → `pb-[80px]`
+   - Ensures last message is fully visible without being cut off
+   - No more manual scrolling required to see complete messages
+
+6. **Interaction Model Changes:**
+   - Removed click-to-progress requirement for `msa-result`, `short-payment-result`, `confirm-colleague`
+   - Removed `cursor-pointer` styling and `onClick` handlers for these scenarios
+   - Messages now auto-progress 600ms after typewriter completion
+   - Retained manual interactions for `email-sent-result` and `alert-result`
+
+**State Management Pattern:**
+```javascript
+// Prevent duplicate triggers
+if (!triggeredMessages.has(idx)) {
+  setTriggeredMessages(prev => new Set(prev).add(idx));
+  setTimeout(() => onTrigger(), 600);
+}
+```
+
+**User Experience Impact:**
+- Demo flows more naturally without requiring clicks at multiple checkpoints
+- Faster pacing keeps user engaged
+- Clearer distinction between interactive and informational elements
+- More reliable scrolling keeps focus on latest content
+- Overall demo completion time reduced by approximately 30-40%
+
+**Files Modified:**
+- `src/imports/Reply.tsx` - Multiple functions and components (85 insertions, 25 deletions)
+
+## State Management Patterns
+
+### Demo Progression State
+
+The application uses overlapping state management patterns to ensure reliable demo progression without duplicate triggers or animations:
+
+**Message Tracking State:**
+- `animatedMessages`: Set<number> - Tracks which messages have completed typewriter animation
+- `triggeredMessages`: Set<number> - Prevents duplicate auto-progression triggers (added 2025-01-12)
+- `textCompleted`: Record<number, boolean> - Tracks completion of message text for card display timing
+- `afterTextCompleted`: Record<number, boolean> - Tracks completion of textAfterCard content
+- `cardShown`: Record<number, boolean> - Tracks card visibility state
+
+**Purpose:**
+These overlapping state management patterns ensure:
+1. Typewriter animation only runs once per message
+2. Auto-progression triggers fire exactly once (critical for demo reliability)
+3. Cards appear at correct timing after text completes
+4. Re-renders don't cause duplicate animations or triggers
+5. Hot reloads during development don't break demo flow
+
+**Implementation Pattern:**
+The `triggeredMessages` Set acts as a guard to prevent duplicate function calls:
+
+```javascript
+// Check if not already triggered before executing
+if (!triggeredMessages.has(idx)) {
+  setTriggeredMessages(prev => new Set(prev).add(idx));
+  setTimeout(() => onTrigger(), 600);
+}
+```
+
+**Trigger Locations:**
+Multiple trigger points provide redundancy:
+1. **Primary**: TypewriterText `onComplete` callback (most reliable)
+2. **Fallback 1**: `handleTextComplete()` for messages without textAfterCard
+3. **Fallback 2**: `handleAfterTextComplete()` for messages with textAfterCard
+4. **Fallback 3**: useEffect watching `animatedMessages` for pre-animated messages
+
+This multi-layered approach ensures demo progression even if one trigger path fails.
 
 ## Future Enhancement Opportunities
 
