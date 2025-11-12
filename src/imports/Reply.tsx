@@ -5253,7 +5253,7 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
             }, 400);
           }, 9000);
         }, 100);
-      }, 5800);
+      }, 300);
     }, 2000);
   };
 
@@ -5304,7 +5304,7 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                 email: {
                   to: 'Alex Morgan',
                   subject: 'Re: Invoice INV-0115644 - £100 Short Payment Query',
-                  body: "Hi Alex,\n\nThe supplier for invoice INV-0115644 is querying the £100 short-payment. I can see your note that the amount exceeded the PO allowance and only the PO value was paid.\n\nCan you confirm we should maintain this position before I respond to the supplier?\n\nBest regards"
+                  body: "Hi Alex,\n\nThe supplier for invoice INV-0115644 is querying the £100 short-payment. I can see your note that the amount exceeded the PO allowance and only the PO value was paid.\n\nCan you confirm we should maintain this position before I respond to the supplier?\n\nBest regards\n[Your Name]\n[Your Position]"
                 }
               },
               reasoningText: 'Retrieved contact details for Alex Morgan from address book. Drafted email requesting confirmation on short-payment decision.',
@@ -5314,7 +5314,7 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
           }, 400);
         }, 9000);
       }, 100);
-    }, 2000);
+    }, 300);
   };
 
   const triggerSendEmailSequence = () => {
@@ -5362,9 +5362,9 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
               scenario: 'email-sent-result'
             }]);
           }, 400);
-        }, 9000);
+        }, 3000);
       }, 100);
-    }, 2000);
+    }, 100);
   };
 
   const triggerAlertSequence = () => {
@@ -5472,12 +5472,12 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                   email: {
                     to: 'Wilma Oberbrunner',
                     subject: 'Re: Invoice INV-0115644 - Payment Query',
-                    body: "Hi Wilma,\n\nThanks for your email.\n\nRegarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.\n\nOn the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.\n\nLet me know if you'd like a copy of the PO for reference.\n\nKind regards,\n[AP Team Member]"
+                    body: "Hi Wilma,\n\nThanks for your email.\n\nRegarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.\n\nOn the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.\n\nLet me know if you'd like a copy of the PO for reference.\n\nKind regards,\n[Your Name]\n[Your Position]"
                   }
                 },
                 reasoningText: 'Compiled response based on: (1) MSA payment terms confirmation, (2) PO limit verification from Query ERP showing £100 overage, (3) Alex Morgan\'s confirmation to maintain PO limit position.',
                 textAfterCard: "Would you like me to send this?",
-                suggestionPills: ['Send'],
+                suggestionPills: ['Send', 'Open & Edit Draft'],
                 scenario: 'supplier-draft-result'
               }]);
             }, 400);
@@ -5590,9 +5590,9 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
             // Update the ticket status pill to 'Resolved'
             onTicketStatusChange('resolved');
           }, 400);
-        }, 9000);
+        }, 3000);
       }, 100);
-    }, 2000);
+    }, 100);
   };
 
   // Register the alert trigger callback
@@ -5608,20 +5608,38 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
     if (pillText === 'Send') {
       const message = chatMessages[messageIndex];
       if (message.scenario === 'email-draft-result') {
+        // Add user message bubble
+        const userMessage: ChatMessage = { role: 'user', text: 'Send email to Alex' };
+        setChatMessages(prev => [...prev, userMessage]);
+
         // Internal email to Alex Morgan
         triggerSendEmailSequence();
         return;
       } else if (message.scenario === 'supplier-draft-result') {
+        // Add user message bubble
+        const userMessage: ChatMessage = { role: 'user', text: 'Send email to Wilma' };
+        setChatMessages(prev => [...prev, userMessage]);
+
         // External email to supplier
         triggerSendExternalEmailSequence();
         return;
       }
     }
 
+    // Handle Open & Edit Draft - clickable but no action
+    if (pillText === 'Open & Edit Draft') {
+      // Pill is clickable and marked as used, but no action taken
+      return;
+    }
+
     // Handle Yes/No for ticket closure
     if (pillText === 'Yes') {
       const message = chatMessages[messageIndex];
       if (message.scenario === 'ask-ticket-closure') {
+        // Add user message bubble
+        const userMessage: ChatMessage = { role: 'user', text: 'Yes' };
+        setChatMessages(prev => [...prev, userMessage]);
+
         triggerTicketStatusUpdateSequence();
         return;
       }
