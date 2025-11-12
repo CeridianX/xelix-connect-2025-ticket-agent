@@ -1210,7 +1210,7 @@ function NewEmailFromAlex() {
         <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Wed 10:15</p>
       </div>
       <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Container">
-        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Regular',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">Hi! Yes, confirmed - we're firm on this. The supplier went over...</p>
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Regular',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">Hi Caroline, Yes, please maintain the position. The invoice...</p>
       </div>
       <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Container">
         <div className="basis-0 content-stretch flex gap-[4px] grow items-center justify-end min-h-px min-w-px relative shrink-0" data-name="Container">
@@ -1224,7 +1224,37 @@ function NewEmailFromAlex() {
   );
 }
 
-function EmailList({ showNewEmail }: { showNewEmail: boolean }) {
+function SentEmailToAlex() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-name="Container">
+      <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full" data-name="Container">
+        <div className="box-border content-stretch flex gap-[8px] h-[26px] items-center px-[4px] py-0 relative shrink-0" data-name="Standard">
+          <div className="bg-white relative rounded-[4px] shrink-0 size-[18px]">
+            <div aria-hidden="true" className="absolute border border-[#9e9e9f] border-solid inset-[-1px] pointer-events-none rounded-[5px]" />
+          </div>
+        </div>
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Medium',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[14px] text-nowrap">
+          <span className="font-['Barlow:Bold',sans-serif] font-bold">To: </span>
+          <span>Alex Morgan</span>
+        </p>
+      </div>
+      <div className="content-stretch flex gap-[8px] items-center leading-[1.6] not-italic relative shrink-0 text-[12px] text-nowrap w-full" data-name="Container">
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] font-bold grow min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222]">Re: Invoice INV-0115644 - £100 Short Payment Query</p>
+        <p className="font-['Barlow:Regular',sans-serif] relative shrink-0 text-[#222222] text-right whitespace-pre">Just now</p>
+      </div>
+      <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Container">
+        <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Regular',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">Hi Alex, The supplier for invoice INV-0115644 is querying the £100...</p>
+      </div>
+      <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Container">
+        <div className="basis-0 content-stretch flex gap-[4px] grow items-center justify-end min-h-px min-w-px relative shrink-0" data-name="Container">
+          <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Medium',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#717182] text-[12px] text-nowrap text-right">{` #173524`}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EmailList({ showNewEmail, showSentEmail }: { showNewEmail: boolean; showSentEmail: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[4px] grow items-end min-h-px min-w-px overflow-clip relative shrink-0 w-full" data-name="Email List">
       {showNewEmail && (
@@ -1235,6 +1265,18 @@ function EmailList({ showNewEmail }: { showNewEmail: boolean }) {
               <div className="bg-[#1e70ae] h-[118px] rounded-bl-[8px] rounded-tl-[8px] shrink-0 w-[4px]" data-name="Unread Indicator" />
               <div className="basis-0 box-border content-stretch flex flex-col gap-[8px] grow items-start min-h-px min-w-px px-0 py-[8px] relative shrink-0" data-name="Container">
                 <NewEmailFromAlex />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showSentEmail && (
+        <div className="bg-white relative rounded-[4px] shrink-0 w-full animate-email-slide-in" data-name="Ticket Preview/Individual">
+          <div aria-hidden="true" className="absolute border-[#e1e1e3] border-[0px_0px_1px] border-solid inset-0 pointer-events-none rounded-[4px]" />
+          <div className="size-full">
+            <div className="box-border content-stretch flex gap-[8px] items-start px-[12px] py-0 relative w-full">
+              <div className="basis-0 box-border content-stretch flex flex-col gap-[8px] grow items-start min-h-px min-w-px px-0 py-[8px] relative shrink-0" data-name="Container">
+                <SentEmailToAlex />
               </div>
             </div>
           </div>
@@ -1309,17 +1351,17 @@ function EmailSummary() {
   );
 }
 
-function SidebarContent({ showNewEmail }: { showNewEmail: boolean }) {
+function SidebarContent({ showNewEmail, showSentEmail }: { showNewEmail: boolean; showSentEmail: boolean }) {
   return (
     <div className="box-border content-stretch flex flex-col gap-[4px] h-full items-end max-w-[346px] min-w-[256px] overflow-clip pl-[8px] pr-0 py-0 relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[313px]" data-name="Sidebar Content">
       <InboxHeader />
-      <EmailList showNewEmail={showNewEmail} />
+      <EmailList showNewEmail={showNewEmail} showSentEmail={showSentEmail} />
       <EmailSummary />
     </div>
   );
 }
 
-function Sidebar({ showNewEmail }: { showNewEmail: boolean }) {
+function Sidebar({ showNewEmail, showSentEmail }: { showNewEmail: boolean; showSentEmail: boolean }) {
   return (
     <div className="bg-[#f6f6f8] content-stretch flex h-full items-start relative shrink-0" data-name="Sidebar">
       <div className="box-border content-stretch flex flex-col h-full items-center justify-between pb-[12px] pl-[8px] pr-0 pt-[8px] relative shrink-0" data-name="Mailboxes with Export">
@@ -1766,7 +1808,7 @@ function FromContainer() {
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif] font-bold">From</span>
         <span>{`: `}</span>
-        <span className="font-['Barlow:Regular',sans-serif]">OCP Statements (statements@omniconsumerproducts.com)</span>
+        <span className="font-['Barlow:Regular',sans-serif]">AP Team (accountspayable@omniconsumerproducts.com)</span>
       </p>
       <div className="h-[6.012px] relative shrink-0 w-[10.512px]" data-name="vector">
         <div className="absolute inset-0" style={{ "--fill-0": "rgba(34, 34, 34, 1)" } as React.CSSProperties}>
@@ -1793,7 +1835,7 @@ function ToContainer() {
     <div className="content-stretch flex h-[24px] items-center justify-between relative shrink-0 w-full" data-name="To Container">
       <p className="font-['Barlow:Medium',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span>
-        <span className="font-['Barlow:Regular',sans-serif]">{` clarence.boddicker@bowersmorgan.com`}</span>
+        <span className="font-['Barlow:Regular',sans-serif]">{` Wilma Oberbrunner <wilma.oberbrunner@acmeplc.com>`}</span>
       </p>
       <CcBccContainer />
     </div>
@@ -1811,7 +1853,7 @@ function SubjectLabelContainer() {
 function SubjectInputContainer() {
   return (
     <div className="basis-0 content-stretch flex grow items-end justify-between leading-[1.6] min-h-px min-w-px not-italic relative shrink-0 text-[12px] text-nowrap whitespace-pre" data-name="Subject Input Container">
-      <p className="font-['Barlow:Medium',sans-serif] relative shrink-0 text-[#222222]">Re: Overdue invoice reminder</p>
+      <p className="font-['Barlow:Medium',sans-serif] relative shrink-0 text-[#222222]">Re: Invoice INV-0115644 - Payment Query</p>
       <p className="font-['Barlow:Bold',sans-serif] overflow-ellipsis overflow-hidden relative shrink-0 text-[#6a6a6a]">Use Template</p>
     </div>
   );
@@ -2040,34 +2082,26 @@ function ComposeDetails() {
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col font-['Barlow:Regular',sans-serif] gap-[24px] items-start not-italic px-[16px] py-0 relative text-[#222222] text-[14px] w-full">
           <div className="leading-[0] relative shrink-0 w-full">
-            <p className="leading-[1.6] mb-0">{`Hi Clarence, `}</p>
+            <p className="leading-[1.6] mb-0">{`Hi Wilma,`}</p>
+            <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
+            <p className="leading-[1.6] mb-0">Thanks for your email.</p>
             <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
             <p className="leading-[1.6] mb-0">
-              Thank you for bringing the upcoming due invoices to our attention. We have noted the following invoice numbers and statuses:
-              <br aria-hidden="true" />
-              <br aria-hidden="true" />
+              Regarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.
             </p>
-            <ul className="list-disc mb-0">
-              <li className="mb-0 ms-[21px]">
-                <span className="leading-[1.6]">20677365 - In progress</span>
-              </li>
-              <li className="mb-0 ms-[21px]">
-                <span className="leading-[1.6]">0115644 - In progress</span>
-              </li>
-              <li className="mb-0 ms-[21px]">
-                <span className="leading-[1.6]">02826252 - In progress</span>
-              </li>
-              <li className="ms-[21px]">
-                <span className="leading-[1.6]">3987 - Paid</span>
-              </li>
-            </ul>
             <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
-            <p className="leading-[1.6]">We will ensure these invoices are processed for payment in a timely manner.</p>
+            <p className="leading-[1.6] mb-0">
+              On the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.
+            </p>
+            <p className="leading-[1.6] mb-0 text-[14px]">&nbsp;</p>
+            <p className="leading-[1.6]">Let me know if you'd like a copy of the PO for reference.</p>
           </div>
           <p className="leading-[1.6] relative shrink-0 w-full">
-            Janet Ellis
+            Kind regards,
             <br aria-hidden="true" />
-            AP Manager - OCP
+            Caroline Walsh
+            <br aria-hidden="true" />
+            AP Specialist
           </p>
         </div>
       </div>
@@ -2114,7 +2148,7 @@ function ComposeBody() {
 
 function ComposeContainer() {
   return (
-    <div style={{ display: 'none' }} className="content-stretch flex flex-col items-start relative w-full" data-name="Compose Container">
+    <div className="content-stretch flex flex-col items-start relative w-full" data-name="Compose Container">
       <div className="bg-white relative shrink-0 w-full" data-name="To">
         <div className="size-full">
           <div className="box-border content-stretch flex flex-col items-start pb-0 pt-[8px] px-[4px] relative w-full">
@@ -2127,10 +2161,14 @@ function ComposeContainer() {
   );
 }
 
-function Frame12() {
+function Frame12({ onSendClick }: { onSendClick?: () => void }) {
   return (
-    <div style={{ display: 'none' }} className="content-stretch flex gap-[4px] items-center relative">
-      <div className="bg-[#5a1899] box-border content-stretch flex gap-[8px] h-[32px] items-center justify-center min-w-[48px] p-[8px] relative rounded-[4px] shrink-0" data-name="Button">
+    <div className="content-stretch flex gap-[4px] items-center relative">
+      <div
+        onClick={onSendClick}
+        className="bg-[#5a1899] box-border content-stretch flex gap-[8px] h-[32px] items-center justify-center min-w-[48px] p-[8px] relative rounded-[4px] shrink-0 cursor-pointer hover:bg-[#6a2aa9] transition-colors"
+        data-name="Button"
+      >
         <p className="font-['Barlow:Medium',sans-serif] leading-none not-italic relative shrink-0 text-[12px] text-center text-nowrap text-white whitespace-pre">Send reply</p>
       </div>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap whitespace-pre hidden md:inline">+ move to</p>
@@ -2179,7 +2217,7 @@ function Frame12() {
   );
 }
 
-function ButtonGroup() {
+function ButtonGroup({ onSendClick }: { onSendClick?: () => void }) {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative" data-name="Button Group">
       <div className="bg-white box-border content-stretch flex gap-[8px] items-center justify-center p-[8px] relative rounded-[4px] shrink-0 size-[32px]" data-name="Button">
@@ -2194,7 +2232,7 @@ function ButtonGroup() {
           </div>
         </div>
       </div>
-      <Frame12 />
+      <Frame12 onSendClick={onSendClick} />
     </div>
   );
 }
@@ -2253,12 +2291,12 @@ function ButtonGroup1() {
   );
 }
 
-function ActionBar() {
+function ActionBar({ onSendClick }: { onSendClick?: () => void }) {
   return (
-    <div style={{ display: 'none' }} className="bg-white relative w-full overflow-x-auto min-w-0" data-name="Action Bar">
+    <div className="bg-white relative w-full overflow-x-auto min-w-0" data-name="Action Bar">
       <div className="w-max min-w-full">
         <div className="box-border content-stretch flex items-start justify-between px-[12px] py-[4px] relative w-full">
-          <ButtonGroup />
+          <ButtonGroup onSendClick={onSendClick} />
           <ButtonGroup1 />
         </div>
       </div>
@@ -2266,11 +2304,13 @@ function ActionBar() {
   );
 }
 
-function ContentArea() {
+function ContentArea({ show, onSendClick }: { show: boolean; onSendClick?: () => void }) {
+  if (!show) return null;
+
   return (
-    <div style={{ display: 'none' }} className="bg-white box-border content-stretch flex flex-col gap-[16px] items-center pb-[12px] pt-0 px-0 relative rounded-[4px] w-full min-w-0" data-name="Content Area">
+    <div className="bg-white box-border content-stretch flex flex-col gap-[8px] items-center pb-[8px] pt-[8px] px-[8px] relative rounded-[4px] w-full min-w-0" data-name="Content Area">
       <ComposeContainer />
-      <ActionBar />
+      <ActionBar onSendClick={onSendClick} />
     </div>
   );
 }
@@ -2413,10 +2453,457 @@ function EmailContent() {
   );
 }
 
-function EmailBody() {
+function SentEmailSenderInfo() {
+  return (
+    <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Sent Email Sender Info">
+      <div className="flex flex-row items-center size-full">
+        <div className="box-border content-stretch flex gap-[8px] items-center pl-0 pr-[16px] py-0 relative w-full">
+          <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+            <span className="font-['Barlow:Bold',sans-serif] font-bold">From:</span> <span className="font-['Barlow:Medium',sans-serif]">AP Team {`<accountspayable@omniconsumerproducts.com>`}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SentEmailIcons() {
+  return (
+    <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Sent Email Icons">
+      <Globe className="text-[#1e70ae]" size={14} strokeWidth={2} />
+      <Sparkles className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpLeft className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <ReplyAll className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpRight className="text-[#1e70ae]" size={12} strokeWidth={2} />
+    </div>
+  );
+}
+
+function SentEmailHeaderInfo() {
+  return (
+    <div className="content-stretch flex items-end relative shrink-0 w-full" data-name="Sent Email Header Info">
+      <SentEmailSenderInfo />
+      <SentEmailIcons />
+    </div>
+  );
+}
+
+function SentEmailDateInfo() {
+  const now = new Date();
+  const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+  const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  return (
+    <div className="content-stretch flex font-['Barlow:Medium',sans-serif] gap-[4px] items-start justify-end leading-[1.6] not-italic relative shrink-0 text-[#636363] text-[12px] text-nowrap whitespace-pre" data-name="Sent Email Date Info">
+      <p className="relative shrink-0">{date}</p>
+      <p className="relative shrink-0">-</p>
+      <p className="relative shrink-0">{time}</p>
+    </div>
+  );
+}
+
+function SentEmailRecipientInfo() {
+  return (
+    <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Sent Email Recipient Info">
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span> <span className="font-['Barlow:Medium',sans-serif] text-[#1e70ae]">Alex Morgan</span> <span className="font-['Barlow:Medium',sans-serif]">&lt;alex.morgan@omniconsumerproducts.com&gt;</span>
+      </p>
+      <SentEmailDateInfo />
+    </div>
+  );
+}
+
+function SentEmailSubjectInfo() {
+  return (
+    <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Sent Email Subject Info">
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px]">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">Subject:</span> <span className="font-['Barlow:Medium',sans-serif]">Re: Invoice INV-0115644 - £100 Short Payment Query</span>
+      </p>
+    </div>
+  );
+}
+
+function SentEmailHeaderContainer() {
+  return (
+    <div className="bg-white relative shrink-0 w-full" data-name="Sent Email Header Container">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[4px] items-start pb-0 pl-[12px] pr-[8px] pt-[12px] relative w-full">
+          <SentEmailHeaderInfo />
+          <SentEmailRecipientInfo />
+          <SentEmailSubjectInfo />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SentEmailBodyTextContainer() {
+  return (
+    <div className="content-stretch flex flex-col gap-[8px] items-start relative w-full min-w-0" data-name="Sent Email Body Text Container">
+      <div className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">
+        <p className="mb-[16px]">Hi Alex,</p>
+        <p className="mb-[16px]">The supplier for invoice INV-0115644 is querying the £100 short-payment. I can see your note that the amount exceeded the PO allowance and only the PO value was paid.</p>
+        <p className="mb-[16px]">Can you confirm we should maintain this position before I respond to the supplier?</p>
+        <p className="mb-[16px]">Best regards</p>
+        <p>
+          Caroline Walsh
+          <br aria-hidden="true" />
+          AP Specialist
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function SentEmailBodyContent() {
+  return (
+    <div className="bg-white relative w-full min-w-0" data-name="Sent Email Body Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[16px] items-start pb-[12px] pt-0 px-[12px] relative w-full">
+          <SentEmailBodyTextContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SentEmailContentContainer() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative rounded-[4px] w-full min-w-0" data-name="Sent Email Content Container">
+      <SentEmailHeaderContainer />
+      <SentEmailBodyContent />
+    </div>
+  );
+}
+
+function SentEmailContent() {
+  return (
+    <div className="h-auto relative rounded-[4px] w-full min-w-0 animate-email-slide-in" data-name="Sent Email Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[8px] h-auto items-start px-[8px] py-0 relative w-full">
+          <SentEmailContentContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AlexResponseSenderInfo() {
+  return (
+    <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Alex Response Sender Info">
+      <div className="flex flex-row items-center size-full">
+        <div className="box-border content-stretch flex gap-[8px] items-center pl-0 pr-[16px] py-0 relative w-full">
+          <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+            <span className="font-['Barlow:Bold',sans-serif] font-bold">From:</span> <span className="font-['Barlow:Medium',sans-serif] text-[#1e70ae]">Alex Morgan</span> <span className="font-['Barlow:Medium',sans-serif]">{`<alex.morgan@omniconsumerproducts.com>`}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AlexResponseIcons() {
+  return (
+    <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Alex Response Icons">
+      <Globe className="text-[#1e70ae]" size={14} strokeWidth={2} />
+      <Sparkles className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpLeft className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <ReplyAll className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpRight className="text-[#1e70ae]" size={12} strokeWidth={2} />
+    </div>
+  );
+}
+
+function AlexResponseHeaderInfo() {
+  return (
+    <div className="content-stretch flex items-end relative shrink-0 w-full" data-name="Alex Response Header Info">
+      <AlexResponseSenderInfo />
+      <AlexResponseIcons />
+    </div>
+  );
+}
+
+function AlexResponseDateInfo() {
+  const now = new Date();
+  const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+  const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  return (
+    <div className="content-stretch flex font-['Barlow:Medium',sans-serif] gap-[4px] items-start justify-end leading-[1.6] not-italic relative shrink-0 text-[#636363] text-[12px] text-nowrap whitespace-pre" data-name="Alex Response Date Info">
+      <p className="relative shrink-0">{date}</p>
+      <p className="relative shrink-0">-</p>
+      <p className="relative shrink-0">{time}</p>
+    </div>
+  );
+}
+
+function AlexResponseRecipientInfo() {
+  return (
+    <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Alex Response Recipient Info">
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span> <span className="font-['Barlow:Medium',sans-serif]">{`AP Team <accountspayable@omniconsumerproducts.com>`}</span>
+      </p>
+      <AlexResponseDateInfo />
+    </div>
+  );
+}
+
+function AlexResponseSubjectInfo() {
+  return (
+    <div className="box-border content-stretch flex gap-[8px] items-center pb-[8px] pt-0 px-0 relative shrink-0 w-full" data-name="Alex Response Subject Info">
+      <p className="[white-space-collapse:collapse] basis-0 font-['Barlow:Bold',sans-serif] grow leading-[1.6] min-h-px min-w-px not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px]">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">Subject:</span> <span className="font-['Barlow:Medium',sans-serif]">Re: Invoice INV-0115644 - £100 Short Payment Query</span>
+      </p>
+    </div>
+  );
+}
+
+function AlexResponseHeaderContainer() {
+  return (
+    <div className="bg-white relative shrink-0 w-full" data-name="Alex Response Header Container">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[4px] items-start pb-0 pl-[12px] pr-[8px] pt-[12px] relative w-full">
+          <AlexResponseHeaderInfo />
+          <AlexResponseRecipientInfo />
+          <AlexResponseSubjectInfo />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AlexResponseBodyTextContainer() {
+  return (
+    <div className="content-stretch flex flex-col gap-[8px] items-start relative w-full min-w-0" data-name="Alex Response Body Text Container">
+      <div className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">
+        <p className="mb-[16px]">Hi Caroline,</p>
+        <p className="mb-[16px]">Yes, please maintain the position. The invoice exceeded the PO limit and we've paid exactly what was authorized.</p>
+        <p className="mb-[16px]">Let me know if you need anything else.</p>
+        <p className="mb-[16px]">Best regards</p>
+        <p>
+          Alex Morgan
+          <br aria-hidden="true" />
+          Procurement Manager
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function AlexResponseBodyContent() {
+  return (
+    <div className="bg-white relative w-full min-w-0" data-name="Alex Response Body Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[16px] items-start pb-[12px] pt-0 px-[12px] relative w-full">
+          <AlexResponseBodyTextContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AlexResponseContentContainer() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative rounded-[4px] w-full min-w-0" data-name="Alex Response Content Container">
+      <AlexResponseHeaderContainer />
+      <AlexResponseBodyContent />
+    </div>
+  );
+}
+
+function AlexResponseContent() {
+  return (
+    <div className="h-auto relative rounded-[4px] w-full min-w-0 animate-email-slide-in" data-name="Alex Response Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[8px] h-auto items-start px-[8px] py-0 relative w-full">
+          <ContentArea />
+          <AlexResponseContentContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SupplierEmailSenderInfo() {
+  return (
+    <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Supplier Email Sender Info">
+      <div className="flex flex-row items-center size-full">
+        <div className="box-border content-stretch flex gap-[8px] items-center pl-0 pr-[16px] py-0 relative w-full">
+          <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+            <span className="font-['Barlow:Bold',sans-serif] font-bold">From:</span> <span className="font-['Barlow:Medium',sans-serif] text-[#1e70ae]">AP Team</span> <span className="font-['Barlow:Medium',sans-serif]">{`<accountspayable@omniconsumerproducts.com>`}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SupplierEmailIcons() {
+  return (
+    <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Supplier Email Icons">
+      <Globe className="text-[#1e70ae]" size={14} strokeWidth={2} />
+      <Sparkles className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpLeft className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <ReplyAll className="text-[#1e70ae]" size={12} strokeWidth={2} />
+      <CornerUpRight className="text-[#1e70ae]" size={12} strokeWidth={2} />
+    </div>
+  );
+}
+
+function SupplierEmailHeaderInfo() {
+  return (
+    <div className="content-stretch flex items-end relative shrink-0 w-full" data-name="Supplier Email Header Info">
+      <SupplierEmailSenderInfo />
+      <SupplierEmailIcons />
+    </div>
+  );
+}
+
+function SupplierEmailDateInfo() {
+  const now = new Date();
+  const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+  const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  return (
+    <div className="content-stretch flex items-center relative shrink-0 w-full" data-name="Supplier Email Date Info">
+      <p className="[white-space-collapse:collapse] font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#717182] text-[10px] text-nowrap">
+        {date} - {time}
+      </p>
+    </div>
+  );
+}
+
+function SupplierEmailRecipientInfo() {
+  return (
+    <div className="content-stretch flex items-center relative shrink-0 w-full" data-name="Supplier Email Recipient Info">
+      <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">To:</span> <span className="font-['Barlow:Regular',sans-serif]">Wilma Oberbrunner {`<wilma.oberbrunner@acmeplc.com>`}</span>
+      </p>
+    </div>
+  );
+}
+
+function SupplierEmailSubjectInfo() {
+  return (
+    <div className="content-stretch flex items-center relative shrink-0 w-full" data-name="Supplier Email Subject Info">
+      <p className="[white-space-collapse:collapse] font-['Barlow:Bold',sans-serif] leading-[1.6] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#222222] text-[12px] text-nowrap">
+        <span className="font-['Barlow:Bold',sans-serif] font-bold">Subject:</span> <span className="font-['Barlow:Regular',sans-serif]">Re: Invoice INV-0115644 - Payment Query</span>
+      </p>
+    </div>
+  );
+}
+
+function SupplierEmailHeaderContainer() {
+  return (
+    <div className="bg-white relative shrink-0 w-full" data-name="Supplier Email Header Container">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[4px] items-start pb-0 pl-[12px] pr-[8px] pt-[12px] relative w-full">
+          <SupplierEmailHeaderInfo />
+          <SupplierEmailDateInfo />
+          <SupplierEmailRecipientInfo />
+          <SupplierEmailSubjectInfo />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SupplierEmailBodyTextContainer() {
+  return (
+    <div className="content-stretch flex flex-col gap-[8px] items-start relative w-full min-w-0" data-name="Supplier Email Body Text Container">
+      <div className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[14px] w-full">
+        <p className="mb-[16px]">Hi Wilma,</p>
+        <p className="mb-[16px]">Thanks for your email.</p>
+        <p className="mb-[16px]">Regarding the timing of the payment: as per our agreement for subcontractors, payment is made once we receive payment from our end customer, so the payment date was in line with the agreed terms.</p>
+        <p className="mb-[16px]">On the £100 difference: the invoiced amount exceeded the value approved on the Purchase Order, so we paid up to the PO limit.</p>
+        <p className="mb-[16px]">Let me know if you'd like a copy of the PO for reference.</p>
+        <p className="mb-0">Kind regards,<br />Caroline Walsh<br />AP Specialist</p>
+      </div>
+    </div>
+  );
+}
+
+function SupplierEmailBodyContent() {
+  return (
+    <div className="bg-white relative w-full min-w-0" data-name="Supplier Email Body Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[16px] items-start pb-[12px] pt-0 px-[12px] relative w-full">
+          <SupplierEmailBodyTextContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SupplierEmailContentContainer() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative rounded-[4px] w-full min-w-0" data-name="Supplier Email Content Container">
+      <SupplierEmailHeaderContainer />
+      <SupplierEmailBodyContent />
+    </div>
+  );
+}
+
+function SupplierEmailContent() {
+  return (
+    <div className="h-auto relative rounded-[4px] w-full min-w-0 animate-email-slide-in" data-name="Supplier Email Content">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[8px] h-auto items-start px-[8px] py-0 relative w-full">
+          <SupplierEmailContentContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SentSupplierEmailCard() {
+  return (
+    <div className="h-auto relative rounded-[4px] w-full min-w-0" data-name="Sent Supplier Email Card">
+      <div className="size-full">
+        <div className="box-border content-stretch flex flex-col gap-[8px] h-auto items-start px-[8px] py-0 relative w-full">
+          <SupplierEmailContentContainer />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EmailBody({ showSentEmail, showAlexResponse, showSupplierEmail, showDraftCompose, showSupplierSentEmail, onSendDraft }: { showSentEmail: boolean; showAlexResponse: boolean; showSupplierEmail: boolean; showDraftCompose: boolean; showSupplierSentEmail: boolean; onSendDraft?: () => void }) {
   return (
     <div className="bg-[#f6f6f8] box-border content-stretch flex flex-col flex-1 h-full items-start min-w-0 overflow-y-auto pb-[56px] pt-0 px-0 relative" data-name="Email Body">
-      <EmailContent />
+      {showDraftCompose && (
+        <div className="h-auto relative rounded-[4px] w-full min-w-0">
+          <div className="size-full">
+            <div className="box-border content-stretch flex flex-col gap-[8px] h-auto items-start px-[8px] py-0 relative w-full">
+              <ContentArea show={showDraftCompose} onSendClick={onSendDraft} />
+            </div>
+          </div>
+        </div>
+      )}
+      {showSupplierSentEmail && (
+        <div className="mb-[16px] w-full">
+          <SentSupplierEmailCard />
+        </div>
+      )}
+      {showAlexResponse && (
+        <div className={(showDraftCompose || showSupplierSentEmail) ? "mt-[8px] w-full" : "w-full"}>
+          <AlexResponseContent />
+        </div>
+      )}
+      {showSentEmail && (
+        <div className={(showAlexResponse || showDraftCompose || showSupplierSentEmail) ? "mt-[8px] w-full" : "w-full"}>
+          <SentEmailContent />
+        </div>
+      )}
+      {showSupplierEmail && (
+        <div className={(showSentEmail || showAlexResponse || showDraftCompose || showSupplierSentEmail) ? "mt-[8px] w-full" : "w-full"}>
+          <SupplierEmailContent />
+        </div>
+      )}
+      {/* Always show Wilma, with spacing if other emails exist */}
+      <div className={(showSentEmail || showAlexResponse || showSupplierEmail || showDraftCompose || showSupplierSentEmail) ? "mt-[8px] w-full" : "w-full"}>
+        <EmailContent />
+      </div>
     </div>
   );
 }
@@ -4482,7 +4969,7 @@ function Container101() {
   );
 }
 
-function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, setExpandedReasoning, onPillClick, usedPillIndices, onFollowUpTrigger, onShortPaymentTrigger, onCommentsCheckTrigger, onDraftEmailTrigger, onEmailAddTrigger, onDraftSupplierResponseTrigger }: { activeView: 'activity' | 'ai'; chatMessages: ChatMessage[]; showToolValues: boolean; expandedReasoning: number | null; setExpandedReasoning: (idx: number | null) => void; onPillClick: (pillText: string, messageIndex: number) => void; usedPillIndices: Set<number>; onFollowUpTrigger?: () => void; onShortPaymentTrigger?: () => void; onCommentsCheckTrigger?: () => void; onDraftEmailTrigger?: () => void; onEmailAddTrigger?: () => void; onDraftSupplierResponseTrigger?: () => void }) {
+function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, setExpandedReasoning, onPillClick, usedPillIndices, onFollowUpTrigger, onShortPaymentTrigger, onCommentsCheckTrigger, onDraftEmailTrigger, onShowSentEmail, onShowAlexResponse, onDraftSupplierResponseTrigger }: { activeView: 'activity' | 'ai'; chatMessages: ChatMessage[]; showToolValues: boolean; expandedReasoning: number | null; setExpandedReasoning: (idx: number | null) => void; onPillClick: (pillText: string, messageIndex: number) => void; usedPillIndices: Set<number>; onFollowUpTrigger?: () => void; onShortPaymentTrigger?: () => void; onCommentsCheckTrigger?: () => void; onDraftEmailTrigger?: () => void; onShowSentEmail?: () => void; onShowAlexResponse?: () => void; onDraftSupplierResponseTrigger?: () => void }) {
   const [textCompleted, setTextCompleted] = useState<{ [key: number]: boolean }>({});
   const [cardShown, setCardShown] = useState<{ [key: number]: boolean }>({});
   const [afterTextCompleted, setAfterTextCompleted] = useState<{ [key: number]: boolean }>({});
@@ -4507,6 +4994,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
         } else if (msg.triggerDraftEmail && onDraftEmailTrigger) {
           setTriggeredMessages(prev => new Set(prev).add(idx));
           setTimeout(() => onDraftEmailTrigger(), 600);
+        } else if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger) {
+          setTriggeredMessages(prev => new Set(prev).add(idx));
+          setTimeout(() => onDraftSupplierResponseTrigger(), 600);
         }
       }
     }, 200);
@@ -4521,6 +5011,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
       if (msg.triggerCommentsCheck && onCommentsCheckTrigger) {
         setTriggeredMessages(prev => new Set(prev).add(idx));
         setTimeout(() => onCommentsCheckTrigger(), 600);
+      } else if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger) {
+        setTriggeredMessages(prev => new Set(prev).add(idx));
+        setTimeout(() => onDraftSupplierResponseTrigger(), 600);
       }
     }
   };
@@ -4548,14 +5041,26 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
             setTimeout(() => onDraftEmailTrigger(), 600);
           }
         }
+        // For messages with card but no textAfterCard (like alert-result)
+        if (msg.hasCard && !msg.textAfterCard && cardShown[idx]) {
+          if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger) {
+            setTriggeredMessages(prev => new Set(prev).add(idx));
+            setTimeout(() => onDraftSupplierResponseTrigger(), 600);
+          }
+        }
       }
     });
-  }, [chatMessages, animatedMessages, cardShown, afterTextCompleted, triggeredMessages, onCommentsCheckTrigger, onDraftEmailTrigger]);
+  }, [chatMessages, animatedMessages, cardShown, afterTextCompleted, triggeredMessages, onCommentsCheckTrigger, onDraftEmailTrigger, onDraftSupplierResponseTrigger]);
 
   // Auto-scroll to bottom when new messages are added or content changes
   useEffect(() => {
     if (messagesContainerRef.current && activeView === 'ai') {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      // Add delay to ensure card content and pills (with 300ms animation delay) are fully rendered
+      setTimeout(() => {
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
+      }, 500);
     }
   }, [chatMessages, cardShown, afterTextCompleted, activeView]);
 
@@ -4604,7 +5109,7 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                       msg.type === 'thinking'
                         ? 'bg-transparent text-[#222222]'
                         : 'bg-[#f5f5f5] text-[#222222]'
-                    } ${(msg.scenario === 'email-sent-result' || msg.scenario === 'alert-result') ? 'cursor-pointer hover:bg-[#ebebeb] transition-colors' : ''}`}
+                    } ${msg.scenario === 'email-sent-result' ? 'cursor-pointer hover:bg-[#ebebeb] transition-colors' : ''}`}
                     onClick={(e) => {
                       // Check if the click target is within a clickable element inside (like document link or email card)
                       const target = e.target as HTMLElement;
@@ -4614,10 +5119,8 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                         return;
                       }
 
-                      if (msg.scenario === 'email-sent-result' && onEmailAddTrigger) {
-                        onEmailAddTrigger();
-                      } else if (msg.scenario === 'alert-result' && onDraftSupplierResponseTrigger) {
-                        onDraftSupplierResponseTrigger();
+                      if (msg.scenario === 'email-sent-result' && onShowAlexResponse) {
+                        onShowAlexResponse();
                       }
                     }}
                   >
@@ -4676,6 +5179,11 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                             )}
                             <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#464646]">{msg.toolName || 'Query ERP'}</p>
                           </div>
+                          {showToolValues && msg.toolPills && msg.toolPills.length > 0 && (
+                            <span className="inline-flex items-center mx-[6px] animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
+                              <ChevronRight className="text-[#9b9b9b]" size={10} strokeWidth={2} />
+                            </span>
+                          )}
                           {showToolValues && msg.toolPills && msg.toolPills.map((pill, pillIdx) => (
                             <div key={pillIdx} className="bg-[#f5f5f5] px-[10px] py-[4px] rounded-[100px] inline-block animate-fade-in-up" style={{ animationDelay: `${0.1 * (pillIdx + 1)}s`, animationFillMode: 'backwards' }}>
                               <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#6b6b6b]">{pill}</p>
@@ -4707,6 +5215,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                     if (msg.triggerShortPayment && onShortPaymentTrigger && !triggeredMessages.has(idx)) {
                                       setTriggeredMessages(prev => new Set(prev).add(idx));
                                       setTimeout(() => onShortPaymentTrigger(), 600);
+                                    } else if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger && !triggeredMessages.has(idx)) {
+                                      setTriggeredMessages(prev => new Set(prev).add(idx));
+                                      setTimeout(() => onDraftSupplierResponseTrigger(), 600);
                                     }
                                   } else if (msg.triggerFollowUp && onFollowUpTrigger && !triggeredMessages.has(idx)) {
                                     // Trigger follow-up sequence after 0.8 seconds
@@ -4720,6 +5231,10 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                     // Trigger draft email sequence after 0.6 seconds
                                     setTriggeredMessages(prev => new Set(prev).add(idx));
                                     setTimeout(() => onDraftEmailTrigger(), 600);
+                                  } else if (msg.triggerDraftSupplierResponse && onDraftSupplierResponseTrigger && !triggeredMessages.has(idx)) {
+                                    // Trigger draft supplier response sequence after 0.6 seconds
+                                    setTriggeredMessages(prev => new Set(prev).add(idx));
+                                    setTimeout(() => onDraftSupplierResponseTrigger(), 600);
                                   }
                                 }}
                               />
@@ -4817,11 +5332,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                     <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5] whitespace-pre-line">
                                       {expandedEmails.has(idx) ? msg.cardData.email.body : (msg.cardData.email.body.split('\n')[0] + '...')}
                                     </p>
-                                    {!expandedEmails.has(idx) && (
-                                      <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
-                                        Click to expand
-                                      </p>
-                                    )}
+                                    <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
+                                      {expandedEmails.has(idx) ? 'Click to collapse' : 'Click to expand'}
+                                    </p>
                                   </div>
                                 </div>
                               )}
@@ -4843,11 +5356,9 @@ function Frame5({ activeView, chatMessages, showToolValues, expandedReasoning, s
                                   <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5] whitespace-pre-line">
                                     {expandedEmails.has(idx) ? msg.cardData.message : (msg.cardData.message.substring(0, 50) + '...')}
                                   </p>
-                                  {!expandedEmails.has(idx) && (
-                                    <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
-                                      Click to expand
-                                    </p>
-                                  )}
+                                  <p className="font-['Barlow:Medium',sans-serif] text-[10px] text-[#5a1899] mt-[2px]">
+                                    {expandedEmails.has(idx) ? 'Click to collapse' : 'Click to expand'}
+                                  </p>
                                 </div>
                               )}
                             </div>
@@ -5044,7 +5555,7 @@ interface ChatMessage {
   triggerDraftEmail?: boolean;
 }
 
-function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
+function ActivityFeed1({ onAddNewEmail, onShowSentEmail, onShowAlexResponse, onSetAlertTrigger, onTicketStatusChange, onShowDraftCompose, onSendDraft, onShowSupplierEmail }: { onAddNewEmail: () => void; onShowSentEmail: () => void; onShowAlexResponse: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void; onShowDraftCompose: () => void; onSendDraft: () => void; onShowSupplierEmail: () => void }) {
   const [activeView, setActiveView] = useState<'activity' | 'ai'>('activity');
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     { role: 'agent', text: 'Hi, how can i help with ticket #173524?' }
@@ -5264,7 +5775,7 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
             }, 400);
           }, 9000);
         }, 100);
-      }, 300);
+      }, 1200);
     }, 2000);
   };
 
@@ -5372,6 +5883,10 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
               reasoningText: 'Email successfully sent to Alex Morgan via internal email system. Notification will be triggered upon response receipt.',
               scenario: 'email-sent-result'
             }]);
+
+            // Show the sent email in middle panel
+            onShowSentEmail();
+            // Note: Alex's email will appear in left sidebar when notification is clicked
           }, 400);
         }, 3000);
       }, 100);
@@ -5422,10 +5937,11 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
               hasCard: true,
               cardData: {
                 type: 'alert-message',
-                message: "Hi! Yes, confirmed - we're firm on this. The supplier went over the PO value, and we will not be paying the additional £100."
+                message: "Hi Caroline,\n\nYes, please maintain the position. The invoice exceeded the PO limit and we've paid exactly what was authorized.\n\nLet me know if you need anything else.\n\nBest regards\nAlex Morgan\nProcurement Manager"
               },
               reasoningText: 'Received response notification from Alex Morgan via internal email system.',
-              scenario: 'alert-result'
+              scenario: 'alert-result',
+              triggerDraftSupplierResponse: true
             }]);
           }, 400);
         }, 9000);
@@ -5491,6 +6007,9 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
                 suggestionPills: ['Send', 'Open & Edit Draft'],
                 scenario: 'supplier-draft-result'
               }]);
+
+              // Show the draft compose card in middle panel
+              onShowDraftCompose();
             }, 400);
           }, 9000);
         }, 100);
@@ -5536,6 +6055,9 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
               isReasoned: true,
               reasoningText: 'External email sent to Wilma Oberbrunner (supplier contact) via company email system. Email tracking ID: EXT-2025-001. Delivery confirmation received.'
             }]);
+
+            // Show the supplier email in middle panel
+            onShowSupplierEmail();
 
             // Auto-trigger ticket closure after 2 seconds
             setTimeout(() => {
@@ -5624,6 +6146,12 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
       return;
     }
 
+    // Handle Analyse Documents - clickable but no action, don't mark as used
+    if (pillText === 'Analyse Documents') {
+      // Pill is clickable but no action taken, buttons remain visible
+      return;
+    }
+
     // Mark this message's pills as used (for all other actions)
     setUsedPillIndices(prev => new Set(prev).add(messageIndex));
 
@@ -5643,7 +6171,10 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
         const userMessage: ChatMessage = { role: 'user', text: 'Send email to Wilma' };
         setChatMessages(prev => [...prev, userMessage]);
 
-        // External email to supplier
+        // Hide draft compose and show sent card via parent callback
+        onSendDraft();
+
+        // Trigger send sequence locally
         triggerSendExternalEmailSequence();
         return;
       }
@@ -5842,7 +6373,7 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
 
   return (
     <div className="bg-white content-stretch flex h-full items-start w-[435px] relative rounded-tl-[4px] rounded-tr-[4px]" data-name="Activity Feed">
-      <Frame5 activeView={activeView} chatMessages={chatMessages} showToolValues={showToolValues} expandedReasoning={expandedReasoning} setExpandedReasoning={setExpandedReasoning} onPillClick={handlePillClick} usedPillIndices={usedPillIndices} onFollowUpTrigger={triggerFollowUpSequence} onShortPaymentTrigger={triggerShortPaymentSequence} onCommentsCheckTrigger={triggerCommentsCheckSequence} onDraftEmailTrigger={triggerDraftEmailSequence} onEmailAddTrigger={onAddNewEmail} onDraftSupplierResponseTrigger={triggerDraftSupplierResponseSequence} />
+      <Frame5 activeView={activeView} chatMessages={chatMessages} showToolValues={showToolValues} expandedReasoning={expandedReasoning} setExpandedReasoning={setExpandedReasoning} onPillClick={handlePillClick} usedPillIndices={usedPillIndices} onFollowUpTrigger={triggerFollowUpSequence} onShortPaymentTrigger={triggerShortPaymentSequence} onCommentsCheckTrigger={triggerCommentsCheckSequence} onDraftEmailTrigger={triggerDraftEmailSequence} onShowSentEmail={onShowSentEmail} onShowAlexResponse={onShowAlexResponse} onDraftSupplierResponseTrigger={triggerDraftSupplierResponseSequence} />
       <ActivityFeed activeView={activeView} setActiveView={setActiveView} />
       
       {/* Chat Input Area - Absolutely positioned at bottom of Activity Feed container */}
@@ -5870,40 +6401,48 @@ function ActivityFeed1({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange 
   );
 }
 
-function EmailBodyContainer({ onAddNewEmail, onSetAlertTrigger, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
+function EmailBodyContainer({ showSentEmail, showAlexResponse, showSupplierEmail, showDraftCompose, showSupplierSentEmail, onAddNewEmail, onShowSentEmail, onShowAlexResponse, onSendDraft, onSetAlertTrigger, onTicketStatusChange, onShowDraftCompose, onShowSupplierEmail }: { showSentEmail: boolean; showAlexResponse: boolean; showSupplierEmail: boolean; showDraftCompose: boolean; showSupplierSentEmail: boolean; onAddNewEmail: () => void; onShowSentEmail: () => void; onShowAlexResponse: () => void; onSendDraft: () => void; onSetAlertTrigger: (callback: () => void) => void; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void; onShowDraftCompose: () => void; onShowSupplierEmail: () => void }) {
   return (
     <div className="basis-0 grow min-h-px min-w-0 relative" data-name="Email Body Container">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-row items-start pl-0 pr-0 py-0 relative h-full w-full">
-          <EmailBody />
-          <ActivityFeed1 onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} />
+          <EmailBody showSentEmail={showSentEmail} showAlexResponse={showAlexResponse} showSupplierEmail={showSupplierEmail} showDraftCompose={showDraftCompose} showSupplierSentEmail={showSupplierSentEmail} onSendDraft={onSendDraft} />
+          <ActivityFeed1 onAddNewEmail={onAddNewEmail} onShowSentEmail={onShowSentEmail} onShowAlexResponse={onShowAlexResponse} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} onShowDraftCompose={onShowDraftCompose} onSendDraft={onSendDraft} onShowSupplierEmail={onShowSupplierEmail} />
         </div>
       </div>
     </div>
   );
 }
 
-function EmailDetail({ onAddNewEmail, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
+function EmailDetail({ showSentEmail, showAlexResponse, showSupplierEmail, showDraftCompose, showSupplierSentEmail, onAddNewEmail, onShowSentEmail, onShowAlexResponse, onSendDraft, onSetAlertTrigger, ticketStatus, onTicketStatusChange, onShowDraftCompose, onShowSupplierEmail }: { showSentEmail: boolean; showAlexResponse: boolean; showSupplierEmail: boolean; showDraftCompose: boolean; showSupplierSentEmail: boolean; onAddNewEmail: () => void; onShowSentEmail: () => void; onShowAlexResponse: () => void; onSendDraft: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void; onShowDraftCompose: () => void; onShowSupplierEmail: () => void }) {
   return (
     <div className="basis-0 content-stretch flex flex-col gap-[12px] grow h-full items-start min-h-px min-w-0 relative" data-name="Email Detail">
       <EmailHeader ticketStatus={ticketStatus} />
-      <EmailBodyContainer onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} />
+      <EmailBodyContainer showSentEmail={showSentEmail} showAlexResponse={showAlexResponse} showSupplierEmail={showSupplierEmail} showDraftCompose={showDraftCompose} showSupplierSentEmail={showSupplierSentEmail} onAddNewEmail={onAddNewEmail} onShowSentEmail={onShowSentEmail} onShowAlexResponse={onShowAlexResponse} onSendDraft={onSendDraft} onSetAlertTrigger={onSetAlertTrigger} onTicketStatusChange={onTicketStatusChange} onShowDraftCompose={onShowDraftCompose} onShowSupplierEmail={onShowSupplierEmail} />
     </div>
   );
 }
 
-function ContentContainer({ showNewEmail, onAddNewEmail, onSetAlertTrigger, ticketStatus, onTicketStatusChange }: { showNewEmail: boolean; onAddNewEmail: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void }) {
+function ContentContainer({ showNewEmail, showSentEmail, showAlexResponse, showSupplierEmail, showDraftCompose, showSupplierSentEmail, onAddNewEmail, onShowSentEmail, onShowAlexResponse, onSendDraft, onSetAlertTrigger, ticketStatus, onTicketStatusChange, onShowDraftCompose, onShowSupplierEmail }: { showNewEmail: boolean; showSentEmail: boolean; showAlexResponse: boolean; showSupplierEmail: boolean; showDraftCompose: boolean; showSupplierSentEmail: boolean; onAddNewEmail: () => void; onShowSentEmail: () => void; onShowAlexResponse: () => void; onSendDraft: () => void; onSetAlertTrigger: (callback: () => void) => void; ticketStatus: 'in-progress' | 'resolved'; onTicketStatusChange: (status: 'in-progress' | 'resolved') => void; onShowDraftCompose: () => void; onShowSupplierEmail: () => void }) {
   return (
     <div className="basis-0 bg-[#f6f6f8] box-border content-stretch flex gap-px grow items-start min-h-px min-w-0 pb-0 pt-[12px] px-0 relative w-full" data-name="Content Container">
-      <Sidebar showNewEmail={showNewEmail} />
-      <EmailDetail onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} />
+      <Sidebar showNewEmail={showNewEmail} showSentEmail={false} />
+      <EmailDetail showSentEmail={showSentEmail} showAlexResponse={showAlexResponse} showSupplierEmail={showSupplierEmail} showDraftCompose={showDraftCompose} showSupplierSentEmail={showSupplierSentEmail} onAddNewEmail={onAddNewEmail} onShowSentEmail={onShowSentEmail} onShowAlexResponse={onShowAlexResponse} onSendDraft={onSendDraft} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} onShowDraftCompose={onShowDraftCompose} onShowSupplierEmail={onShowSupplierEmail} />
     </div>
   );
 }
 
 function MainContainer({
   showNewEmail,
+  showSentEmail,
+  showAlexResponse,
+  showSupplierEmail,
+  showDraftCompose,
+  showSupplierSentEmail,
   onAddNewEmail,
+  onShowSentEmail,
+  onShowAlexResponse,
+  onSendDraft,
   showNotification,
   isNotificationPopoverOpen,
   onNotificationPopoverChange,
@@ -5912,10 +6451,20 @@ function MainContainer({
   onViewNotification,
   onSetAlertTrigger,
   ticketStatus,
-  onTicketStatusChange
+  onTicketStatusChange,
+  onShowDraftCompose,
+  onShowSupplierEmail
 }: {
   showNewEmail: boolean;
+  showSentEmail: boolean;
+  showAlexResponse: boolean;
+  showSupplierEmail: boolean;
+  showDraftCompose: boolean;
+  showSupplierSentEmail: boolean;
   onAddNewEmail: () => void;
+  onShowSentEmail: () => void;
+  onShowAlexResponse: () => void;
+  onSendDraft: () => void;
   showNotification: boolean;
   isNotificationPopoverOpen: boolean;
   onNotificationPopoverChange: (open: boolean) => void;
@@ -5925,6 +6474,8 @@ function MainContainer({
   onSetAlertTrigger: (callback: () => void) => void;
   ticketStatus: 'in-progress' | 'resolved';
   onTicketStatusChange: (status: 'in-progress' | 'resolved') => void;
+  onShowDraftCompose: () => void;
+  onShowSupplierEmail: () => void;
 }) {
   return (
     <div className="content-stretch flex flex-col h-full items-start relative overflow-hidden flex-1" data-name="Main Container">
@@ -5940,13 +6491,18 @@ function MainContainer({
           onView={onViewNotification}
         />
       </div>
-      <ContentContainer showNewEmail={showNewEmail} onAddNewEmail={onAddNewEmail} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} />
+      <ContentContainer showNewEmail={showNewEmail} showSentEmail={showSentEmail} showAlexResponse={showAlexResponse} showSupplierEmail={showSupplierEmail} showDraftCompose={showDraftCompose} showSupplierSentEmail={showSupplierSentEmail} onAddNewEmail={onAddNewEmail} onShowSentEmail={onShowSentEmail} onShowAlexResponse={onShowAlexResponse} onSendDraft={onSendDraft} onSetAlertTrigger={onSetAlertTrigger} ticketStatus={ticketStatus} onTicketStatusChange={onTicketStatusChange} onShowDraftCompose={onShowDraftCompose} onShowSupplierEmail={onShowSupplierEmail} />
     </div>
   );
 }
 
 export default function Reply() {
   const [showNewEmail, setShowNewEmail] = useState(false);
+  const [showSentEmail, setShowSentEmail] = useState(false);
+  const [showAlexResponse, setShowAlexResponse] = useState(false);
+  const [showSupplierEmail, setShowSupplierEmail] = useState(false);
+  const [showDraftCompose, setShowDraftCompose] = useState(false);
+  const [showSupplierSentEmail, setShowSupplierSentEmail] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [alertTriggerCallback, setAlertTriggerCallback] = useState<(() => void) | null>(null);
   const [ticketStatus, setTicketStatus] = useState<'in-progress' | 'resolved'>('in-progress');
@@ -5957,8 +6513,40 @@ export default function Reply() {
     timestamp: string;
   } | null>(null);
 
+  const handleSendDraft = () => {
+    // Hide the draft compose card
+    setShowDraftCompose(false);
+    // Show the sent email card
+    setShowSupplierSentEmail(true);
+    // Note: triggerSendExternalEmailSequence is called from ActivityFeed1
+  };
+
+  const handleShowDraftCompose = () => {
+    setShowDraftCompose(true);
+  };
+
   const handleAddNewEmail = () => {
     setShowNewEmail(true);
+    setShowNotification(true);
+    setNotificationData({
+      sender: 'Alex Morgan',
+      preview: 'Response received to your email',
+      timestamp: 'Just now'
+    });
+
+    // Note: No auto-trigger - user must click notification to continue
+  };
+
+  const handleShowSentEmail = () => {
+    // Show the sent email to Alex in middle panel only
+    setShowSentEmail(true);
+    // Note: Alex's response will appear in middle panel when user clicks "Email sent" message
+  };
+
+  const handleShowAlexResponse = () => {
+    // Show Alex's response in middle panel
+    setShowAlexResponse(true);
+    // Show notification dot
     setShowNotification(true);
     setNotificationData({
       sender: 'Alex Morgan',
@@ -5978,6 +6566,10 @@ export default function Reply() {
     setAlertTriggerCallback(() => callback);
   };
 
+  const handleShowSupplierEmail = () => {
+    setShowSupplierEmail(true);
+  };
+
   const handleDismissNotification = () => {
     setShowNotification(false);
     setIsNotificationPopoverOpen(false);
@@ -5986,8 +6578,8 @@ export default function Reply() {
   const handleViewNotification = () => {
     setShowNotification(false);
     setIsNotificationPopoverOpen(false);
-    // The new email is already visible in the sidebar (blue highlight)
-    // No additional scrolling needed as it's the first card
+    // Show Alex's response email in the middle panel
+    handleShowAlexResponse();
   };
 
   return (
@@ -6000,7 +6592,15 @@ export default function Reply() {
       </div>
       <MainContainer
         showNewEmail={showNewEmail}
+        showSentEmail={showSentEmail}
+        showAlexResponse={showAlexResponse}
+        showSupplierEmail={showSupplierEmail}
+        showDraftCompose={showDraftCompose}
+        showSupplierSentEmail={showSupplierSentEmail}
         onAddNewEmail={handleAddNewEmail}
+        onShowSentEmail={handleShowSentEmail}
+        onShowAlexResponse={handleShowAlexResponse}
+        onSendDraft={handleSendDraft}
         showNotification={showNotification}
         isNotificationPopoverOpen={isNotificationPopoverOpen}
         onNotificationPopoverChange={setIsNotificationPopoverOpen}
@@ -6010,6 +6610,8 @@ export default function Reply() {
         onSetAlertTrigger={handleSetAlertTrigger}
         ticketStatus={ticketStatus}
         onTicketStatusChange={setTicketStatus}
+        onShowDraftCompose={handleShowDraftCompose}
+        onShowSupplierEmail={handleShowSupplierEmail}
       />
     </div>
   );
