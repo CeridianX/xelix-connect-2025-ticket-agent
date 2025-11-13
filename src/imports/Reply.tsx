@@ -180,7 +180,7 @@ function NotificationPopover({
   onDismiss,
   onView
 }: {
-  notificationData: { sender: string; preview: string; timestamp: string } | null;
+  notificationData: { sender: string; preview: string; timestamp: string; ticket?: string; subject?: string; context?: string } | null;
   onDismiss: () => void;
   onView: () => void;
 }) {
@@ -197,25 +197,40 @@ function NotificationPopover({
 
         {/* Notification Card */}
         <div className="bg-white border border-[#e3e3e3] rounded-[6px] p-[10px] flex flex-col gap-[8px]">
-          {/* Sender and Timestamp */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-[6px]">
-              <Mail className="text-[#5a1899]" size={14} strokeWidth={2} />
-              <p className="font-['Barlow:Medium',sans-serif] text-[12px] text-[#222222]">{notificationData.sender}</p>
+          {/* Sender, Ticket, and Timestamp */}
+          <div className="flex items-center justify-between gap-[6px]">
+            <div className="flex items-center gap-[6px] flex-1 min-w-0">
+              <Mail className="text-[#5a1899] shrink-0" size={14} strokeWidth={2} />
+              <p className="font-['Barlow:Medium',sans-serif] text-[12px] text-[#222222] truncate">{notificationData.sender}</p>
+              {notificationData.ticket && (
+                <span className="bg-[#f0ebf8] text-[#5a1899] font-['Barlow:Bold',sans-serif] text-[10px] px-[6px] py-[2px] rounded-[4px] shrink-0">
+                  {notificationData.ticket}
+                </span>
+              )}
             </div>
-            <span className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182]">{notificationData.timestamp}</span>
+            <span className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182] shrink-0">{notificationData.timestamp}</span>
           </div>
+
+          {/* Subject Line */}
+          {notificationData.subject && (
+            <div className="flex items-start gap-[6px]">
+              <FileText className="text-[#5a1899] shrink-0 mt-[2px]" size={12} strokeWidth={2} />
+              <p className="font-['Barlow:Medium',sans-serif] text-[11px] text-[#222222] leading-[1.4]">{notificationData.subject}</p>
+            </div>
+          )}
 
           {/* Preview */}
           <p className="font-['Barlow:Regular',sans-serif] text-[11px] text-[#464646] leading-[1.5]">{notificationData.preview}</p>
 
           {/* Context Reference */}
-          <div className="bg-[#f9f9f9] border border-[#e3e3e3] rounded-[4px] p-[6px] flex items-start gap-[6px]">
-            <Sparkles className="text-[#5a1899] shrink-0 mt-[1px]" size={12} strokeWidth={2} />
-            <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182] leading-[1.4] italic">
-              Ticket Agent: As mentioned, I'm notifying you about the response
-            </p>
-          </div>
+          {notificationData.context && (
+            <div className="bg-[#f9f9f9] border border-[#e3e3e3] rounded-[4px] p-[6px] flex items-start gap-[6px]">
+              <Sparkles className="text-[#5a1899] shrink-0 mt-[1px]" size={12} strokeWidth={2} />
+              <p className="font-['Barlow:Regular',sans-serif] text-[10px] text-[#717182] leading-[1.4] italic">
+                {notificationData.context}
+              </p>
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex gap-[6px]">
@@ -223,7 +238,7 @@ function NotificationPopover({
               onClick={onView}
               className="flex-1 bg-[#5a1899] hover:bg-[#6a1fa9] text-white font-['Barlow:Medium',sans-serif] text-[11px] py-[6px] px-[10px] rounded-[4px] transition-colors cursor-pointer"
             >
-              View
+              View Response
             </button>
             <button
               onClick={onDismiss}
@@ -6563,7 +6578,10 @@ export default function Reply() {
     setShowNotification(true);
     setNotificationData({
       sender: 'Alex Morgan',
-      preview: 'Response received to your email',
+      ticket: '#173524',
+      subject: 'Re: Invoice INV-0115644 - Payment Query',
+      preview: 'Confirmed PO limit position on invoice INV-0115644',
+      context: 'Ready to draft supplier response based on confirmation',
       timestamp: 'Just now'
     });
 
@@ -6583,7 +6601,10 @@ export default function Reply() {
     setShowNotification(true);
     setNotificationData({
       sender: 'Alex Morgan',
-      preview: 'Response received to your email',
+      ticket: '#173524',
+      subject: 'Re: Invoice INV-0115644 - Payment Query',
+      preview: 'Confirmed PO limit position on invoice INV-0115644',
+      context: 'Ready to draft supplier response based on confirmation',
       timestamp: 'Just now'
     });
 
