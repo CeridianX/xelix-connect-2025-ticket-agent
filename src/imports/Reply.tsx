@@ -3223,7 +3223,7 @@ function InvoiceDetails() {
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">INV-0115644</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
-        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
+        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £1,100.00
       </p>
       <div className="absolute bg-[#cbf9ef] bottom-0 box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] right-0 rounded-[100px]" data-name="Chip">
         <div aria-hidden="true" className="absolute border border-[#2e652e] border-solid inset-0 pointer-events-none rounded-[100px]" />
@@ -3377,7 +3377,7 @@ function InvoiceDetails1() {
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> <span className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid font-['Barlow:Bold',sans-serif] text-[#1e70ae] underline">INV-0115644</span>
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
-        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
+        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £1,100.00
       </p>
       <div className="absolute bg-[#cbf9ef] bottom-0 box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] right-0 rounded-[100px]" data-name="Chip">
         <div aria-hidden="true" className="absolute border border-[#2e652e] border-solid inset-0 pointer-events-none rounded-[100px]" />
@@ -3517,7 +3517,7 @@ function InvoiceDetails2() {
         <span className="font-['Barlow:Bold',sans-serif]">Invoice no:</span> INV-0115644
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#222222] text-[0px] text-[12px] text-nowrap whitespace-pre">
-        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £784.00
+        <span className="font-['Barlow:Bold',sans-serif]">Amount:</span> £1,100.00
       </p>
       <div className="absolute bg-[#cbf9ef] bottom-0 box-border content-stretch flex gap-[4px] items-center justify-center px-[8px] py-[2px] right-0 rounded-[100px]" data-name="Chip">
         <div aria-hidden="true" className="absolute border border-[#2e652e] border-solid inset-0 pointer-events-none rounded-[100px]" />
@@ -4395,7 +4395,7 @@ function InvoiceDetails4() {
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] relative shrink-0 text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Amount:</span>
-        <span className="text-[#222222]"> </span>£784.00
+        <span className="text-[#222222]"> </span>£1,100.00
       </p>
     </div>
   );
@@ -4465,7 +4465,7 @@ function InvoiceDetails5() {
       </p>
       <p className="font-['Barlow:Regular',sans-serif] leading-[1.6] relative shrink-0 text-[0px] text-[12px] text-nowrap whitespace-pre">
         <span className="font-['Barlow:Bold',sans-serif] not-italic text-[#222222]">Amount:</span>
-        <span className="text-[#222222]"> </span>£784.00
+        <span className="text-[#222222]"> </span>£1,100.00
       </p>
     </div>
   );
